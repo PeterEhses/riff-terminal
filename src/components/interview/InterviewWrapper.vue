@@ -1,7 +1,7 @@
 <template>
   <div>
-    <InterviewHeader heading="Korallenriffe und Menschen" subheading="just testing" />
-    <div>Interview Stuff</div>
+    <InterviewHeader heading="Korallenriffe und Menschen" subheading="Meeresbiologin" />
+    <div>-</div>
   </div>
 </template>
 

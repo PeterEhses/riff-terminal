@@ -65,7 +65,6 @@ export default {
 
 
 <style lang="scss">
- @import url('../node_modules/typeface-roboto/index.css');
 // make boxes boxy
 * {
   box-sizing: border-box;

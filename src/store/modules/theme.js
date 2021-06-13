@@ -10,7 +10,7 @@ const state = () => ({
 
         /* UNITS */
 
-  
+
 
         // units
 
@@ -42,12 +42,17 @@ const state = () => ({
         colorDarkGray: '#364954',
         colorOffBlack: '#152832',
 
+        'colorGray-66': '#666666',
+        'colorGray-70': '#707070',
+        'colorGray-ff': '#FFFFFF',
+        'colorGray-33': '#333333',
+
         // named colors
 
         colorLightBlue: '#A4FFFF',
         colorBlue: '#00BDD5',
         colorMutedBlue: '#657A86',
-        
+
         colorLightRed: '#FFA1A7',
         colorRed: '#E16B73',
         colorMutedRed: '#976A76',
@@ -59,7 +64,7 @@ const state = () => ({
         colorLightOrange: '#FFEBCD',
         colorOrange: '#EF972C',
         colorMutedOrange: '#8E7258',
-        
+
         // semantic defs
         colorAccent: 'var(--color-green)',
         colorNeutralAction: 'var(--color-blue)',
@@ -72,12 +77,12 @@ const state = () => ({
 
         // gradients
 
-        gradientDirectionDefault: 15,
+        gradientDirectionDefault: 70,
 
         backgroundGradientBase: 'linear-gradient(\
             calc(var(--gradient-direction-default) * 1deg), \
-            var(--color-off-black) 0%, \
-            var(--color-muted-blue) 100%\
+            var(--color-muted-red) 0%, \
+            var(--color-muted-green) 100%\
             )',
 
 
@@ -110,17 +115,17 @@ const state = () => ({
 
         fontBody: '"Roboto", sans-serif',
         fontWeightBody: 'var(--font-weight-normal)',
-        
+
 
         fontHeading: 'var(--font-body)',
         fontWeightHeading: 'var(--font-weight-bold)',
-        
 
-        
+
+
         /* BORDERS */
 
         // abstract
-            
+
         borderRadiusSmall: 'var(--unit-sm)',
         borderRadiusMedium: 'var(--unit-md)',
         borderRadiusLarge: 'var(--unit-lg)',
@@ -138,10 +143,6 @@ const state = () => ({
 
         cardWidth: 70,
         cardAspect: 1.5,
-        
-        // margins
-
-        marginMainContainer: 'calc( var(--unit-md) * 2 )',
 
         /* Scrollbars */
         scrollbarTrackColor: 'rgba(0,0,0,0)',
@@ -152,16 +153,28 @@ const state = () => ({
         scrollbarThumbInset: 'var(--unit-3xs)',
 
         /* modal */
+        // margins
+
+        // TODO: change all occurences of thsi to marginModalContainer
+        marginMainContainer: 'calc( var(--unit-md) * 2 )',
         textColorModal: 'var(--color-orange)',
         inputColorModal: 'var(--color-off-white)',
         borderColorModal: 'var(--color-orange)',
         backgroundColorModal: 'var(--blur-normal-background-color)',
         colorNeutralActionModal: 'var(--color-orange)',
         colorNeutralActionModalHover: 'var(--color-light-orange)',
-        
+
         borderModal: 'var(--unit-3xs) solid var(--border-color-modal)',
         borderRadiusModal: 'var(--border-radius-large)',
 
+        /* interview */
+        interviewSpacingGutterLg: '7.5rem',
+        interviewSpacingGutterMd: '3.75rem',
+        interviewSpacingGutterSm: 'var(--unit-xxs)',
+        interviewBaseGridColumns: '[gutter-left] var(--interview-spacing-gutter-lg) [main] auto [gutter-right] var(--interview-spacing-gutter-lg)',
+
+        colorInterviewHeaderBackground: 'var(--color-gray-33)',
+        opacityInterviewHeaderBackground: .7,
     },
     presets: {
 
@@ -172,51 +185,51 @@ const mutations = {
     /**
      * save store to file 
      */
-    SAVE_FILE(state){
+    SAVE_FILE(state) {
         themeStorage.store = state;
     },
     /**
      * load store from file
      */
-    LOAD_FILE(state){
-        if(themeStorage.store){
-            for(const [key, value] of Object.entries(themeStorage.store)){
+    LOAD_FILE(state) {
+        if (themeStorage.store) {
+            for (const [key, value] of Object.entries(themeStorage.store)) {
                 Vue.set(state, key, value);
             }
         }
     },
-    SET_FROM_OBJECT(state, {name, object}){
+    SET_FROM_OBJECT(state, { name, object }) {
         name = presetPrefix + name;
         Logger.debug("Saving Object into preset:", name)
-        Vue.set(state.presets, name, {...object});
-        Vue.set(state, 'presets', {...state.presets})
+        Vue.set(state.presets, name, { ...object });
+        Vue.set(state, 'presets', { ...state.presets })
     },
     /**
      * replace properties from object named savee with active object properties
      */
-    SET_SAVEE(state, savee){
+    SET_SAVEE(state, savee) {
         savee = presetPrefix + savee;
         Logger.debug("Saving active Theme state to:", savee)
-        if(!state.presets[savee]){
+        if (!state.presets[savee]) {
             state.presets[savee] = {}
         }
-        for(const [key, value] of Object.entries(state.active)){
+        for (const [key, value] of Object.entries(state.active)) {
             Vue.set(state.presets[savee], key, value);
-            
+
         }
-        Vue.set(state, 'presets', {...state.presets})
+        Vue.set(state, 'presets', { ...state.presets })
     },
     /**
      * replace properties active theme object with change object properties
      */
-    SET_ACTIVE(state, change){
+    SET_ACTIVE(state, change) {
         // change = presetPrefix + change;
         Logger.debug("Active Theme State changes:", change)
-        for(const [key, value] of Object.entries(change)){
+        for (const [key, value] of Object.entries(change)) {
             Vue.set(state.active, key, value);
         }
     },
-    SET_ACTIVE_THEME_NAME(state, name){
+    SET_ACTIVE_THEME_NAME(state, name) {
         Vue.set(state, 'activeThemeName', name);
     }
 }
@@ -225,12 +238,14 @@ const actions = {
     /**
      * load state from file, create default if not exist 
      */
-    initialize({commit, state}){
+    initialize({ commit, state }) {
         const defaultState = state.active
         // Logger.debug("default state:", defaultState)
-        commit('LOAD_FILE')
-        if(!state.presets.default){
-            commit('SET_FROM_OBJECT', {name: 'default', object: defaultState})
+        if (!(process.env.NODE_ENV === 'development')) {
+            commit('LOAD_FILE')
+        }
+        if (!state.presets._default) {
+            commit('SET_FROM_OBJECT', { name: 'default', object: defaultState })
             commit('SET_ACTIVE_THEME_NAME', '_default')
             commit('SAVE_FILE')
         }
@@ -238,13 +253,13 @@ const actions = {
     /**
      * update properties from object of properties
      */
-    updateMany({commit}, changes){
+    updateMany({ commit }, changes) {
         commit('SET_ACTIVE', changes)
     },
     /**
      * update single property from property / value pair
      */
-    updateOne({commit}, {property, value} ){
+    updateOne({ commit }, { property, value }) {
 
         let changes = {}
         changes[property] = value;
@@ -253,31 +268,31 @@ const actions = {
     /**
      * get saved theme object and replace active with it
      */
-    setFromSaved({commit, state}, saved){ // pass name of saved theme object
+    setFromSaved({ commit, state }, saved) { // pass name of saved theme object
         Logger.debug("Loading saved Theme:", saved)
         // saved = presetPrefix + saved;
-        if(!state.presets[saved]){
+        if (!state.presets[saved]) {
             return
         }
-        commit('SET_ACTIVE',state.presets[saved]);
+        commit('SET_ACTIVE', state.presets[saved]);
         commit('SET_ACTIVE_THEME_NAME', saved)
         commit('SAVE_FILE')
     },
     /**
      * save active theme object to named theme object
      */
-    saveFromActive({commit}, savee){ // pass name of theme object to save into
+    saveFromActive({ commit }, savee) { // pass name of theme object to save into
         commit('SET_SAVEE', savee);
         commit('SAVE_FILE');
     }
 }
 
 const getters = {
-    getPresetList(state){
+    getPresetList(state) {
         let list = {}
-        for(const key of Object.keys(state.presets)){
+        for (const key of Object.keys(state.presets)) {
             let newKey = key
-            while (newKey.charAt(0) === presetPrefix){
+            while (newKey.charAt(0) === presetPrefix) {
                 newKey = newKey.substring(1);
             }
             list[key] = newKey
