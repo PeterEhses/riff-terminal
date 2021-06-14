@@ -144,7 +144,7 @@ export default {
   color: var(--text-color-default);
   font-size: var(--font-size-initial);
   font-family: var(--font-body);
-  font-weight: 400; //var(--font-weight-body);
+  font-weight: var(--font-weight-body);
   background: var(--color-off-black);
   background: var(--background-gradient-base);
 
@@ -201,14 +201,16 @@ h1,
 h2,
 h3 {
   font-family: var(--font-heading);
-  font-weight: var(--font-weight-heading);
+  
 }
 
 h1 {
   font-size: var(--unit-xxl);
+  font-weight: var(--font-weight-heading);
 }
 h2 {
   font-size: var(--unit-lg);
+  font-weight: var(--font-weight-subheading);
 }
 h3 {
   font-size: var(--unit-lg);

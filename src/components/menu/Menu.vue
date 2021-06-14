@@ -24,6 +24,7 @@ export default {
 
 <style lang="scss">
 .menu {
+  z-index: 69696969;
   position: absolute;
   left: 0;
   top: 0;

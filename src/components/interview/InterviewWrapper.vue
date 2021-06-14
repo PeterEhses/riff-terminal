@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="interview-wrapper">
     <InterviewHeader heading="Korallenriffe und Menschen" subheading="Meeresbiologin" />
     <div>-</div>
   </div>
@@ -15,4 +15,9 @@ export default {
 </script>
 
 <style>
+.interview-wrapper{
+      width: calc(100 * var(--unit-width));
+      height: calc(100 * var(--unit-height));
+      background: url('../../assets/test-bg.png');
+}
 </style>

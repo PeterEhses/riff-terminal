@@ -42,6 +42,7 @@ export default {
     grid-column: main;
     grid-row: subheading;
   }
+  backdrop-filter: var(--blur-normal);
   &:after {
     content: "";
     z-index: -1;
@@ -50,6 +51,7 @@ export default {
     height: 100%;
     background: var(--color-interview-header-background);
     opacity: var(--opacity-interview-header-background);
+    
   }
 }
 </style>

@@ -88,7 +88,7 @@ const state = () => ({
 
         // blur
 
-        blurNormal: 'blur(var(--unit-sm))',
+        blurNormal: 'blur(var(--unit-3xs))',
         blurNormalBackgroundColor: 'var(--color-off-black)',
         blurNormalBackgroundOpacity: 0.5,
 
@@ -104,7 +104,7 @@ const state = () => ({
 
         fontWeightLight: 100,
         fontWeightNormal: 400,
-        fontWeightBold: 700,
+        fontWeightBold: 500,
 
         // size
 
@@ -119,7 +119,7 @@ const state = () => ({
 
         fontHeading: 'var(--font-body)',
         fontWeightHeading: 'var(--font-weight-bold)',
-
+        fontWeightSubheading: 'var(--font-weight-normal)',
 
 
         /* BORDERS */
