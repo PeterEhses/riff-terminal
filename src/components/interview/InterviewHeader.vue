@@ -4,11 +4,17 @@
     <h1>{{ heading }}</h1>
     <h2>{{ subheading }}</h2>
     <!-- </div> -->
+    <LanguageToggle class="ln-toggle-header"/>
   </div>
+  
 </template>
 
 <script>
+import LanguageToggle from './LanguageToggle.vue';
 export default {
+    components: {
+        LanguageToggle
+    },
   props: {
     heading: {
       default: "",
@@ -41,6 +47,10 @@ export default {
   h2 {
     grid-column: main;
     grid-row: subheading;
+  }
+  .ln-toggle-header{
+      grid-column: gutter-right;
+    grid-row: heading;
   }
   backdrop-filter: var(--blur-normal);
   &:after {

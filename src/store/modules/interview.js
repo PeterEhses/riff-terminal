@@ -15,8 +15,8 @@ const state = () => ({
         translations: {
             global: {
                 title: {
-                    de: "Riffe und Menschen",
-                    en: "Reefs and Humans"
+                    de: "Korallenriffe und Menschen",
+                    en: "Coral Reefs and Humans"
                 }
             }
         }
@@ -150,22 +150,26 @@ const getters = {
             list[key] = newKey
         }
         return list
-    }
+    },
     /////////////////////////////
     // module specific
     /////////////////////////////
-    translate(state){
-        const flatTranslations = flatten(state.translations)
+    translate(state) {
+        const flatTranslations = flatten(state.active.translations)
         let result = {}
-        for(key in flatTranslations){
-            if(flatTranslations.hasOwnProperty(key)){
-                if(key.endsWith(state.activeLanguage)){
-                    const newKey = key.substring(0, key.length-state.activeLanguage.length-1);
+        for (const key in flatTranslations) {
+            if (Object.prototype.hasOwnProperty.call(flatTranslations, key)
+            ) {
+                if (key.endsWith(state.activeLanguage)) {
+                    const newKey = key.substring(0, key.length - state.activeLanguage.length - 1);
                     result[newKey] = flatTranslations[key]
                 }
             }
         }
         return result
+    },
+    activeLanguage(state){
+        return state.activeLanguage
     }
 }
 
