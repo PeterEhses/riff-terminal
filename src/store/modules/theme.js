@@ -104,7 +104,8 @@ const state = () => ({
 
         fontWeightLight: 100,
         fontWeightNormal: 400,
-        fontWeightBold: 500,
+        fontWeightMedium: 500,
+        fontWeightBold: 700,
 
         // size
 
@@ -118,7 +119,7 @@ const state = () => ({
 
 
         fontHeading: 'var(--font-body)',
-        fontWeightHeading: 'var(--font-weight-bold)',
+        fontWeightHeading: 'var(--font-weight-medium)',
         fontWeightSubheading: 'var(--font-weight-normal)',
 
 
@@ -175,6 +176,11 @@ const state = () => ({
 
         colorInterviewHeaderBackground: 'var(--color-gray-33)',
         opacityInterviewHeaderBackground: .7,
+
+        /* Language Toggle */
+        fontSizeToggle: 'var(--unit-md)',
+        fontWeightToggle: 'var(--font-weight-normal)',
+        fontWeightToggleActive: 'var(--font-weight-bold)',
     },
     presets: {
 

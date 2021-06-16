@@ -76,10 +76,13 @@ const mutations = {
     },
     SET_ACTIVE_PRESET_NAME(state, name) {
         Vue.set(state, 'activePresetName', name);
-    }
+    },
     /////////////////////////////
     // module specific
     /////////////////////////////
+    SET_LANGUAGE(state, lang){
+        Vue.set(state, 'activeLanguage', lang)
+    }
 }
 
 const actions = {
@@ -132,10 +135,17 @@ const actions = {
     saveFromActive({ commit }, savee) { // pass name of theme object to save into
         commit('SET_SAVEE', savee);
         commit('SAVE_FILE');
-    }
+    },
     /////////////////////////////
     // module specific
     /////////////////////////////
+    switchLanguage({ commit, state }){
+        if(state.activeLanguage === 'de'){
+            commit('SET_LANGUAGE', 'en')
+        } else {
+            commit('SET_LANGUAGE', 'de')
+        }
+    }
 
 }
 
