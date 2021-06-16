@@ -3,17 +3,21 @@
     <InterviewHeader
       :heading="translate['global.title']"
       subheading="Meeresbiologin"
+      v-if="[]"
     />
+    <VideoPlayer/>
     <!-- <div>{{translate}}</div> -->
   </div>
 </template>
 
 <script>
 import InterviewHeader from "./InterviewHeader.vue";
+import VideoPlayer from "./video/VideoPlayer.vue";
 import { mapGetters } from "vuex"; // mapState, mapActions
 export default {
   components: {
     InterviewHeader,
+    VideoPlayer,
   },
   computed: {
     ...mapGetters("interview", {

@@ -21,6 +21,7 @@
     "graceful-fs": "^4.2.6",
     "is-electron": "^2.2.0",
     "js-logger": "^1.6.1",
+    "video.js": "^7.12.3",
     "vue": "^2.6.11",
     "vue-color": "^2.8.1",
     "vue-mousetrap": "^1.0.2",
