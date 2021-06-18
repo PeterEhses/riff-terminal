@@ -3,11 +3,13 @@
     <InterviewHeader :heading="translate['global.title']" subheading="" />
     <div class="cards">
       <ListCard class="card" 
-      v-for="interview in translateInterview"
+      v-for="(interview, key) in translateInterview"
       imagePath="test-bg.png"
       :name="interview['name']"
       :blurb="interview['blurb']"
-      :key="interview.name"
+      :id="key"
+      :key="interview['name']"
+      @selected="setActiveInterview(key)"
       />
       </div>
   </div>
@@ -16,11 +18,16 @@
 <script>
 import InterviewHeader from "./InterviewHeader.vue";
 import ListCard from "./listview/ListCard.vue";
-import { mapGetters } from "vuex";
+import { mapGetters, mapActions } from "vuex";
 export default {
   components: {
     InterviewHeader,
     ListCard,
+  },
+  methods: {
+    ...mapActions("interview", {
+      setActiveInterview: "setActiveInterview"
+    })
   },
   computed: {
     ...mapGetters("interview", {

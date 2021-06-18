@@ -1,5 +1,5 @@
 <template>
-  <div class="play-button" :class="touch ? 'touch' : null" @touchend="touch= false" @touchstart="touch = true">
+  <div class="play-button" :class="touch || forceActiveState ? 'touch' : null" @touchend="touch= false" @touchstart="touch = true">
     <svg class="play" viewBox="0 0 100 100">
       <polygon class="triangle" points="93 50, 7 0, 7 100" />
     </svg>
@@ -8,6 +8,11 @@
 
 <script>
 export default {
+    props: {
+        forceActiveState: {
+            default: false
+        }
+    },
     data(){
         return {
             touch: false,

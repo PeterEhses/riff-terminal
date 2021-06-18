@@ -208,6 +208,7 @@ h1,
 h2,
 h3 {
   font-family: var(--font-heading);
+  line-height: var(--line-height-header);
   
 }
 

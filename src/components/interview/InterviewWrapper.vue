@@ -1,7 +1,7 @@
 <template>
   <div class="interview-wrapper">
-    <InterviewSelection/>
-    <VideoPlayer  v-if="![]" />
+    <InterviewSelection v-if="activeInterview === null"/>
+    <InterviewVideo v-else />
     <!-- <div>{{translate}}</div> -->
   </div>
 </template>
@@ -9,16 +9,17 @@
 <script>
 
 import InterviewSelection from "./InterviewSelection.vue";
-import VideoPlayer from "./video/VideoPlayer.vue";
+import InterviewVideo from "./InterviewVideo.vue";
 import { mapGetters } from "vuex"; // mapState, mapActions
 export default {
   components: {
     InterviewSelection,
-    VideoPlayer,
+    InterviewVideo,
   },
   computed: {
     ...mapGetters("interview", {
       translate: "translate",
+      activeInterview: "activeInterview",
     }),
   },
 };

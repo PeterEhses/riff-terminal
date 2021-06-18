@@ -1,8 +1,8 @@
 <template>
   <div class="interview-card">
-      <div class="thumb">
+      <div class="thumb" @touchstart="isActive = true" @touchend="isActive = false" @click="$emit('selected')">
           <img :src="imagePath" alt="">
-          <PlayButton class="play-button"/>
+          <PlayButton class="play-button" :forceActiveState="isActive"/>
       </div>
       <div class="blurb">
           <h3>{{name}}</h3>
@@ -26,6 +26,11 @@ export default {
         },
         imagePath: {
             default: ""
+        }
+    },
+    data(){
+        return{
+            isActive: false,
         }
     }
 }

@@ -11,6 +11,7 @@ var flatten = require('flat')
 const state = () => ({
     activePresetName: '_default',
     activeLanguage: 'de',
+    activeInterview: null,
     active: {
         translations: {
             global: {
@@ -119,6 +120,9 @@ const mutations = {
     /////////////////////////////
     SET_LANGUAGE(state, lang) {
         Vue.set(state, 'activeLanguage', lang)
+    },
+    SET_INTERVIEW(state, id) {
+        Vue.set(state, 'activeInterview', id)
     }
 }
 
@@ -182,6 +186,9 @@ const actions = {
         } else {
             commit('SET_LANGUAGE', 'de')
         }
+    },
+    setActiveInterview({commit}, id){
+        commit('SET_INTERVIEW', id)
     }
 
 }
@@ -214,6 +221,9 @@ const getters = {
     },
     activeLanguage(state) {
         return state.activeLanguage
+    },
+    activeInterview(state){
+        return state.activeInterview
     }
 }
 

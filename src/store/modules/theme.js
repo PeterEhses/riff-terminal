@@ -108,6 +108,7 @@ const state = () => ({
         fontWeightBold: 700,
         
         lineHeight: 'var(--unit-scale-modifier)',
+        lineHeightHeader: 1.69, // 1.3
 
         // size
 
