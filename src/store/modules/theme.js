@@ -185,11 +185,16 @@ const state = () => ({
 
         /* List */
             listCardHeight: 'calc(var(--interview-spacing-gutter-xl) * 2)',
-            fontSizeListCardBody: 'var(--unit-md)',
+            fontSizeListCardBody: '1.4rem',//'var(--unit-md)',
             fontSizeListCardHeading: 'var(--font-size-list-card-body)',
             fontWeightListCardBody: 'var(--font-weight-normal)',
             fontWeightListCardHeading: 'var(--font-weight-bold)',
 
+            /* Play Button */
+
+            playButtonSize: 'var(--interview-spacing-gutter-md)',
+            colorPlayButton: 'var(--text-color-default)',
+            playButtonOpacity: .7,
 
         /* Language Toggle */
         fontSizeToggle: 'var(--unit-md)',

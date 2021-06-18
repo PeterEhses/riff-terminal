@@ -2,6 +2,7 @@
   <div class="interview-card">
       <div class="thumb">
           <img :src="imagePath" alt="">
+          <PlayButton class="play-button"/>
       </div>
       <div class="blurb">
           <h3>{{name}}</h3>
@@ -11,7 +12,11 @@
 </template>
 
 <script>
+import PlayButton from "./PlayButton.vue";
 export default {
+    components: {
+        PlayButton,
+    },
     props: {
         name: {
             default: ""
@@ -31,6 +36,7 @@ export default {
     display: grid;
     grid-template-columns: [image] var(--list-card-height) [text] auto;
 .thumb{
+    position: relative;
     grid-column: image;
     width: var(--list-card-height);
     height: var(--list-card-height);
@@ -53,6 +59,12 @@ export default {
         font-size: var(--font-size-list-card-heading);
         font-weight: var(--font-weight-list-card-heading);
     }
+}
+
+.play-button{
+    position: absolute;
+    top: var(--unit-sm);
+    right: var(--unit-sm);
 }
 }
 

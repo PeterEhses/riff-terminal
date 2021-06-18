@@ -28,7 +28,7 @@ export default {
 .interview-wrapper {
   width: calc(100 * var(--unit-width));
   height: calc(100 * var(--unit-height));
-  background: var(--color-off-black);
+  background: var(--color-gray-33);
 
   .video-js .vjs-text-track-display {
     position: absolute;

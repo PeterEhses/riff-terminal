@@ -37,7 +37,7 @@ const state = () => ({
                 2: {
                     name: "Dr. Moshira Hassan",
                     blurb: {
-                        de: "Reef Check Koordinatorin Deutschland/Europa und\nRotes Meer",
+                        de: "Reef Check Koordinatorin Deutschland/Europa und Rotes Meer",
                         en: "Reef Check Coordinator Germany/Europe and Red Sea"
                     }
                 },
