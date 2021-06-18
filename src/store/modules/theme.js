@@ -106,6 +106,8 @@ const state = () => ({
         fontWeightNormal: 400,
         fontWeightMedium: 500,
         fontWeightBold: 700,
+        
+        lineHeight: 'var(--unit-scale-modifier)',
 
         // size
 
@@ -140,11 +142,6 @@ const state = () => ({
 
         /* SPACING */
 
-        // cards
-
-        cardWidth: 70,
-        cardAspect: 1.5,
-
         /* Scrollbars */
         scrollbarTrackColor: 'rgba(0,0,0,0)',
         scrollbarThumbColor: 'var(--color-muted-blue)',
@@ -169,13 +166,30 @@ const state = () => ({
         borderRadiusModal: 'var(--border-radius-large)',
 
         /* interview */
-        interviewSpacingGutterLg: '7.5rem',
+        interviewSpacingGutterXl: '7.5rem',
+        interviewSpacingGutterLg: '5.8rem',
         interviewSpacingGutterMd: '3.75rem',
         interviewSpacingGutterSm: 'var(--unit-xxs)',
-        interviewBaseGridColumns: '[gutter-left] var(--interview-spacing-gutter-lg) [main] auto [gutter-right] var(--interview-spacing-gutter-lg)',
+
+
+        interviewButtonHeight: 'var(--interview-spacing-gutter-lg)',
+        opacityButtonInactive: 0.7,
+
+        interviewBaseGridColumns: '[gutter-left] var(--interview-spacing-gutter-xl) [main] auto [gutter-right] var(--interview-spacing-gutter-xl)',
 
         colorInterviewHeaderBackground: 'var(--color-gray-33)',
         opacityInterviewHeaderBackground: .7,
+
+        /* Subtitles */
+            fontSizeSubtitles: 'var(--unit-md)',
+
+        /* List */
+            listCardHeight: 'calc(var(--interview-spacing-gutter-xl) * 2)',
+            fontSizeListCardBody: 'var(--unit-md)',
+            fontSizeListCardHeading: 'var(--font-size-list-card-body)',
+            fontWeightListCardBody: 'var(--font-weight-normal)',
+            fontWeightListCardHeading: 'var(--font-weight-bold)',
+
 
         /* Language Toggle */
         fontSizeToggle: 'var(--unit-md)',

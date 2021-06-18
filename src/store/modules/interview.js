@@ -18,6 +18,43 @@ const state = () => ({
                     de: "Korallenriffe und Menschen",
                     en: "Coral Reefs and Humans"
                 }
+            },
+            interviews: {
+                0: {
+                    name: "Onyx Le Bihan",
+                    blurb: {
+                        de: "Speerfischerin auf Moorea, Tahiti",
+                        en: "Spearfisher at Moorea, Tahiti"
+                    }
+                },
+                1: {
+                    name: "Dr. Sebastian Ferse",
+                    blurb: {
+                        de: "Leibniz-Zentrum für Marine Tropenforschung\r\nExecutive Director Future Earth Coasts",
+                        en: "Leibniz Center for Tropical Marine Research\r\nExecutive Director Future Earth Coasts"
+                    }
+                },
+                2: {
+                    name: "Dr. Moshira Hassan",
+                    blurb: {
+                        de: "Reef Check Koordinatorin Deutschland/Europa und\nRotes Meer",
+                        en: "Reef Check Coordinator Germany/Europe and Red Sea"
+                    }
+                },
+                3: {
+                    name: "Claudia Schmitt",
+                    blurb: {
+                        de: "The Jetlagged. Naturfilmerin",
+                        en: "The Jetlagged. Underwater, nature and wildlife filmmaker"
+                    }
+                },
+                4: {
+                    name: "Taiano Teiho",
+                    blurb: {
+                        de: "Coral-Gardener auf Moorea, Tahiti",
+                        en: "Coral gardener at Moorea, Tahiti"
+                    }
+                },
             }
         }
     },
@@ -80,7 +117,7 @@ const mutations = {
     /////////////////////////////
     // module specific
     /////////////////////////////
-    SET_LANGUAGE(state, lang){
+    SET_LANGUAGE(state, lang) {
         Vue.set(state, 'activeLanguage', lang)
     }
 }
@@ -139,8 +176,8 @@ const actions = {
     /////////////////////////////
     // module specific
     /////////////////////////////
-    switchLanguage({ commit, state }){
-        if(state.activeLanguage === 'de'){
+    switchLanguage({ commit, state }) {
+        if (state.activeLanguage === 'de') {
             commit('SET_LANGUAGE', 'en')
         } else {
             commit('SET_LANGUAGE', 'de')
@@ -165,24 +202,36 @@ const getters = {
     // module specific
     /////////////////////////////
     translate(state) {
-        const flatTranslations = flatten(state.active.translations)
-        let result = {}
-        for (const key in flatTranslations) {
-            if (Object.prototype.hasOwnProperty.call(flatTranslations, key)
-            ) {
-                if (key.endsWith(state.activeLanguage)) {
-                    const newKey = key.substring(0, key.length - state.activeLanguage.length - 1);
-                    result[newKey] = flatTranslations[key]
-                }
-            }
-        }
-        return result
+        return flattenAndTranslate(state.active.translations, state.activeLanguage);
     },
-    activeLanguage(state){
+    translateInterview(state){
+        let interviews = []
+        for(const interview in state.active.translations.interviews){
+            if(Object.prototype.hasOwnProperty.call(state.active.translations.interviews, interview))
+            interviews.push(flattenAndTranslate(state.active.translations.interviews[interview], state.activeLanguage))
+        }
+        return interviews
+    },
+    activeLanguage(state) {
         return state.activeLanguage
     }
 }
 
+function flattenAndTranslate(obj, languageSuffix) {
+    const flatTranslations = flatten(obj)
+    let result = {}
+    for (const key in flatTranslations) {
+        if (Object.prototype.hasOwnProperty.call(flatTranslations, key)
+        ) {
+            result[key] = flatTranslations[key]
+            if (key.endsWith(languageSuffix)) {
+                const newKey = key.substring(0, key.length - languageSuffix.length - 1);
+                result[newKey] = flatTranslations[key]
+            }
+        }
+    }
+    return result
+}
 
 export default {
     namespaced: true,

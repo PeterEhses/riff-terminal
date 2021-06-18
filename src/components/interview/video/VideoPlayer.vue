@@ -14,10 +14,16 @@ export default {
       default() {
         return {
           autoplay: true,
-          controls: true,
+          muted: true,
+          loop: true,
+          fluid: true,
+          controls: false,
+          html5: {
+            nativeTextTracks: false,
+          },
           sources: [
             {
-              src: "/video/moshira/cta.mp4",
+              src: "/video/moshira/01 WER BIST DU - MOSHIRA.mp4",
               type: "video/mp4",
             },
             // {
@@ -25,9 +31,29 @@ export default {
             //     type: "video/mp4",
             // }
           ],
+          tracks: [
+              {
+                  kind: "subtitles",
+                  src: "/video/moshira/WER BIST DU.vtt",
+                  srclang: "de",
+                  label: "Deutsch",
+                  mode: "hidden"
+              },
+              {
+                  kind: "subtitles",
+                  src: "/video/moshira/WER BIST DU en.vtt",
+                  srclang: "en",
+                  label: "English",
+                  mode: "showing"
+              } 
+          ],
         };
       },
     },
+    dynamicStyles: {
+        type: Boolean,
+        default: true
+    }
   },
   data() {
     return {
@@ -35,6 +61,7 @@ export default {
     };
   },
   mounted() {
+      window.VIDEOJS_NO_DYNAMIC_STYLE = this.dynamicStyles
     this.player = videojs(
       this.$refs.videoPlayer,
       this.options,
@@ -58,6 +85,6 @@ export default {
 }
 .video-js {
   width: 100%;
-  height: 100%;
+  height: 100% !important;
 }
 </style>

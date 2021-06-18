@@ -35,7 +35,7 @@ export default {
   grid-template-columns: var(--interview-base-grid-columns);
   grid-template-rows:
     [] var(--interview-spacing-gutter-sm) 
-    [heading] var(--interview-spacing-gutter-lg) [subheading] var(--interview-spacing-gutter-md)
+    [heading] var(--interview-spacing-gutter-xl) [subheading] var(--interview-spacing-gutter-md)
     [main] auto;
   h1 {
     position: relative;

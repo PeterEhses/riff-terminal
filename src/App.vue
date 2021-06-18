@@ -169,6 +169,13 @@ export default {
 
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+
+  
+}
+
+#app{
+  //,moved here because of modern-css-reset conflict
+  line-height: var(--line-height);
 }
 
 // scrollbar stuff
@@ -214,9 +221,6 @@ h2 {
 }
 h3 {
   font-size: var(--unit-lg);
-}
-
-#app {
 }
 
 .content-area {

@@ -37,6 +37,7 @@ export default {
 
 <style lang="scss">
 .ln-toggle {
+  height: var(--interview-button-height);
     display: flex;
     justify-content: center;
     align-items: center;
@@ -49,6 +50,7 @@ export default {
   }
   .inactive {
     //   background: blue;
+    opacity: var(--opacity-button-inactive);
   }
 
   .ln-toggle-lan{
