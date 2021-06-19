@@ -15,6 +15,7 @@
   "dependencies": {
     "@fontsource/roboto": "^4.4.5",
     "core-js": "^3.6.5",
+    "directory-tree": "^2.2.9",
     "electron-store": "^8.0.0",
     "fg-select-css": "^3.2.0",
     "flat": "^5.0.2",

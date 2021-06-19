@@ -2,6 +2,10 @@ import Logger from "js-logger"
 import Vue from "vue"
 import storageInterface from '../helpers/storageInterface.js'
 
+/* get file list */
+const ipcRenderer = require('electron').ipcRenderer;
+
+
 
 const presetPrefix = "_"
 const interviewStorage = storageInterface.getNamedStore('interview', 'Settings')
@@ -12,6 +16,7 @@ const state = () => ({
     activePresetName: '_default',
     activeLanguage: 'de',
     activeInterview: null,
+    fileTree: {},
     active: {
         translations: {
             global: {
@@ -56,6 +61,23 @@ const state = () => ({
                         en: "Coral gardener at Moorea, Tahiti"
                     }
                 },
+            }
+        },
+        videos: {
+            0: {
+
+            },
+            1: {
+
+            },
+            2: {
+
+            },
+            3: {
+
+            },
+            4: {
+
             }
         }
     },
@@ -123,6 +145,9 @@ const mutations = {
     },
     SET_INTERVIEW(state, id) {
         Vue.set(state, 'activeInterview', id)
+    },
+    SET_FILETREE(state, filetree){
+        Vue.set(state, "fileTree", filetree)
     }
 }
 
@@ -130,7 +155,7 @@ const actions = {
     /**
      * load state from file, create default if not exist 
      */
-    initialize({ commit, state }) {
+    initialize({ commit, dispatch, state }) {
         const defaultState = state.active
         // Logger.debug("default state:", defaultState)
         if (!(process.env.NODE_ENV === 'development')) {
@@ -141,6 +166,7 @@ const actions = {
             commit('SET_ACTIVE_PRESET_NAME', '_default')
             commit('SAVE_FILE')
         }
+        dispatch('setFilePaths')
     },
     /**
      * update properties from object of properties
@@ -189,6 +215,19 @@ const actions = {
     },
     setActiveInterview({commit}, id){
         commit('SET_INTERVIEW', id)
+    },
+    async setFilePaths({commit}){
+        Logger.info("Getting File Tree")
+        const res = await ipcRenderer.invoke('getPublicFiles')
+        Logger.debug("File Tree:", res)
+        if(res.children && res.children.length > 0){
+            for(const child of res.children){
+                Logger.trace("checking child for correct directory:", child)
+                if(child.type==="directory" && child.name === "interviews"){
+                    commit("SET_FILETREE", child)
+                }
+            }
+        }
     }
 
 }

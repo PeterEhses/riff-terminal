@@ -1,13 +1,16 @@
 'use strict'
 
-import { app, protocol, BrowserWindow, screen } from 'electron'
+import { app, protocol, BrowserWindow, screen, ipcMain } from 'electron'
 import { createProtocol } from 'vue-cli-plugin-electron-builder/lib'
 import installExtension, { VUEJS_DEVTOOLS } from 'electron-devtools-installer'
+// const fs = require('graceful-fs')
+
 const isDevelopment = process.env.NODE_ENV !== 'production'
+
 
 // Scheme must be registered before the app is ready
 protocol.registerSchemesAsPrivileged([
-  { scheme: 'app', privileges: { secure: true, standard: true } }
+  { scheme: 'app', privileges: { secure: true, standard: true, stream: true } }
 ])
 
 const Store = require('electron-store');
@@ -112,4 +115,16 @@ if (isDevelopment) {
       app.quit()
     })
   }
+}
+
+
+/* get video files */
+ipcMain.handle('getPublicFiles', function() {
+  return getDirs(__static)
+  
+});
+const dirTree = require("directory-tree");
+
+function getDirs(rootDir){
+  return dirTree(rootDir)
 }
