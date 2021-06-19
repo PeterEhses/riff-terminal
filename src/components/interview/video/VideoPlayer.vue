@@ -15,7 +15,7 @@ export default {
         return {
           autoplay: true,
           muted: true,
-          loop: true,
+        //   loop: true,
           fluid: true,
           controls: false,
           html5: {
@@ -23,7 +23,7 @@ export default {
           },
           sources: [
             {
-              src: "/video/moshira/01 WER BIST DU - MOSHIRA.mp4",
+              src: "interviews/video/moshira/01 WER BIST DU - MOSHIRA.mp4",
               type: "video/mp4",
             },
             // {
@@ -34,14 +34,14 @@ export default {
           tracks: [
               {
                   kind: "subtitles",
-                  src: "/video/moshira/WER BIST DU.vtt",
+                  src: "interviews/video/moshira/WER BIST DU.vtt",
                   srclang: "de",
                   label: "Deutsch",
                   mode: "hidden"
               },
               {
                   kind: "subtitles",
-                  src: "/video/moshira/WER BIST DU en.vtt",
+                  src: "interviews/video/moshira/WER BIST DU en.vtt",
                   srclang: "en",
                   label: "English",
                   mode: "showing"
@@ -62,13 +62,17 @@ export default {
   },
   mounted() {
       window.VIDEOJS_NO_DYNAMIC_STYLE = this.dynamicStyles
+    const that = this;
     this.player = videojs(
       this.$refs.videoPlayer,
       this.options,
       function onPlayerReady() {
-        console.log("onPlayerReady", this);
+        that.$emit('playerReady')
       }
     );
+    this.player.on('ended', () => {
+        that.$emit('playerEnded')
+    })
   },
   beforeDestroy() {
     if (this.player) {

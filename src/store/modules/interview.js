@@ -42,6 +42,7 @@ const state = () => ({
                 },
                 2: {
                     name: "Dr. Moshira Hassan",
+                    mediaFolder: "SNIPPETS MOSHIRA [DE]",
                     blurb: {
                         de: "Reef Check Koordinatorin Deutschland/Europa und Rotes Meer",
                         en: "Reef Check Coordinator Germany/Europe and Red Sea"
@@ -63,23 +64,6 @@ const state = () => ({
                 },
             }
         },
-        videos: {
-            0: {
-
-            },
-            1: {
-
-            },
-            2: {
-
-            },
-            3: {
-
-            },
-            4: {
-
-            }
-        }
     },
     presets: {
 
@@ -146,7 +130,7 @@ const mutations = {
     SET_INTERVIEW(state, id) {
         Vue.set(state, 'activeInterview', id)
     },
-    SET_FILETREE(state, filetree){
+    SET_FILETREE(state, filetree) {
         Vue.set(state, "fileTree", filetree)
     }
 }
@@ -213,17 +197,17 @@ const actions = {
             commit('SET_LANGUAGE', 'de')
         }
     },
-    setActiveInterview({commit}, id){
+    setActiveInterview({ commit }, id) {
         commit('SET_INTERVIEW', id)
     },
-    async setFilePaths({commit}){
+    async setFilePaths({ commit }) {
         Logger.info("Getting File Tree")
         const res = await ipcRenderer.invoke('getPublicFiles')
         Logger.debug("File Tree:", res)
-        if(res.children && res.children.length > 0){
-            for(const child of res.children){
+        if (res.children && res.children.length > 0) {
+            for (const child of res.children) {
                 Logger.trace("checking child for correct directory:", child)
-                if(child.type==="directory" && child.name === "interviews"){
+                if (child.type === "directory" && child.name === "interviews") {
                     commit("SET_FILETREE", child)
                 }
             }
@@ -250,19 +234,36 @@ const getters = {
     translate(state) {
         return flattenAndTranslate(state.active.translations, state.activeLanguage);
     },
-    translateInterview(state){
+    translateInterview(state) {
         let interviews = []
-        for(const interview in state.active.translations.interviews){
-            if(Object.prototype.hasOwnProperty.call(state.active.translations.interviews, interview))
-            interviews.push(flattenAndTranslate(state.active.translations.interviews[interview], state.activeLanguage))
+        for (const interview in state.active.translations.interviews) {
+            if (Object.prototype.hasOwnProperty.call(state.active.translations.interviews, interview))
+                interviews.push(flattenAndTranslate(state.active.translations.interviews[interview], state.activeLanguage))
         }
         return interviews
     },
     activeLanguage(state) {
         return state.activeLanguage
     },
-    activeInterview(state){
+    activeInterview(state) {
         return state.activeInterview
+    },
+    fileTree(state) {
+        if (state.fileTree.children && state.fileTree.children.length > 0) {
+            let interviews = {}
+            for (const child of state.fileTree.children) {
+                interviews[child.name] = child
+            }
+            // Logger.debug(state.active.translations.interviews[state.activeInterview])
+            if (state.active.translations.interviews[state.activeInterview] && state.active.translations.interviews[state.activeInterview].mediaFolder) {
+                return interviews[state.active.translations.interviews[state.activeInterview].mediaFolder] || false;
+            }
+
+        }
+        return false
+
+
+
     }
 }
 
