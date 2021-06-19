@@ -1,6 +1,6 @@
 <template>
   <!-- <div>{{ videos }} <VideoPlayer  /></div> -->
-  <VideoPlayer/>
+  <VideoPlayer />
 </template>
 
 <script>
@@ -50,7 +50,10 @@ export default {
       const videos = [];
       for (const child of videoFolder.children) {
         if (child.type === "file") {
-          videos.push(child.path);
+          videos.push({
+            path: child.path,
+            name: child.name,
+          });
         }
       }
       return videos;
