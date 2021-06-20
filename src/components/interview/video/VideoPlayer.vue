@@ -12,14 +12,14 @@ export default {
   props: {
     video: {
       type: String,
-      default: "interviews/video/moshira/01 WER BIST DU - MOSHIRA.mp4",
+      default: "", // C:\\Users\\PeterEhses\\github\\riff-terminal\\public\\interviews\\SNIPPETS MOSHIRA [DE]\\MOSHIRA - BORING\\01 BORING - MOSHIRA.mp4
     },
     tracks: {
       type: Object,
       default() {
         return {
-          subTitlesDE: "interviews/video/moshira/WER BIST DU.vtt",
-          subTitlesEN: "interviews/video/moshira/WER BIST DU en.vtt",
+          subTitlesDE: "", //interviews/video/moshira/WER BIST DU.vtt
+          subTitlesEN: "", //interviews/video/moshira/WER BIST DU en.vtt
           audioEN: "",
         };
       },
@@ -83,8 +83,10 @@ export default {
   methods: {
     initiateVideoSource() {
       this.$emit("playerSourceChange");
-      this.player.src({ type: "video/mp4", src: this.video });
-      this.player.play();
+      if (typeof this.video === "string" && this.video.length > 0) {
+        this.player.src({ type: "video/mp4", src: this.video.replace(__static, '') });
+        this.player.play();
+      }
     },
     removeMetadata() {
       const tracks = this.player.remoteTextTracks();
@@ -104,7 +106,7 @@ export default {
           srclang: "de",
           label: "de",
           mode: "hidden",
-        });
+        }, false);
       }
       if (this.tracks.subTitlesEN && this.tracks.subTitlesEN.length > 0) {
         this.player.addRemoteTextTrack({
@@ -113,7 +115,7 @@ export default {
           srclang: "en",
           label: "en",
           mode: "hidden",
-        });
+        }, false);
       }
       if (this.tracks.audioEN && this.tracks.audioEN.length > 0) {
         return;
@@ -125,19 +127,21 @@ export default {
       const numTracks = tracks.length;
       for (let i = numTracks - 1; i >= 0; i--) {
         const track = tracks[i];
-        if (track.kind === "subtitles" && track.language === this.activeLanguage) {
+        if (
+          track.kind === "subtitles" &&
+          track.language === this.activeLanguage
+        ) {
           track.mode = "showing";
         } else {
-            track.mode="hidden"
+          track.mode = "hidden";
         }
       }
       this.player.trigger("textTracksChanged");
-
     },
   },
   watch: {
     video: {
-      hander() {
+      handler() {
         this.initiateVideoSource();
       },
     },

@@ -17,5 +17,6 @@ module.exports = {
   globals: {
     "Logger": true,
     "isProduction": true,
+    "__static": true,
   }
 }
