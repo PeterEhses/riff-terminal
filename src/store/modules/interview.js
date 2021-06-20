@@ -18,6 +18,23 @@ const state = () => ({
     activeInterview: null,
     fileTree: {},
     active: {
+        videos: {
+            absoluteWeights: false,
+            categories: {
+                0: {
+                  name: "ACTIVATE QUESTIONS",
+                  weight: 1,
+                },
+                1: {
+                  name: "BORING",
+                  weight: 3,
+                },
+                2: {
+                  name: "PSST",
+                  weight: 1.5,
+                },
+              }
+        },
         translations: {
             global: {
                 title: {
@@ -264,6 +281,12 @@ const getters = {
 
 
 
+    },
+    idleVideosAbsoluteWeights(state){
+        return state.active.videos.absoluteWeights
+    },
+    idleVideosCategories(state){
+        return state.active.videos.categories
     }
 }
 

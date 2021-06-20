@@ -9,6 +9,7 @@
 
 <script>
 import VideoPlayer from "./VideoPlayer.vue";
+import { mapGetters } from "vuex"; // mapState, mapActions
 
 export default {
   components: {
@@ -21,25 +22,10 @@ export default {
     };
   },
   computed: {
-    absoluteWeights() {
-      return false;
-    },
-    categories() {
-      return {
-        0: {
-          name: "ACTIVATE QUESTIONS",
-          weight: 1,
-        },
-        1: {
-          name: "BORING",
-          weight: 3,
-        },
-        2: {
-          name: "PSST",
-          weight: 1.5,
-        },
-      };
-    },
+      ...mapGetters("interview", {
+      absoluteWeights: "idleVideosAbsoluteWeights",
+      categories: "idleVideosCategories",
+    }),
     categorieWeights() {
       const weights = {};
       let weightsTotal = 0;
