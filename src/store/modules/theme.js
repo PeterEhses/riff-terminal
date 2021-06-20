@@ -175,6 +175,7 @@ const state = () => ({
 
         interviewButtonHeight: 'var(--interview-spacing-gutter-lg)',
         opacityButtonInactive: 0.7,
+        opacityButtonPress: 'var(--opacity-button-inactive)',
 
         interviewBaseGridColumns: '[gutter-left] var(--interview-spacing-gutter-xl) [main] auto [gutter-right] var(--interview-spacing-gutter-xl)',
 
@@ -196,6 +197,12 @@ const state = () => ({
             playButtonSize: 'var(--interview-spacing-gutter-md)',
             colorPlayButton: 'var(--text-color-default)',
             playButtonOpacity: .7,
+
+            /* back button */
+
+            backButtonSize: '2.3rem',
+            colorBackButton: 'var(--color-play-button)',
+
 
         /* Language Toggle */
         fontSizeToggle: 'var(--unit-md)',

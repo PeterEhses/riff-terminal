@@ -50,7 +50,7 @@ export default {
     
   }
   &.touch{
-      opacity: .5;
+      opacity: var(--opacity-button-press);
   }
 }
 </style>
