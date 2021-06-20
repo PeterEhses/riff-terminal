@@ -126,10 +126,13 @@ export default {
       for (let i = numTracks - 1; i >= 0; i--) {
         const track = tracks[i];
         if (track.kind === "subtitles" && track.language === this.activeLanguage) {
-            this.$emit(track.label)
           track.mode = "showing";
+        } else {
+            track.mode="hidden"
         }
       }
+      this.player.trigger("textTracksChanged");
+
     },
   },
   watch: {
