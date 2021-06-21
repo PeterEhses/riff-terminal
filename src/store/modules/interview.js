@@ -45,6 +45,8 @@ const state = () => ({
             interviews: {
                 0: {
                     name: "Onyx Le Bihan",
+                    mediaFolder: "",
+                    thumbnail: "",
                     blurb: {
                         de: "Speerfischerin auf Moorea, Tahiti",
                         en: "Spearfisher at Moorea, Tahiti"
@@ -52,6 +54,8 @@ const state = () => ({
                 },
                 1: {
                     name: "Dr. Sebastian Ferse",
+                    mediaFolder: "",
+                    thumbnail: "",
                     blurb: {
                         de: "Leibniz-Zentrum für Marine Tropenforschung\r\nExecutive Director Future Earth Coasts",
                         en: "Leibniz Center for Tropical Marine Research\r\nExecutive Director Future Earth Coasts"
@@ -60,6 +64,7 @@ const state = () => ({
                 2: {
                     name: "Dr. Moshira Hassan",
                     mediaFolder: "SNIPPETS MOSHIRA [DE]",
+                    thumbnail: "thumbnail.png",
                     blurb: {
                         de: "Reef Check Koordinatorin Deutschland/Europa und Rotes Meer",
                         en: "Reef Check Coordinator Germany/Europe and Red Sea"
@@ -67,6 +72,8 @@ const state = () => ({
                 },
                 3: {
                     name: "Claudia Schmitt",
+                    mediaFolder: "",
+                    thumbnail: "",
                     blurb: {
                         de: "The Jetlagged. Naturfilmerin",
                         en: "The Jetlagged. Underwater, nature and wildlife filmmaker"
@@ -74,6 +81,8 @@ const state = () => ({
                 },
                 4: {
                     name: "Taiano Teiho",
+                    mediaFolder: "",
+                    thumbnail: "",
                     blurb: {
                         de: "Coral-Gardener auf Moorea, Tahiti",
                         en: "Coral gardener at Moorea, Tahiti"
@@ -265,23 +274,50 @@ const getters = {
     activeInterview(state) {
         return state.activeInterview
     },
-    fileTree(state) {
+    fileTreeAll(state){
         if (state.fileTree.children && state.fileTree.children.length > 0) {
-            let interviews = {}
+            const subFileTrees = {}
             for (const child of state.fileTree.children) {
-                interviews[child.name] = child
+                subFileTrees[child.name] = child
             }
-            // Logger.debug(state.active.translations.interviews[state.activeInterview])
-            if (state.active.translations.interviews[state.activeInterview] && state.active.translations.interviews[state.activeInterview].mediaFolder) {
-                return interviews[state.active.translations.interviews[state.activeInterview].mediaFolder] || false;
+            const idFileTree = {}
+            for(const [interviewKey, interviewValue] of Object.entries(state.active.translations.interviews)){
+                if(interviewValue.mediaFolder && typeof(interviewValue.mediaFolder) === "string" && interviewValue.mediaFolder.length > 0){
+                    idFileTree[interviewKey] = subFileTrees[interviewValue.mediaFolder] || null;
+                } else {
+                    idFileTree[interviewKey] = null;
+                }
             }
-
+            return idFileTree
         }
-        return false
-
-
-
+        return null
     },
+    fileTree(state, getters) {
+        if(state.activeInterview && getters.fileTreeAll){
+            return getters.fileTreeAll[state.activeInterview]
+        }
+        return null
+
+        // if (state.fileTree.children && state.fileTree.children.length > 0) {
+        //     let interviews = {}
+        //     for (const child of state.fileTree.children) {
+        //         interviews[child.name] = child
+        //     }
+        //     // Logger.debug(state.active.translations.interviews[state.activeInterview])
+        //     if (state.active.translations.interviews[state.activeInterview] && state.active.translations.interviews[state.activeInterview].mediaFolder) {
+        //         return interviews[state.active.translations.interviews[state.activeInterview].mediaFolder] || false;
+        //     }
+
+        // }
+        // return false
+    },
+    // thumbnails(state, getters){
+    //     let thumbs = {}
+    //     for(const [interviewKey, interviewValue] of Object.entries(state.active.translations.interviews)){
+            
+    //     }
+    //     return thumbs
+    // },
     idleVideosAbsoluteWeights(state){
         return state.active.videos.absoluteWeights
     },
