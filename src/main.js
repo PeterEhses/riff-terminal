@@ -25,7 +25,6 @@ import "@fontsource/roboto/400.css";
 import "@fontsource/roboto/500.css";
 import "@fontsource/roboto/700.css";
 import "video.js/dist/video-js.css"; 
-import Logger from 'js-logger'
 
 // Vue.use(Vue2TouchEvents) // to get events on touch
 Vue.use(VueMousetrap) // to intercept complex key events

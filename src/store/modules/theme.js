@@ -208,7 +208,9 @@ const state = () => ({
             questionsMarginBottom: '16.5rem',
             questionsSpacing: 'var(--unit-lg)',
             questionHeight: 'var(--unit-xxl)',
+            questionBorderRadius: 0, // 'calc(var(--question-height) / 2)',
             fontSizeQuestions: 'var(--unit-lg)',
+            fontWeightQuestions: 'var(--font-weight-normal)',
 
         /* Language Toggle */
         fontSizeToggle: 'var(--unit-md)',

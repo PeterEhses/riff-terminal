@@ -72,13 +72,14 @@ export default {
   padding: 0;
   overflow: hidden;
 
-    -webkit-touch-callout: none; /* iOS Safari */
-    -webkit-user-select: none; /* Safari */
-     -khtml-user-select: none; /* Konqueror HTML */
-       -moz-user-select: none; /* Old versions of Firefox */
-        -ms-user-select: none; /* Internet Explorer/Edge */
-            user-select: none; /* Non-prefixed version, currently */
-      
+  -webkit-touch-callout: none; /* iOS Safari */
+  -webkit-user-select: none; /* Safari */
+  -khtml-user-select: none; /* Konqueror HTML */
+  -moz-user-select: none; /* Old versions of Firefox */
+  -ms-user-select: none; /* Internet Explorer/Edge */
+  user-select: none; /* Non-prefixed version, currently */
+
+  transition: opacity 0.15s ease-out;
 }
 // disable focus box
 *:focus {
@@ -177,11 +178,9 @@ export default {
 
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-
-  
 }
 
-#app{
+#app {
   //,moved here because of modern-css-reset conflict
   line-height: var(--line-height);
 }
@@ -217,7 +216,6 @@ h2,
 h3 {
   font-family: var(--font-heading);
   line-height: var(--line-height-header);
-  
 }
 
 h1 {

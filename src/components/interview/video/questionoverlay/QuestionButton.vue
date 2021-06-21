@@ -26,6 +26,7 @@ export default {
   width: 100%;
   height: var(--question-height);
   margin: var(--questions-spacing) 0;
+  border-radius: var(--question-border-radius);
   backdrop-filter: var(--blur-normal);
   &:after {
     content: "";
@@ -42,6 +43,7 @@ export default {
   p {
     padding: 0 1em;
     font-size: var(--font-size-questions);
+    font-weight: var(--font-weight-questions);
     // &:before {
     //   content: "🡢 ";
     // }
