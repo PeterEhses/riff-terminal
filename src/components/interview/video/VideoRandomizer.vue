@@ -15,7 +15,6 @@ export default {
   components: {
     VideoPlayer,
   },
-  props: ["fileTree"],
   data() {
     return {
       activeVideo: "",
@@ -25,6 +24,7 @@ export default {
       ...mapGetters("interview", {
       absoluteWeights: "idleVideosAbsoluteWeights",
       categories: "idleVideosCategories",
+      fileTree: "fileTree",
     }),
     categorieWeights() {
       const weights = {};

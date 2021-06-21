@@ -203,6 +203,12 @@ const state = () => ({
             backButtonSize: '2.3rem',
             colorBackButton: 'var(--color-play-button)',
 
+            /* questions */
+
+            questionsMarginBottom: '16.5rem',
+            questionsSpacing: 'var(--unit-lg)',
+            questionHeight: 'var(--unit-xxl)',
+            fontSizeQuestions: 'var(--unit-lg)',
 
         /* Language Toggle */
         fontSizeToggle: 'var(--unit-md)',

@@ -4,7 +4,7 @@
     <div class="cards">
       <ListCard class="card" 
       v-for="(interview, key) in translateInterview"
-      imagePath="test-bg.png"
+      :imagePath="thumbnails ? thumbnails[key] : ''"
       :name="interview['name']"
       :blurb="interview['blurb']"
       :id="key"
@@ -33,6 +33,7 @@ export default {
     ...mapGetters("interview", {
       translate: "translate",
       translateInterview: "translateInterview",
+      thumbnails: "thumbnails",
     }),
   },
 };

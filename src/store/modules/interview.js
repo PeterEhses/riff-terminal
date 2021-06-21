@@ -22,18 +22,19 @@ const state = () => ({
             absoluteWeights: false,
             categories: {
                 0: {
-                  name: "ACTIVATE QUESTIONS",
-                  weight: 1,
+                    name: "- ACTIVATE QUESTIONS",
+                    weight: 1,
                 },
                 1: {
-                  name: "BORING",
-                  weight: 3,
+                    name: "- BORING",
+                    weight: 3,
                 },
                 2: {
-                  name: "PSST",
-                  weight: 1.5,
+                    name: "- PSST",
+                    weight: 1.5,
                 },
-              }
+            },
+            questionsFolderSuffix: '- QUESTIONS',
         },
         translations: {
             global: {
@@ -42,8 +43,8 @@ const state = () => ({
                     en: "Coral Reefs and Humans"
                 }
             },
-            interviews: {
-                0: {
+            interviews: [
+                {
                     name: "Onyx Le Bihan",
                     mediaFolder: "",
                     thumbnail: "",
@@ -52,7 +53,7 @@ const state = () => ({
                         en: "Spearfisher at Moorea, Tahiti"
                     }
                 },
-                1: {
+                {
                     name: "Dr. Sebastian Ferse",
                     mediaFolder: "",
                     thumbnail: "",
@@ -61,16 +62,53 @@ const state = () => ({
                         en: "Leibniz Center for Tropical Marine Research\r\nExecutive Director Future Earth Coasts"
                     }
                 },
-                2: {
+                {
                     name: "Dr. Moshira Hassan",
                     mediaFolder: "SNIPPETS MOSHIRA [DE]",
                     thumbnail: "thumbnail.png",
                     blurb: {
                         de: "Reef Check Koordinatorin Deutschland/Europa und Rotes Meer",
                         en: "Reef Check Coordinator Germany/Europe and Red Sea"
-                    }
+                    },
+                    questions: [
+                        {
+                            en: "Who are you?",
+                            de: "Wer Bist du?",
+                            id: 1,
+                        },
+                        {
+                            en: "What drives you?",
+                            de: "Was treibt dich an?",
+                            id: 2,
+                        },
+                        {
+                            de: "Warum brauchen wir Riffschutz?",
+                            en: "Why do we need to protect reefs?",
+                            id: 3,
+                        },
+                        {
+                            de: "Wie steh es um die Riffe und was kann ich tun?",
+                            en: "What's happening with the reefs and what can I do?",
+                            id: 4,
+                        },
+                        {
+                            de: "Wie wird es den Riffen in 10 Jahren gehen?",
+                            en: "How will the reefs be doing in 10 years?",
+                            id: 5,
+                        },
+                        {
+                            de: 'Was ist "REEF CHECK"?',
+                            en: 'Wjat is "REEF CHECK"?',
+                            id: 6,
+                        },
+                        {
+                            de: 'Wie kann "REEF CHECK" unterstützt werden?',
+                            en: 'How can "REEF CHECK" be supported?',
+                            id: 7,
+                        }
+                    ]
                 },
-                3: {
+                {
                     name: "Claudia Schmitt",
                     mediaFolder: "",
                     thumbnail: "",
@@ -79,7 +117,7 @@ const state = () => ({
                         en: "The Jetlagged. Underwater, nature and wildlife filmmaker"
                     }
                 },
-                4: {
+                {
                     name: "Taiano Teiho",
                     mediaFolder: "",
                     thumbnail: "",
@@ -87,8 +125,8 @@ const state = () => ({
                         de: "Coral-Gardener auf Moorea, Tahiti",
                         en: "Coral gardener at Moorea, Tahiti"
                     }
-                },
-            }
+                }
+            ],
         },
     },
     presets: {
@@ -274,15 +312,15 @@ const getters = {
     activeInterview(state) {
         return state.activeInterview
     },
-    fileTreeAll(state){
+    fileTreeAll(state) {
         if (state.fileTree.children && state.fileTree.children.length > 0) {
             const subFileTrees = {}
             for (const child of state.fileTree.children) {
                 subFileTrees[child.name] = child
             }
             const idFileTree = {}
-            for(const [interviewKey, interviewValue] of Object.entries(state.active.translations.interviews)){
-                if(interviewValue.mediaFolder && typeof(interviewValue.mediaFolder) === "string" && interviewValue.mediaFolder.length > 0){
+            for (const [interviewKey, interviewValue] of Object.entries(state.active.translations.interviews)) {
+                if (interviewValue.mediaFolder && typeof (interviewValue.mediaFolder) === "string" && interviewValue.mediaFolder.length > 0) {
                     idFileTree[interviewKey] = subFileTrees[interviewValue.mediaFolder] || null;
                 } else {
                     idFileTree[interviewKey] = null;
@@ -293,35 +331,73 @@ const getters = {
         return null
     },
     fileTree(state, getters) {
-        if(state.activeInterview && getters.fileTreeAll){
+        if (state.activeInterview && getters.fileTreeAll) {
             return getters.fileTreeAll[state.activeInterview]
         }
         return null
-
-        // if (state.fileTree.children && state.fileTree.children.length > 0) {
-        //     let interviews = {}
-        //     for (const child of state.fileTree.children) {
-        //         interviews[child.name] = child
-        //     }
-        //     // Logger.debug(state.active.translations.interviews[state.activeInterview])
-        //     if (state.active.translations.interviews[state.activeInterview] && state.active.translations.interviews[state.activeInterview].mediaFolder) {
-        //         return interviews[state.active.translations.interviews[state.activeInterview].mediaFolder] || false;
-        //     }
-
-        // }
-        // return false
     },
-    // thumbnails(state, getters){
-    //     let thumbs = {}
-    //     for(const [interviewKey, interviewValue] of Object.entries(state.active.translations.interviews)){
+    questions(state){
+        if(state.activeInterview && state.active.translations.interviews && state.active.translations.interviews[state.activeInterview] && state.active.translations.interviews[state.activeInterview].questions){
+            const questions = state.active.translations.interviews[state.activeInterview].questions
             
-    //     }
-    //     return thumbs
-    // },
-    idleVideosAbsoluteWeights(state){
+            const localQuestions = {}
+            for(const question of questions){
+                if(question.id){
+                    localQuestions[question.id] = question[state.activeLanguage] || question.de || question.en || '';
+                }
+            }
+            return localQuestions
+        }
+        return null
+        
+    },
+    questionsVideos(state, getters) {
+        if (state.activeInterview && getters.fileTree && getters.fileTree.children && getters.fileTree.children.length) {
+
+            const questionsFolder = getters.fileTree.children.filter((child) => child.name.endsWith(state.active.videos.questionsFolderSuffix))
+            Logger.debug("Getting Questions:", questionsFolder)
+            if (questionsFolder && questionsFolder[0] && questionsFolder[0].children && questionsFolder[0].children.length > 0) {
+                const questions = {}
+                for (const child of questionsFolder[0].children) {
+                    Logger.debug("Questions:", child)
+                    if (child.type === "file") {
+                        const childNum = (child.name.match(/\d+\.\d+|\d+\b|\d+(?=\w)/g) || []).map((v) => { return +v })
+                        if (childNum.length > 0) {
+                            questions[childNum[0]] = child.path
+                        }
+                    }
+                }
+                return questions
+            }
+        }
+        return null
+    },
+    thumbnails(state, getters) {
+        let thumbs = {}
+        if (!getters.fileTreeAll) {
+            return null
+        }
+        for (const [interviewKey, interviewValue] of Object.entries(state.active.translations.interviews)) {
+            // Logger.debug("FileTree Thumb testing: ", interviewKey, getters.fileTreeAll[interviewKey])
+            const fileTree = getters.fileTreeAll[interviewKey]
+            const fileName = interviewValue.thumbnail || '';
+            let path = '';
+            if (fileTree && fileTree.children && fileTree.children.length > 0) {
+                for (const childId in fileTree.children) {
+                    const child = fileTree.children[childId]
+                    if (child.type === "file" && child.name === fileName) {
+                        path = child.path.replace(__static, '');
+                    }
+                }
+            }
+            thumbs[interviewKey] = path;
+        }
+        return thumbs
+    },
+    idleVideosAbsoluteWeights(state) {
         return state.active.videos.absoluteWeights
     },
-    idleVideosCategories(state){
+    idleVideosCategories(state) {
         return state.active.videos.categories
     }
 }
