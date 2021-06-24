@@ -16,10 +16,13 @@ const state = () => ({
     activePresetName: '_default',
     activeLanguage: 'de',
     activeInterview: null,
+    activeQuestion: null,
     fileTree: {},
     active: {
         videos: {
             absoluteWeights: false,
+            noConsecutiveVoice: true,
+            noVoiceCategory: 1,
             categories: {
                 0: {
                     name: "- ACTIVATE QUESTIONS",
@@ -55,8 +58,8 @@ const state = () => ({
                 },
                 {
                     name: "Dr. Sebastian Ferse",
-                    mediaFolder: "",
-                    thumbnail: "",
+                    mediaFolder: "SNIPPETS SEBASTIAN [DE]",
+                    thumbnail: "thumbnail.png",
                     blurb: {
                         de: "Leibniz-Zentrum für Marine Tropenforschung\r\nExecutive Director Future Earth Coasts",
                         en: "Leibniz Center for Tropical Marine Research\r\nExecutive Director Future Earth Coasts"
@@ -110,8 +113,8 @@ const state = () => ({
                 },
                 {
                     name: "Claudia Schmitt",
-                    mediaFolder: "",
-                    thumbnail: "",
+                    mediaFolder: "SNIPPETS CLAUDIA [DE]",
+                    thumbnail: "thumbnail.png",
                     blurb: {
                         de: "The Jetlagged. Naturfilmerin",
                         en: "The Jetlagged. Underwater, nature and wildlife filmmaker"
@@ -194,6 +197,9 @@ const mutations = {
     SET_INTERVIEW(state, id) {
         Vue.set(state, 'activeInterview', id)
     },
+    SET_QUESTION(state, id) {
+        Vue.set(state, 'activeQuestion', id)
+    },
     SET_FILETREE(state, filetree) {
         Vue.set(state, "fileTree", filetree)
     }
@@ -264,6 +270,9 @@ const actions = {
     setActiveInterview({ commit }, id) {
         commit('SET_INTERVIEW', id)
     },
+    setActiveQuestion({ commit }, id) {
+        commit('SET_QUESTION', id)
+    },
     async setFilePaths({ commit }) {
         Logger.info("Getting File Tree")
         const res = await ipcRenderer.invoke('getPublicFiles')
@@ -312,6 +321,12 @@ const getters = {
     activeInterview(state) {
         return state.activeInterview
     },
+    activeQuestion(state) {
+        if(state.activeInterview){
+            return state.activeQuestion
+        }
+        return null
+    },
     fileTreeAll(state) {
         if (state.fileTree.children && state.fileTree.children.length > 0) {
             const subFileTrees = {}
@@ -336,20 +351,20 @@ const getters = {
         }
         return null
     },
-    questions(state){
-        if(state.activeInterview && state.active.translations.interviews && state.active.translations.interviews[state.activeInterview] && state.active.translations.interviews[state.activeInterview].questions){
+    questions(state) {
+        if (state.activeInterview && state.active.translations.interviews && state.active.translations.interviews[state.activeInterview] && state.active.translations.interviews[state.activeInterview].questions) {
             const questions = state.active.translations.interviews[state.activeInterview].questions
-            
+
             const localQuestions = {}
-            for(const question of questions){
-                if(question.id){
+            for (const question of questions) {
+                if (question.id) {
                     localQuestions[question.id] = question[state.activeLanguage] || question.de || question.en || '';
                 }
             }
             return localQuestions
         }
         return null
-        
+
     },
     questionsVideos(state, getters) {
         if (state.activeInterview && getters.fileTree && getters.fileTree.children && getters.fileTree.children.length) {
@@ -396,6 +411,12 @@ const getters = {
     },
     idleVideosAbsoluteWeights(state) {
         return state.active.videos.absoluteWeights
+    },
+    noConsecutiveVoice(state) {
+        return state.active.videos.noConsecutiveVoice
+    },
+    noVoiceCategory(state) {
+        return state.active.videos.noVoiceCategory
     },
     idleVideosCategories(state) {
         return state.active.videos.categories

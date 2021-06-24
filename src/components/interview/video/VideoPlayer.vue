@@ -29,7 +29,7 @@ export default {
       default() {
         return {
           //   autoplay: true,
-          muted: process.env.NODE_ENV === "development",
+          // muted: process.env.NODE_ENV === "development",
           //   loop: true,
           fluid: true,
           controls: false,

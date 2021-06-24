@@ -18,11 +18,14 @@ export default {
   data() {
     return {
       activeVideo: "",
+      lastWasAudio: true,
     };
   },
   computed: {
-      ...mapGetters("interview", {
+    ...mapGetters("interview", {
       absoluteWeights: "idleVideosAbsoluteWeights",
+      noConsecutiveVoice: "noConsecutiveVoice",
+      noVoiceCategory: "noVoiceCategory",
       categories: "idleVideosCategories",
       fileTree: "fileTree",
     }),
@@ -79,11 +82,23 @@ export default {
       while (newVideo == this.activeVideo) {
         const random = Math.random();
         let activeSet;
-        for (const key in this.categorieWeights) {
-          const val = this.categorieWeights[key];
-          if (val.cummulative > random) {
-            activeSet = this.videos[key];
-            break;
+        if (this.lastWasAudio && this.noConsecutiveVoice) {
+          Logger.debug("Force no-voice video");
+          activeSet = this.videos[this.noVoiceCategory];
+          this.lastWasAudio = false;
+        } else {
+          Logger.debug("Random video category");
+          for (const key in this.categorieWeights) {
+            const val = this.categorieWeights[key];
+            if (val.cummulative > random) {
+              activeSet = this.videos[key];
+              if (key === "BORING") {
+                this.lastWasAudio = false;
+              } else {
+                this.lastWasAudio = true;
+              }
+              break;
+            }
           }
         }
         Logger.debug("chose set of random videos:", activeSet);

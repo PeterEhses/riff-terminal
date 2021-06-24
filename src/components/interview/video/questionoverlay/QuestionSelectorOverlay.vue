@@ -1,11 +1,16 @@
 <template>
   <div class="question-wrapper">
-    <QuestionButton v-for="(question, id) in questions" :key="id">{{ question }}</QuestionButton>
+    <QuestionButton
+      v-for="(question, id) in questions"
+      :key="id"
+      @click="handleSelect(id)"
+      >{{ question }}</QuestionButton
+    >
   </div>
 </template>
 
 <script>
-import { mapGetters } from "vuex";
+import { mapGetters, mapActions } from "vuex";
 import QuestionButton from "./QuestionButton.vue";
 
 export default {
@@ -16,6 +21,15 @@ export default {
     ...mapGetters("interview", {
       questions: "questions",
     }),
+  },
+  methods: {
+    ...mapActions("interview", {
+      setActiveQuestion: 'setActiveQuestion'
+    }),
+    handleSelect(id) {
+      Logger.debug("User selected Question:", id);
+      this.setActiveQuestion(id);
+    },
   },
 };
 </script>
@@ -32,6 +46,5 @@ export default {
   bottom: var(--interview-button-height);
   left: 0;
   right: 0;
-
 }
 </style>
