@@ -54,7 +54,7 @@ export default {
     },
     videos() {
       const res = {};
-      if (this.fileTree.children && this.fileTree.children.length > 0) {
+      if (this.fileTree && this.fileTree.children && this.fileTree.children.length > 0) {
         for (const file of this.fileTree.children) {
           //   Logger.debug(Object.entries(categories));
           for (let [key, value] of Object.entries(this.categories)) {
@@ -78,6 +78,11 @@ export default {
   },
   methods: {
     getRandomVideo() {
+      if(!this.fileTree){
+        this.$set(this, "activeVideo", "");
+        Logger.warn("Filetree error, can't set active Video!", this.$store.state.interview);
+        return;
+      }
       let newVideo = this.activeVideo;
       while (newVideo == this.activeVideo) {
         const random = Math.random();
