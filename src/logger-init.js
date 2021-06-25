@@ -1,8 +1,12 @@
 const { is } = require('electron-util');
 const Logger = require('js-logger');
 const electronLog = require('electron-log');
-electronLog.transports.console.level = false;
+const path = require('path');
 
+electronLog.transports.console.level = false;
+electronLog.transports.file.resolvePath = (variables) => {
+  return path.join(variables.libraryDefaultDir, new Date().toISOString().split('T')[0] + ".log");
+}
 
 const logLevel = is.development ? "DEBUG" : "WARN"
 const logDecorators = {
