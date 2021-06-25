@@ -1,4 +1,5 @@
 import './logger-init.js'
+import './error-handler.js'
 import Vue from 'vue'
 import App from './App.vue'
 // import router from './router'
@@ -24,11 +25,61 @@ require('fg-select-css/src/select-css.css')
 import "@fontsource/roboto/400.css";
 import "@fontsource/roboto/500.css";
 import "@fontsource/roboto/700.css";
-import "video.js/dist/video-js.css"; 
+import "video.js/dist/video-js.css";
+import Logger from 'js-logger'
 
 // Vue.use(Vue2TouchEvents) // to get events on touch
 Vue.use(VueMousetrap) // to intercept complex key events
 Vue.config.productionTip = false
+
+// error handling in vue
+
+Vue.config.errorHandler = function (err, vm, info) { 
+  if(vm && vm._vnode && vm._options){
+    Logger.error("Vue raised:", err, vm._vnode.tag, vm._options._componentTag, info) 
+  } else {
+    Logger.error("Vue raised:", err, info) 
+  }
+}
+Vue.config.warnHandler = function (msg, vm, info) {
+  if(vm && vm._vnode && vm._options){
+    Logger.warn("Vue raised:", msg, vm._vnode.tag, vm._options._componentTag, info) 
+  } else {
+    Logger.warn("Vue raised:", msg, info) 
+  }
+}
+
+// make vue return finite json via toJSON for error logging
+
+// Object.defineProperty(Vue.prototype, 'toJSON', {
+//   value: function () {
+//     var alt = {};
+
+//     Object.getOwnPropertyNames(this).forEach(function (key) {
+//       if (this[key]) {
+//         if (Array.isArray(this[key])) {
+//           alt[key] = Object.keys(this[key])
+//         } else if (this[key]._uid && this[key]._uid == this._uid) {
+//           alt[key] = "[this]"
+//         } else if (typeof (this[key]) == "object") {
+//           const rv = {};
+//           const keys = Object.keys(this[key])
+//           for (var i = 0; i < keys.length; ++i) rv[keys[i]] = "...";
+//           alt[key] = rv
+//         } else {
+//           alt[key] = this[key]
+//         }
+//       }
+
+
+//     }, this);
+//     return alt;
+//   },
+//   configurable: true,
+//   writable: true
+// });
+
+// initiate vue finally
 
 new Vue({
   // router,

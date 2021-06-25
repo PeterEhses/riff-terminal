@@ -1,6 +1,7 @@
 <template>
   <div class="interview-video">
-    <InterviewHeader :heading="translateInterview[activeInterview]['name']" :subheading="translateInterview[activeInterview]['blurb']" />
+    <InterviewHeader :heading="translateInterview[activeInterview]['name']"  />
+    <!-- :subheading="translateInterview[activeInterview]['blurb']" -->
     <!-- <VideoPlayer /> -->
     <VideoRandomizer v-if="!activeQuestion" />
     <QuestionPlayer v-else />

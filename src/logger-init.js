@@ -1,26 +1,50 @@
+const { is } = require('electron-util');
 const Logger = require('js-logger');
-// import Logger from 'js-logger'
-const isProduction = process.env.NODE_ENV === 'development';
-const logLevel = isProduction ? "DEBUG" : "WARN"
+const electronLog = require('electron-log');
+electronLog.transports.console.level = false;
+
+
+const logLevel = is.development ? "DEBUG" : "WARN"
 const logDecorators = {
-    "TRACE": "🔍",
-    "DEBUG": "🧪",
-    "INFO": "✨",
-    "WARN": "⚠",
-    "ERROR": "❗",
-    "FATAL": "💥",
+  "TRACE": "🔍",
+  "DEBUG": "🧪",
+  "INFO": "✨",
+  "WARN": "⚠",
+  "ERROR": "❗",
+  "FATAL": "💥",
 }
 Logger.useDefaults(
-    {
-      defaultLevel : Logger[logLevel],
-        formatter: function (messages, context) {
-            // Logger.trace(context);
-          // prefix each log message with a timestamp.
-          messages.unshift(logDecorators[context.level.name]);
-          messages.unshift(new Date().toLocaleTimeString());
-        },
-      }
+  {
+    defaultLevel: Logger[logLevel],
+  }
 );
+
+const consoleHandler = Logger.createDefaultHandler({
+  formatter: (messages, context) => {
+    // Logger.trace(context);
+    // prefix each log message with a timestamp.
+    messages.unshift(logDecorators[context.level.name]);
+    messages.unshift(new Date().toLocaleTimeString());
+  },
+});
+const fileHandler = (messages, context) => {
+  try {
+    if(context.level.name === "ERROR"){
+      electronLog.error(messages)
+      console.log("logged error to file")
+    } else if (context.level.name === "WARN") {
+      electronLog.warn(messages)
+      console.log("logged warn to file")
+    }
+  } catch (e) {
+    console.log("tried to log to file, failed:", e)
+  }
+}
+Logger.setHandler(function (messages, context) {
+  consoleHandler(messages, context);
+  fileHandler(messages, context);
+});
+
 Logger.info("logger started")
 Logger.info("Log Level", Logger.getLevel())
 Logger.trace(Logger)

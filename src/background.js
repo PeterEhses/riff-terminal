@@ -1,5 +1,9 @@
 'use strict'
 
+const unhandled = require('electron-unhandled');
+
+unhandled();
+
 import { app, protocol, BrowserWindow, screen, ipcMain } from 'electron'
 import { createProtocol } from 'vue-cli-plugin-electron-builder/lib'
 import installExtension, { VUEJS_DEVTOOLS } from 'electron-devtools-installer'
@@ -48,11 +52,12 @@ async function createWindow() {
     fullscreen: true,
     kiosk: true,
     webPreferences: {
-      
+      devTools: isDevelopment,
       // Use pluginOptions.nodeIntegration, leave this alone
       // See nklayman.github.io/vue-cli-plugin-electron-builder/guide/security.html#node-integration for more info
       nodeIntegration: process.env.ELECTRON_NODE_INTEGRATION,
-      contextIsolation: !process.env.ELECTRON_NODE_INTEGRATION
+      contextIsolation: !process.env.ELECTRON_NODE_INTEGRATION,
+      enableRemoteModule: true,
     }
   }
   const win = new BrowserWindow(windowOptions)
