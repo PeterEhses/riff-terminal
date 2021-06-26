@@ -2,18 +2,24 @@
   <div class="video-player-wrapper">
             <VideoPlayer
         class="video-layer"
-        video="/projection/yt1s.com - Tomats.mp4"
+        :video="'/projection/'+getVideoFile"
         :loop="true"
       />
   </div>
 </template>
 
 <script>
+import {mapGetters} from 'vuex';
 import VideoPlayer from "../VideoPlayer.vue";
 export default {
   components: {
     VideoPlayer,
   },
+  computed: {
+    ...mapGetters('projection', {
+      getVideoFile: "getVideoFile",
+    }),
+  }
 };
 </script>
 

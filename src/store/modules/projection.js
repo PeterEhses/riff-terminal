@@ -11,6 +11,7 @@ const interviewStorage = storageInterface.getNamedStore('projection', 'Settings'
 const state = () => ({
     activePresetName: '_default',
     active: {
+        videoFile: "yt1s.com - Tomats.mp4",
         vignette: {
             width: {
                 top: 5,
@@ -217,6 +218,9 @@ const getters = {
     /////////////////////////////
     getVignette(state){
         return state.active.vignette
+    },
+    getVideoFile(state){
+        return state.active.videoFile
     }
 }
 
