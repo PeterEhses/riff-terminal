@@ -1,4 +1,4 @@
-const { is } = require('electron-util');
+const { is, debugInfo } = require('electron-util');
 const Logger = require('js-logger');
 const electronLog = require('electron-log');
 const path = require('path');
@@ -34,10 +34,10 @@ const consoleHandler = Logger.createDefaultHandler({
 const fileHandler = (messages, context) => {
   try {
     if(context.level.name === "ERROR"){
-      electronLog.error(messages)
+      electronLog.error(messages, debugInfo())
       console.log("logged error to file")
     } else if (context.level.name === "WARN") {
-      electronLog.warn(messages)
+      electronLog.warn(messages, debugInfo())
       console.log("logged warn to file")
     }
   } catch (e) {

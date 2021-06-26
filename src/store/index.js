@@ -3,6 +3,8 @@ import Vuex from 'vuex'
 // import modules here
 import theme from './modules/theme.js'
 import interview from './modules/interview.js'
+import general from './modules/general.js'
+import projection from './modules/projection.js'
 Vue.use(Vuex)
 
 export default new Vuex.Store({
@@ -28,5 +30,7 @@ export default new Vuex.Store({
   modules: { // declare modules here
     theme,
     interview,
+    general,
+    projection,
   }
 })

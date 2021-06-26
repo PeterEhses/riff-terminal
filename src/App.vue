@@ -1,15 +1,17 @@
 <template>
   <div id="app">
     <!-- <router-view/> -->
-    <InterviewWrapper />
+    <InterviewWrapper v-if="getMode == 'interview'"/>
+    <ProjectionWrapper v-if="getMode == 'projection'" />
     <Menu v-if="showMenu" />
   </div>
 </template>
 
 <script>
-import { mapState } from "vuex";
+import { mapState, mapGetters } from "vuex";
 import Menu from "@/components/menu/Menu.vue";
 import InterviewWrapper from "@/components/interview/InterviewWrapper.vue";
+import ProjectionWrapper from "@/components/projection/ProjectionWrapper.vue";
 // import CardStack from "@/components/cards/CardStack.vue";
 
 export default {
@@ -17,7 +19,7 @@ export default {
   components: {
     Menu,
     InterviewWrapper,
-    // CardStack,
+    ProjectionWrapper
   },
   data() {
     return {
@@ -28,6 +30,9 @@ export default {
     ...mapState("theme", {
       theme: "active",
     }),
+    ...mapGetters("general", {
+      getMode: "getMode"
+    })
   },
   methods: {
     onMenuKey() {

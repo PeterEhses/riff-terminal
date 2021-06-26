@@ -24,6 +24,10 @@ export default {
         };
       },
     },
+    loop: {
+      type: Boolean,
+      default: false
+    },
     options: {
       type: Object,
       default() {
@@ -138,8 +142,17 @@ export default {
       }
       this.player.trigger("textTracksChanged");
     },
+    setLoop() {
+      Logger.debug("Set play loop to", this.loop)
+        this.player.loop(this.loop)
+    }
   },
   watch: {
+    loop: {
+      handler(){
+        this.setLoop()
+      }
+    },
     video: {
       handler() {
         this.initiateVideoSource();
@@ -167,6 +180,7 @@ export default {
         that.initiateVideoSource();
         that.setMetadata();
         that.setActiveLanguage();
+        that.setLoop();
         that.$emit("playerReady");
       }
     );
@@ -185,10 +199,14 @@ export default {
 
 <style lang="scss">
 .video-wrapper {
+  z-index: 0;
+  position: relative;
   width: 100%;
   height: 100%;
 }
 .video-js {
+  z-index: 0;
+  position: relative;
   width: 100%;
   height: 100% !important;
 }

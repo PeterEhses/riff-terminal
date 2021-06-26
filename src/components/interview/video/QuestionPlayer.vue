@@ -8,7 +8,7 @@
 </template>
 
 <script>
-import VideoPlayer from "./VideoPlayer.vue";
+import VideoPlayer from "../../VideoPlayer.vue";
 import { mapActions, mapGetters } from "vuex"; // mapState, mapActions
 
 export default {
