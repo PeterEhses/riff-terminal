@@ -1,12 +1,10 @@
 <template>
-  <div class="effect-wrapper"> <Vignette /></div>
+  <div class="random-texts-wrapper"></div>
 </template>
 
 <script>
-import Vignette from "./Vignette.vue";
 export default {
   components: {
-    Vignette,
   },
 };
 </script>

@@ -35,6 +35,52 @@ const state = () => ({
             hsla(0, 0%, 0%, 0.01) 91.5%,\
             hsla(0, 0%, 0%, 0) 100%",
             blendmode: 'luminosity', // applied shitty fix with backdrop-filter to raise stacking context
+        },
+        texts: {
+            bottom: [
+                {
+                    de: "merciful moral joy. Inexpedient chaos battle victorious",
+                    en: "Free strong love sea sea depths against derive victorious",
+                    weight: 1.0
+                },
+                {
+                    de: "eternal-return society. Play transvaluation horror fearful",
+                    en: "christian endless gains decrepit horror faithful superiority",
+                    weight: 1.0
+                },
+                {
+                    de: "philosophy moral decrepit virtues horror justice",
+                    en: "Self gains reason zarathustra abstract moral horror",
+                    weight: 1.0
+                },
+                {
+                    de: "will ultimate sea victorious justice",
+                    en: "virtues virtues. Contradict hatred enlightenment passion evil",
+                    weight: 1.0
+                }
+            ],
+            top: [
+                {
+                    de: "merciful moral joy. Inexpedient chaos battle victorious",
+                    en: "Free strong love sea sea depths against derive victorious",
+                    weight: 1.0
+                },
+                {
+                    de: "eternal-return society. Play transvaluation horror fearful",
+                    en: "christian endless gains decrepit horror faithful superiority",
+                    weight: 1.0
+                },
+                {
+                    de: "philosophy moral decrepit virtues horror justice",
+                    en: "Self gains reason zarathustra abstract moral horror",
+                    weight: 1.0
+                },
+                {
+                    de: "will ultimate sea victorious justice",
+                    en: "virtues virtues. Contradict hatred enlightenment passion evil",
+                    weight: 1.0
+                }
+            ],
         }
     },
     presets: {

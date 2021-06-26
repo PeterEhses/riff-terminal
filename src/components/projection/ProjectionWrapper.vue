@@ -1,6 +1,7 @@
 <template>
   <div class="projection-wrapper">
       <VideoWrapper/>
+      <RandomTextsWrapper/>
       <Vignette/>
   </div>
 </template>
@@ -8,9 +9,10 @@
 <script>
 import VideoWrapper from "./VideoWrapper.vue";
 import Vignette from "./Vignette.vue";
+import RandomTextsWrapper from "./RandomTextsWrapper.vue";
 export default {
   components: {
-    VideoWrapper, Vignette, 
+    VideoWrapper, Vignette, RandomTextsWrapper
   },
 };
 </script>
