@@ -34,29 +34,39 @@ const state = () => ({
             hsla(0, 0%, 0%, 0.086) 75.5%,\
             hsla(0, 0%, 0%, 0.04) 83.4%,\
             hsla(0, 0%, 0%, 0.01) 91.5%,\
-            hsla(0, 0%, 0%, 0) 100%",
-            blendmode: 'luminosity', // applied shitty fix with backdrop-filter to raise stacking context
+            hsla(0, 0%, 0%, 0) 100%",//https://larsenwork.com/easing-gradients/#editor
+            blendmode: 'luminosity', // applied shitty fix with backdrop-filter to raise stacking context 
+        },
+        textTimings: {
+            minLife: 6,
+            maxLife: 12,
+            minWait: 10,
+            maxWait: 20,
+            languageWait: 2,
+        },
+        textStyle: {
+            fadeTime: 2,
         },
         texts: {
             bottom: [
                 {
-                    de: "merciful moral joy. Inexpedient chaos battle victorious",
-                    en: "Free strong love sea sea depths against derive victorious",
+                    de: "D merciful moral joy.  victorious",
+                    en: "E Free strong love sea sea depths against derive victorious",
                     weight: 1.0
                 },
                 {
-                    de: "eternal-return society. Play transvaluation horror fearful",
-                    en: "christian endless gains decrepit horror faithful superiority",
+                    de: "D eternal-return  horror fearful",
+                    en: "E christian endless gains decrepit horror faithful superiority",
                     weight: 1.0
                 },
                 {
-                    de: "philosophy moral decrepit virtues horror justice",
-                    en: "Self gains reason zarathustra abstract moral horror",
+                    de: "D philosophy moral decrepit virtues horror justice",
+                    en: "E Self gains  moral horror",
                     weight: 1.0
                 },
                 {
-                    de: "will ultimate sea victorious justice",
-                    en: "virtues virtues. Contradict hatred enlightenment passion evil",
+                    de: "D will ultimate sea  justice",
+                    en: "E virtues virtues. Contradict hatred enlightenment passion evil",
                     weight: 1.0
                 }
             ],
@@ -221,6 +231,15 @@ const getters = {
     },
     getVideoFile(state){
         return state.active.videoFile
+    },
+    getTexts(state){
+        return state.active.texts
+    },
+    getTextTimings(state){
+        return state.active.textTimings
+    },
+    getTextStyle(state){
+        return state.active.textStyle
     }
 }
 
