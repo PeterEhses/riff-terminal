@@ -14,6 +14,7 @@
   "main": "background.js",
   "dependencies": {
     "@fontsource/roboto": "^4.4.5",
+    "@urbn/vuex-helpers": "^0.1.0",
     "core-js": "^3.6.5",
     "directory-tree": "^2.2.9",
     "electron-log": "^4.3.5",

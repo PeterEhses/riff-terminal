@@ -1,13 +1,50 @@
 <template>
   <div class="menu-nav">
-    <button class="menu-nav-btn">Projektion</button>
-    <button class="menu-nav-btn">Interviews</button>
-    <button class="menu-nav-btn" :class="'selected'">Style</button>
+    <button
+      class="menu-nav-btn"
+      :class="getMenu == 'general' ? 'selected' : null"
+      @click="setMenu('general')"
+    >
+      General
+    </button>
+    <button
+      class="menu-nav-btn"
+      :class="getMenu == 'projection' ? 'selected' : null"
+      @click="setMenu('projection')"
+    >
+      Projektion
+    </button>
+    <button
+      class="menu-nav-btn"
+      :class="getMenu == 'interview' ? 'selected' : null"
+      @click="setMenu('interview')"
+    >
+      Interviews
+    </button>
+    <button
+      class="menu-nav-btn"
+      :class="getMenu == 'theme' ? 'selected' : null"
+      @click="setMenu('theme')"
+    >
+      Style
+    </button>
   </div>
 </template>
 
 <script>
-export default {};
+import { mapActions, mapGetters } from "vuex";
+export default {
+  computed: {
+    ...mapGetters("general", {
+      getMenu: "getMenu",
+    }),
+  },
+  methods: {
+    ...mapActions("general", {
+      setMenu: "setMenu",
+    }),
+  },
+};
 </script>
 
 <style lang="scss">

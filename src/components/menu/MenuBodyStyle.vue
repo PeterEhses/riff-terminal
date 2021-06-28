@@ -1,6 +1,6 @@
 <template>
-  <div>
-    <div class="save-menu">
+  <div class="menu-style">
+    <!-- <div class="save-menu">
       <div>
         <label for="preset-name">Preset Name </label>
         <input
@@ -22,7 +22,7 @@
         />
       </div>
     </div>
-    <hr/>
+    <hr/> -->
     <table class="value-table">
       <tr>
         <th>Property</th>
@@ -44,11 +44,11 @@
 <script>
 import { mapState, mapActions, mapGetters } from "vuex";
 import AdaptiveInput from "@/components/inputs/AdaptiveInput.vue";
-import DropDownInput from "@/components/inputs/DropDownInput.vue";
+// import DropDownInput from "@/components/inputs/DropDownInput.vue";
 export default {
   components: {
     AdaptiveInput,
-    DropDownInput,
+    // DropDownInput,
   },
   data() {
     return {

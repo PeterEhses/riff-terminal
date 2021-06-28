@@ -187,6 +187,7 @@ const actions = {
      */
     updateMany({ commit }, changes) {
         commit('SET_ACTIVE', changes)
+        commit('SAVE_FILE')
     },
     /**
      * update single property from property / value pair
@@ -196,6 +197,7 @@ const actions = {
         let changes = {}
         changes[property] = value;
         commit('SET_ACTIVE', changes)
+        commit('SAVE_FILE')
     },
     /**
      * get saved theme object and replace active with it

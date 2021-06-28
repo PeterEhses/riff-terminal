@@ -5,19 +5,36 @@
         <h2>Einstellungen</h2>
         <hr />
         <MenuNav />
+        <SaveMenu class="menu-header" :activeMenu="getMenu" :key="getMenu"/>
+        <hr/>
       </div>
-      <MenuBodyStyle class="menu-body"> </MenuBodyStyle>
+      <MenuBodyGeneral class="menu-body" v-if="getMenu == 'general'"/>
+      <MenuBodyProjection class="menu-body" v-if="getMenu == 'projection'"/>
+      <MenuBodyStyle class="menu-body" v-if="getMenu == 'theme'"/>
+      
     </div>
   </div>
 </template>
 
 <script>
+import { mapGetters } from "vuex";
 import MenuNav from "./MenuNav.vue";
 import MenuBodyStyle from "./MenuBodyStyle.vue";
+import SaveMenu from "./SaveMenu.vue"
+import MenuBodyGeneral from "./MenuBodyGeneral.vue"
+import MenuBodyProjection from "./projectionMenu/MenuBodyProjection.vue"
 export default {
   components: {
     MenuNav,
+    SaveMenu,
+    MenuBodyGeneral,
     MenuBodyStyle,
+    MenuBodyProjection,
+  },
+  computed: {
+    ...mapGetters("general", {
+      getMenu: "getMenu",
+    }),
   },
 };
 </script>
@@ -44,8 +61,8 @@ export default {
   }
 
   .menu-header {
-    padding: var(--margin-main-container);
-    padding-bottom: calc(var(--margin-main-container) / 2);
+    padding: calc(var(--margin-main-container) / 2) var(--margin-main-container);
+
     flex-grow: 0;
     flex-shrink: 0;
   }
@@ -100,10 +117,11 @@ export default {
     border-radius: var(--unit-3xs);
     color: var(--input-color-modal);
     padding: 0 var(--unit-xs) 0 var(--unit-xs);
-    background: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='100' height='100' fill='white' fill-opacity='0.7'><polygon points='0,0 100,0 50,50'/></svg>") no-repeat;
-  background-size: var(--unit-xs);
-  background-position: calc(100% - (var(--unit-xs) / 2)) .6em;
-  background-repeat: no-repeat;
+    background: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='100' height='100' fill='white' fill-opacity='0.7'><polygon points='0,0 100,0 50,50'/></svg>")
+      no-repeat;
+    background-size: var(--unit-xs);
+    background-position: calc(100% - (var(--unit-xs) / 2)) 0.6em;
+    background-repeat: no-repeat;
     option {
       background-color: var(--background-color-modal);
     }

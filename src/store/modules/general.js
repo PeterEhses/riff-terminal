@@ -10,6 +10,7 @@ const interviewStorage = storageInterface.getNamedStore('general', 'Settings')
 
 const state = () => ({
     activePresetName: '_default',
+    activeMenu: 'general',
     active: {
        mode: "projection", // options: projection, interview
     },
@@ -74,6 +75,9 @@ const mutations = {
     /////////////////////////////
     SET_MODE(state, mode){
         state.active.mode = mode;
+    },
+    SET_MENU(state, menu){
+        state.activeMenu = menu
     }
 }
 
@@ -98,6 +102,7 @@ const actions = {
      */
     updateMany({ commit }, changes) {
         commit('SET_ACTIVE', changes)
+        commit('SAVE_FILE')
     },
     /**
      * update single property from property / value pair
@@ -107,6 +112,7 @@ const actions = {
         let changes = {}
         changes[property] = value;
         commit('SET_ACTIVE', changes)
+        commit('SAVE_FILE')
     },
     /**
      * get saved theme object and replace active with it
@@ -137,6 +143,9 @@ const actions = {
         } else {
             commit('SET_MODE', "interview")
         }
+    },
+    setMenu({commit}, menu){
+        commit('SET_MENU', menu)
     }
 }
 
@@ -157,6 +166,9 @@ const getters = {
     /////////////////////////////
     getMode(state) {
         return state.active.mode
+    },
+    getMenu(state){
+        return state.activeMenu
     }
 }
 
