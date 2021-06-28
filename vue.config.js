@@ -3,6 +3,9 @@ module.exports = {
     electronBuilder: {
       nodeIntegration: true,
       builderOptions: {
+        asarUnpack: [
+          'public/*'
+        ],
         win: {
           target: 'nsis-web'
         }
