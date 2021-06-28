@@ -48,6 +48,19 @@ export default {
   right: 0;
   bottom: 0;
 
+  button{
+      border: var(--border-modal);
+      border-radius: var(--unit-xs);
+      background-color: var(--color-neutral-action-modal);
+      border-color: rgba(0, 0, 0, 0);
+      background-clip: padding-box;
+      padding: 0 var(--unit-xs) 0 var(--unit-xs);
+      &:hover,
+      &:active {
+        background-color: var(--color-neutral-action-modal-hover);
+      }
+    }
+
   padding: var(--margin-main-container);
   .adaptive-action {
     border: var(--border-modal);
@@ -94,17 +107,6 @@ export default {
       & > * {
         flex-grow: 1;
         flex-shrink: 0;
-      }
-    }
-    .save-button {
-      border: var(--border-modal);
-      border-radius: var(--unit-xs);
-      background-color: var(--color-neutral-action-modal);
-      border-color: rgba(0, 0, 0, 0);
-      background-clip: padding-box;
-      padding: 0 var(--unit-xs) 0 var(--unit-xs);
-      &:hover {
-        background-color: var(--color-neutral-action-modal-hover);
       }
     }
   }

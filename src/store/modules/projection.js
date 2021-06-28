@@ -164,6 +164,12 @@ const mutations = {
     /////////////////////////////
     // module specific
     /////////////////////////////
+    REMOVE_TEXTPAIR(state, {location, id}){
+        Logger.debug("Delete Text Pair", location, id)
+        let texts = state.active.texts[location]
+        texts.splice(id, 1)
+        Vue.set(state.active.texts, location, texts)
+    }
 }
 
 const actions = {
@@ -222,6 +228,9 @@ const actions = {
     /////////////////////////////
     // module specific
     /////////////////////////////
+    removeTextpair({commit}, {location, id}){
+        commit('REMOVE_TEXTPAIR', {location, id})
+    }
 }
 
 const getters = {
