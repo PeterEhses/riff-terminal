@@ -46,6 +46,17 @@ const state = () => ({
         },
         textStyle: {
             fadeTime: 2,
+            textPaddingTopBottom: .7,
+            textPaddingLeftRight: 1.2,
+            textAlign: "center",
+            fontSize: 2.4,
+            marginTop: 12,
+            marginSides: 5,
+            borderRadius: 1.4,
+            blurAmount: 1,
+            textColor: "#FFFFFF",
+            backgroundColor: "#000000",
+            backgroundOpacity: .5,
         },
         texts: {
             bottom: [
