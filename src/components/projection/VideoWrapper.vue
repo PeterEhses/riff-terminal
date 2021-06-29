@@ -2,9 +2,10 @@
   <div class="video-player-wrapper">
             <VideoPlayer
         class="video-layer"
-        :video="'/projection/'+getVideoFile"
+        :video="videoFileLocation"
         :loop="true"
       />
+      <!-- :video="'/projection/'+getVideoFile" -->
   </div>
 </template>
 
@@ -18,7 +19,20 @@ export default {
   computed: {
     ...mapGetters('projection', {
       getVideoFile: "getVideoFile",
+      getFileTree: "getFileTree",
     }),
+    videoFileLocation(){
+      if(this.getFileTree && this.getFileTree.children && this.getFileTree.children.length > 0){
+        for(const id of this.getFileTree.children){
+          if(id && id.name && id.type && id.type === "file"){
+            if(this.getVideoFile && id.name === this.getVideoFile){
+              return id.path
+            }
+          }
+        }
+      } 
+      return ""
+    }
   }
 };
 </script>

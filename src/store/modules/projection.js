@@ -3,15 +3,17 @@ import Vue from "vue"
 import storageInterface from '../helpers/storageInterface.js'
 import {throttle} from 'lodash'
 
-
+/* get file list */
+const ipcRenderer = require('electron').ipcRenderer;
 
 const presetPrefix = "_"
 const projectionStorage = storageInterface.getNamedStore('projection', 'Settings')
 
 const state = () => ({
     activePresetName: '_default',
+    fileTree: {},
     active: {
-        videoFile: "Deckenprojektion-desaturiert1.mp4", //yt1s.com - Tomats.mp4
+        videoFile: "Deckenprojektion-desaturiert1-vbr-kfa30.mp4", //yt1s.com - Tomats.mp4
         vignette: {
             width: {
                 top: 5,
@@ -247,6 +249,9 @@ const mutations = {
     SET_TEXT_STYLE(state, {key, value}){
         Logger.debug("set style", {key, value})
         Vue.set(state.active.textStyle, key, value)
+    },
+    SET_FILETREE(state, filetree) {
+        Vue.set(state, "fileTree", filetree)
     }
 }
 
@@ -262,7 +267,7 @@ const actions = {
     /**
      * load state from file, create default if not exist 
      */
-    initialize({ commit, state }) {
+    initialize({ commit, dispatch, state }) {
         const defaultState = state.active
         // Logger.debug("default state:", defaultState)
         if (!(process.env.NODE_ENV === 'development')) {
@@ -273,6 +278,7 @@ const actions = {
             commit('SET_ACTIVE_PRESET_NAME', '_default')
             commit('SAVE_FILE')
         }
+        dispatch("setFilePaths")
     },
     /**
      * update properties from object of properties
@@ -350,6 +356,19 @@ const actions = {
     setTextStyle({commit, dispatch}, {key, value}){
         commit('SET_TEXT_STYLE', {key, value})
         dispatch('saveFileThrottled')
+    },
+    async setFilePaths({ commit }) {
+        Logger.info("Getting File Tree")
+        const res = await ipcRenderer.invoke('getPublicFiles')
+        Logger.debug("File Tree:", res)
+        if (res.children && res.children.length > 0) {
+            for (const child of res.children) {
+                Logger.trace("checking child for correct directory:", child)
+                if (child.type === "directory" && child.name === "projection") {
+                    commit("SET_FILETREE", child)
+                }
+            }
+        }
     }
 }
 
@@ -382,6 +401,9 @@ const getters = {
     },
     getTextStyle(state) {
         return state.active.textStyle
+    },
+    getFileTree(state){
+        return state.fileTree
     }
 }
 

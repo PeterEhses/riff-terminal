@@ -22,7 +22,7 @@ const Store = require('electron-store');
 
 Store.initRenderer()
 
-function findDisplays(){
+function findDisplays() {
   const displays = screen.getAllDisplays()
   const externalDisplay = displays.filter((display) => {
     return display.bounds.x !== 0 || display.bounds.y !== 0
@@ -97,6 +97,7 @@ app.on('activate', () => {
 // initialization and is ready to create browser windows.
 // Some APIs can only be used after this event occurs.
 app.on('ready', async () => {
+  registerLocalVideoProtocol ()
   if (isDevelopment && !process.env.IS_TEST) {
     // Install Vue Devtools
     try {
@@ -125,18 +126,37 @@ if (isDevelopment) {
 
 
 /* get video files */
-ipcMain.handle('getPublicFiles', function() {
+ipcMain.handle('getPublicFiles', function () {
   return getDirs(__static)
-  
+
 });
 const dirTree = require("directory-tree");
 
-function getDirs(rootDir){
+function getDirs(rootDir) {
   return dirTree(rootDir)
 }
 
 /* quit */
-ipcMain.on("quitApp", function() {
+ipcMain.on("quitApp", function () {
   console.log("got quitApp, exiting in 11s")
-  setTimeout(() => {console.log("EXIT"); app.exit(0)}, 11000)
- });
+  setTimeout(() => { console.log("EXIT"); app.exit(0) }, 11000)
+});
+
+// video hacky thing
+
+function registerLocalVideoProtocol () {
+  protocol.registerFileProtocol('local-video', (request, callback) => {
+    const url = request.url.replace(/^local-video:\/\//, '')
+    // Decode URL to prevent errors when loading filenames with UTF-8 chars or chars like "#"
+    const decodedUrl = decodeURI(url) // Needed in case URL contains spaces
+    try {
+      // eslint-disable-next-line no-undef
+      return callback(path.join(__static, decodedUrl))
+    } catch (error) {
+      console.error(
+        'ERROR: registerLocalVideoProtocol: Could not get file path:',
+        error
+      )
+    }
+  })
+}
