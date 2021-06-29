@@ -76,7 +76,7 @@ export default {
       let sum = 0;
       for (const key in textSet) {
         textSet[key].cummulativeWeight = sum;
-        sum += textSet[key].weight;
+        sum += textSet[key].weight > 0 ? textSet[key].weight : 0;
       }
       return { textSet, sum };
     },

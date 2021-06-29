@@ -6,7 +6,7 @@ import storageInterface from '../helpers/storageInterface.js'
 
 
 const presetPrefix = "_"
-const interviewStorage = storageInterface.getNamedStore('general', 'Settings')
+const generalStorage = storageInterface.getNamedStore('general', 'Settings')
 
 const state = () => ({
     activePresetName: '_default',
@@ -19,19 +19,24 @@ const state = () => ({
     }
 })
 
+import _ from 'lodash'
+
 const mutations = {
     /**
      * save store to file 
      */
     SAVE_FILE(state) {
-        interviewStorage.store = state;
+        Logger.info("Save File Requested, throttled")
+            const doSaveG = () => { generalStorage.store = state; Logger.info("throttled file save triggered") }
+            var throttled = _.throttle(doSaveG, 10000, { 'trailing': true, 'leading': false })
+            throttled()
     },
     /**
      * load store from file
      */
     LOAD_FILE(state) {
-        if (interviewStorage.store) {
-            for (const [key, value] of Object.entries(interviewStorage.store)) {
+        if (generalStorage.store) {
+            for (const [key, value] of Object.entries(generalStorage.store)) {
                 Vue.set(state, key, value);
             }
         }
@@ -143,9 +148,11 @@ const actions = {
         } else {
             commit('SET_MODE', "interview")
         }
+        commit('SAVE_FILE')
     },
     setMenu({commit}, menu){
         commit('SET_MENU', menu)
+        commit('SAVE_FILE')
     }
 }
 

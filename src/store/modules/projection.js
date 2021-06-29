@@ -6,7 +6,7 @@ import storageInterface from '../helpers/storageInterface.js'
 
 
 const presetPrefix = "_"
-const interviewStorage = storageInterface.getNamedStore('projection', 'Settings')
+const projectionStorage = storageInterface.getNamedStore('projection', 'Settings')
 
 const state = () => ({
     activePresetName: '_default',
@@ -111,19 +111,24 @@ const state = () => ({
     }
 })
 
+import _ from 'lodash'
+
 const mutations = {
     /**
      * save store to file 
      */
     SAVE_FILE(state) {
-        interviewStorage.store = state;
+        Logger.info("Save File Requested, throttled")
+            const doSaveP = () => { projectionStorage.store = state; Logger.info("throttled file save triggered") }
+            var throttled = _.throttle(doSaveP, 10000, { 'trailing': true, 'leading': false })
+            throttled()
     },
     /**
      * load store from file
      */
     LOAD_FILE(state) {
-        if (interviewStorage.store) {
-            for (const [key, value] of Object.entries(interviewStorage.store)) {
+        if (projectionStorage.store) {
+            for (const [key, value] of Object.entries(projectionStorage.store)) {
                 Vue.set(state, key, value);
             }
         }
@@ -180,6 +185,10 @@ const mutations = {
             weight: 1,
         })
         Vue.set(state.active.texts, location, texts)
+    },
+    SET_TEXT_VALUE(state, { location, textid, key, value }) {
+        Logger.debug("change text value", { location, textid, key, value })
+        Vue.set(state.active.texts[location][textid], key, value)
     }
 }
 
@@ -241,9 +250,19 @@ const actions = {
     /////////////////////////////
     removeTextpair({ commit }, { location, id }) {
         commit('REMOVE_TEXTPAIR', { location, id })
+        commit('SAVE_FILE')
     },
     addTextpair({ commit }, location) {
         commit('ADD_TEXTPAIR', location)
+        commit('SAVE_FILE')
+    },
+    setTextValue({ commit }, { location, textid, key, value }) {
+        if (key == "weight") {
+            value = parseFloat(value)
+            value = value > 0 ? value : 0;
+        }
+        commit('SET_TEXT_VALUE', { location, textid, key, value })
+        commit('SAVE_FILE')
     }
 }
 

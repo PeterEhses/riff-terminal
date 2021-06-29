@@ -137,12 +137,17 @@ const state = () => ({
     }
 })
 
+import _ from 'lodash'
+
 const mutations = {
     /**
      * save store to file 
      */
     SAVE_FILE(state) {
-        interviewStorage.store = state;
+        Logger.info("Save File Requested, throttled")
+            const doSaveI = () => { interviewStorage.store = state; Logger.info("throttled file save triggered") }
+            var throttled = _.throttle(doSaveI, 10000, { 'trailing': true, 'leading': false })
+            throttled()
     },
     /**
      * load store from file

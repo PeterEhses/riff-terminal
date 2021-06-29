@@ -222,12 +222,17 @@ const state = () => ({
     }
 })
 
+import _ from 'lodash'
+
 const mutations = {
     /**
      * save store to file 
      */
     SAVE_FILE(state) {
-        themeStorage.store = state;
+        Logger.info("Save File Requested, throttled")
+            const doSaveT = () => { themeStorage.store = state; Logger.info("throttled file save triggered") }
+            var throttled = _.throttle(doSaveT, 10000, { 'trailing': true, 'leading': false })
+            throttled()
     },
     /**
      * load store from file

@@ -31,11 +31,14 @@
                 type="range"
                 :value="text.weight"
                 min="0"
-                :max="text.weight > 2 ? text.weight : 2"
+                :max="largestWeight[cid]"
+                @input="updateWeight($event, cid, tid)"
               />
               <input
                 type="number"
-                :value="String(text.weight).padStart(2, '0')"
+                :value="text.weight"
+                min="0"
+                @input="updateWeight($event, cid, tid)"
               />
             </div>
           </div>
@@ -61,12 +64,49 @@ export default {
     ...mapGetters("projection", {
       getTexts: "getTexts",
     }),
+    largestWeight() {
+      let lv = { top: 2, bottom: 2 };
+      if (!this.getTexts) {
+        //   Logger.debug("no texts to weight")
+        return lv;
+      }
+      if (this.getTexts["bottom"] && this.getTexts["bottom"].length > 0) {
+        const max = this.getTexts["bottom"].reduce(function (prev, current) {
+          return prev.weight > current.weight ? prev : current;
+        });
+        // Logger.debug("largest text bottom weight is", max.weight)
+        if (max.weight > 2) {
+          lv.bottom = max.weight;
+        }
+      }
+      if (this.getTexts["top"] && this.getTexts["top"].length > 0) {
+        const max = this.getTexts["top"].reduce((prev, current) => {
+          return prev.weight > current.weight ? prev : current;
+        });
+        // Logger.debug("largest text top weight is", max.weight)
+        if (max.weight > 2) {
+          lv.bottom = max.weight;
+        }
+      }
+    //   Logger.debug("Text weight set to:", lv)
+      return lv;
+    },
   },
   methods: {
     ...mapActions("projection", {
       removeTextpair: "removeTextpair",
       addTextpair: "addTextpair",
+      setTextValue: "setTextValue",
     }),
+    updateWeight(e, location, id) {
+      Logger.debug("Weight Update:", e, location, id);
+      this.setTextValue({
+        location: location,
+        textid: id,
+        key: "weight",
+        value: e.target.value,
+      });
+    },
   },
 };
 </script>
@@ -115,17 +155,37 @@ export default {
           padding: var(--unit-3xs) var(--unit-xxs);
           input[type="range"] {
             flex: 1;
-            padding: 0 var(--unit-xxs);
+            margin: 0 var(--unit-xxs);
+            -webkit-appearance: none; /* Override default look */
+            appearance: none;
+
+            outline: none;
+            height: var(--unit-3xs);
+            background: var(--input-color-modal);
+            border: none;
+            overflow: visible;
+            &::-webkit-slider-thumb {
+              -webkit-appearance: none;
+              appearance: none;
+              width: 1em;
+              height: 1em;
+              border-radius: 50%;
+              background: var(--color-orange);
+              &:hover {
+                background-color: var(--color-neutral-action-modal-hover);
+              }
+            }
           }
           input[type="number"] {
-            width: 3ch;
+            width: 4ch;
             text-align: right;
             appearance: textfield;
-            &:-webkit-outer-spin-button,
-            &:-webkit-inner-spin-button {
-              -webkit-appearance: none;
-              margin: 0;
-            }
+            -moz-appearance: textfield;
+          }
+          input::-webkit-outer-spin-button,
+          input::-webkit-inner-spin-button {
+            -webkit-appearance: none;
+            margin: 0;
           }
         }
       }
