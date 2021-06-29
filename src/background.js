@@ -11,7 +11,7 @@ import Logger from 'js-logger';
 // const fs = require('graceful-fs')
 
 const isDevelopment = process.env.NODE_ENV !== 'production'
-
+app.commandLine.appendSwitch ("disable-http-cache");
 
 // Scheme must be registered before the app is ready
 protocol.registerSchemesAsPrivileged([

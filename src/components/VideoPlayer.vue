@@ -26,7 +26,7 @@ export default {
     },
     loop: {
       type: Boolean,
-      default: false
+      default: false,
     },
     options: {
       type: Object,
@@ -39,6 +39,11 @@ export default {
           controls: false,
           html5: {
             nativeTextTracks: false,
+            hls: {
+              overrideNative: true,
+            },
+            nativeAudioTracks: false,
+            nativeVideoTracks: false,
           },
           sources: [
             // {
@@ -88,7 +93,10 @@ export default {
     initiateVideoSource() {
       this.$emit("playerSourceChange");
       if (typeof this.video === "string" && this.video.length > 0) {
-        this.player.src({ type: "video/mp4", src: this.video.replace(__static, '') });
+        this.player.src({
+          type: "video/mp4",
+          src: this.video.replace(__static, ""),
+        });
         this.player.play();
       }
     },
@@ -104,22 +112,28 @@ export default {
       this.removeMetadata();
 
       if (this.tracks.subTitlesDE && this.tracks.subTitlesDE.length > 0) {
-        this.player.addRemoteTextTrack({
-          kind: "subtitles",
-          src: this.tracks.subTitlesDE,
-          srclang: "de",
-          label: "de",
-          mode: "hidden",
-        }, false);
+        this.player.addRemoteTextTrack(
+          {
+            kind: "subtitles",
+            src: this.tracks.subTitlesDE,
+            srclang: "de",
+            label: "de",
+            mode: "hidden",
+          },
+          false
+        );
       }
       if (this.tracks.subTitlesEN && this.tracks.subTitlesEN.length > 0) {
-        this.player.addRemoteTextTrack({
-          kind: "subtitles",
-          src: this.tracks.subTitlesEN,
-          srclang: "en",
-          label: "en",
-          mode: "hidden",
-        }, false);
+        this.player.addRemoteTextTrack(
+          {
+            kind: "subtitles",
+            src: this.tracks.subTitlesEN,
+            srclang: "en",
+            label: "en",
+            mode: "hidden",
+          },
+          false
+        );
       }
       if (this.tracks.audioEN && this.tracks.audioEN.length > 0) {
         return;
@@ -143,15 +157,15 @@ export default {
       this.player.trigger("textTracksChanged");
     },
     setLoop() {
-      Logger.debug("Set play loop to", this.loop)
-        this.player.loop(this.loop)
-    }
+      Logger.debug("Set play loop to", this.loop);
+      this.player.loop(this.loop);
+    },
   },
   watch: {
     loop: {
-      handler(){
-        this.setLoop()
-      }
+      handler() {
+        this.setLoop();
+      },
     },
     video: {
       handler() {
