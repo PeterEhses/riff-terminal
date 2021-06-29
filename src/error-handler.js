@@ -1,9 +1,10 @@
 // const isProduction = process.env.NODE_ENV === 'development';
 
 const unhandled = require('electron-unhandled');
-const {openNewGitHubIssue, debugInfo} = require('electron-util');
+const {is, openNewGitHubIssue, debugInfo} = require('electron-util');
 
 unhandled({
+	showDialog: is.development ? true : false,
     logger: e => Logger.error("caught unhandled exception:", e),
     reportButton: e => {
 		openNewGitHubIssue({

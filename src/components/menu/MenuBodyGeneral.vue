@@ -8,6 +8,11 @@
         <button @click="quitApp">QUIT APPLICATION</button>
         <p>This action will wait 10 seconds before exiting to make sure any menu changes are saved!</p>
     </div>
+    <hr>
+    <div class="menu-general-section">
+        <p>Software © 2021 Peter Ehses All Rights Reserved.</p>
+        <p>Permission is hereby granted to Senckenberg Society for Nature Research for use in the exhibition "Korallenriff" with the content provided by Senckenberg Society for Nature Research.</p>
+    </div>
     <div class="EXIT-WARNING" v-if="exit"><h1>E X I T I N G</h1></div>
   </div>
 </template>

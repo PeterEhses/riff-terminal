@@ -97,7 +97,21 @@ export default {
           type: "video/mp4",
           src: this.video.replace(__static, ""),
         });
-        this.player.play();
+        var playPromise = this.player.play();
+        if (playPromise !== undefined) {
+          playPromise
+            .then((_) => {
+              Logger.debug("play successful", _)
+              // Automatic playback started!
+              // Show playing UI.
+
+            })
+            .catch((error) => {
+              Logger.debug("play errpr", error)
+              // Auto-play was prevented
+              // Show paused UI.
+            });
+        }
       }
     },
     removeMetadata() {
