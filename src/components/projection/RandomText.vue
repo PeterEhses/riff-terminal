@@ -22,7 +22,7 @@ export default {
                 '--blur-amount': style.blurAmount+"rem",
                 '--text-color': style.textColor,
                 '--background-color': style.backgroundColor,
-                '--backgroundOpacity': style.backgroundOpacity,
+                '--background-opacity': style.backgroundOpacity,
 
             }
         }

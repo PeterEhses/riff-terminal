@@ -29,6 +29,7 @@
         min="0"
         :max="internalValue > 10 ? internalValue : 10"
         v-model="internalValue"
+        @input="handleInput($event.target.value)"
         v-if="isNumber || forceMode == 'range'"
       />
     </div>

@@ -203,6 +203,10 @@ const mutations = {
     SET_TEXT_TIMING(state, {key, value}){
         Logger.debug("set timing", {key, value})
         Vue.set(state.active.textTimings, key, value)
+    },
+    SET_TEXT_STYLE(state, {key, value}){
+        Logger.debug("set style", {key, value})
+        Vue.set(state.active.textStyle, key, value)
     }
 }
 
@@ -301,6 +305,10 @@ const actions = {
     },
     setTextTiming({commit, dispatch}, {key, value}){
         commit('SET_TEXT_TIMING', {key, value})
+        dispatch('saveFileThrottled')
+    },
+    setTextStyle({commit, dispatch}, {key, value}){
+        commit('SET_TEXT_STYLE', {key, value})
         dispatch('saveFileThrottled')
     }
 }
