@@ -13,7 +13,7 @@ const state = () => ({
     activePresetName: '_default',
     fileTree: {},
     active: {
-        videoFile: "Deckenprojektion-desaturiert1-vbr-kfa30.mp4", //yt1s.com - Tomats.mp4
+        videoFile: "Deckenprojektion-desaturiert1-vbr-kfa30_1.mp4", //yt1s.com - Tomats.mp4
         vignette: {
             width: {
                 top: 5,

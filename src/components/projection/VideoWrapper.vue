@@ -31,6 +31,9 @@ export default {
           }
         }
       } 
+      if(this.getVideoFile){
+        return this.getVideoFile
+      }
       return ""
     }
   }

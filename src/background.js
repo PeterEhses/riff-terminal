@@ -59,6 +59,7 @@ async function createWindow() {
       nodeIntegration: process.env.ELECTRON_NODE_INTEGRATION,
       contextIsolation: !process.env.ELECTRON_NODE_INTEGRATION,
       enableRemoteModule: true,
+      webSecurity: false,
     }
   }
   const win = new BrowserWindow(windowOptions)
