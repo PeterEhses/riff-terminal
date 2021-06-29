@@ -1,7 +1,7 @@
 import Logger from "js-logger"
 import Vue from "vue"
 import storageInterface from '../helpers/storageInterface.js'
-
+import {throttle} from 'lodash'
 
 
 
@@ -19,17 +19,13 @@ const state = () => ({
     }
 })
 
-import _ from 'lodash'
-
 const mutations = {
     /**
      * save store to file 
      */
     SAVE_FILE(state) {
-        Logger.info("Save File Requested, throttled")
-            const doSaveG = () => { generalStorage.store = state; Logger.info("throttled file save triggered") }
-            var throttled = _.throttle(doSaveG, 10000, { 'trailing': true, 'leading': false })
-            throttled()
+        Logger.info("file save triggered")
+        generalStorage.store = state;
     },
     /**
      * load store from file
@@ -87,6 +83,14 @@ const mutations = {
 }
 
 const actions = {
+    saveFile({commit}){
+        Logger.info("save request")
+        commit('SAVE_FILE')
+    },
+    saveFileThrottled: throttle(({dispatch}) => {
+        Logger.info("throttled save request"),
+        dispatch("saveFile")
+    }, 10000, { 'trailing': true, 'leading': false }),
     /**
      * load state from file, create default if not exist 
      */
@@ -105,24 +109,24 @@ const actions = {
     /**
      * update properties from object of properties
      */
-    updateMany({ commit }, changes) {
+    updateMany({ commit, dispatch }, changes) {
         commit('SET_ACTIVE', changes)
-        commit('SAVE_FILE')
+        dispatch("saveFileThrottled")
     },
     /**
      * update single property from property / value pair
      */
-    updateOne({ commit }, { property, value }) {
+    updateOne({ commit, dispatch }, { property, value }) {
 
         let changes = {}
         changes[property] = value;
         commit('SET_ACTIVE', changes)
-        commit('SAVE_FILE')
+        dispatch("saveFileThrottled")
     },
     /**
      * get saved theme object and replace active with it
      */
-    setFromSaved({ commit, state }, saved) { // pass name of saved theme object
+    setFromSaved({ commit, dispatch,  state }, saved) { // pass name of saved theme object
         Logger.debug("Loading saved Theme:", saved)
         // saved = presetPrefix + saved;
         if (!state.presets[saved]) {
@@ -130,29 +134,29 @@ const actions = {
         }
         commit('SET_ACTIVE', state.presets[saved]);
         commit('SET_ACTIVE_PRESET_NAME', saved)
-        commit('SAVE_FILE')
+        dispatch("saveFileThrottled")
     },
     /**
      * save active theme object to named theme object
      */
-    saveFromActive({ commit }, savee) { // pass name of theme object to save into
+    saveFromActive({ commit, dispatch }, savee) { // pass name of theme object to save into
         commit('SET_SAVEE', savee);
-        commit('SAVE_FILE');
+        dispatch("saveFileThrottled")
     },
     /////////////////////////////
     // module specific
     /////////////////////////////
-    changeMode({commit, state}){
+    changeMode({commit, dispatch,  state}){
         if(state.active.mode == "interview"){
             commit('SET_MODE', "projection")
         } else {
             commit('SET_MODE', "interview")
         }
-        commit('SAVE_FILE')
+        dispatch("saveFileThrottled")
     },
-    setMenu({commit}, menu){
+    setMenu({commit, dispatch }, menu){
         commit('SET_MENU', menu)
-        commit('SAVE_FILE')
+        dispatch("saveFileThrottled")
     }
 }
 

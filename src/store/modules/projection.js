@@ -1,7 +1,7 @@
 import Logger from "js-logger"
 import Vue from "vue"
 import storageInterface from '../helpers/storageInterface.js'
-
+import {throttle} from 'lodash'
 
 
 
@@ -111,17 +111,15 @@ const state = () => ({
     }
 })
 
-import _ from 'lodash'
+
 
 const mutations = {
     /**
      * save store to file 
      */
     SAVE_FILE(state) {
-        Logger.info("Save File Requested, throttled")
-            const doSaveP = () => { projectionStorage.store = state; Logger.info("throttled file save triggered") }
-            var throttled = _.throttle(doSaveP, 10000, { 'trailing': true, 'leading': false })
-            throttled()
+        Logger.info("file save triggered")
+        projectionStorage.store = state;
     },
     /**
      * load store from file
@@ -205,6 +203,14 @@ const mutations = {
 }
 
 const actions = {
+    saveFile({commit}){
+        Logger.info("save request")
+        commit('SAVE_FILE')
+    },
+    saveFileThrottled: throttle(({dispatch}) => {
+        Logger.info("throttled save request"),
+        dispatch("saveFile")
+    }, 10000, { 'trailing': true, 'leading': false }),
     /**
      * load state from file, create default if not exist 
      */
@@ -223,24 +229,24 @@ const actions = {
     /**
      * update properties from object of properties
      */
-    updateMany({ commit }, changes) {
+    updateMany({ commit, dispatch }, changes) {
         commit('SET_ACTIVE', changes)
-        commit('SAVE_FILE')
+        dispatch('saveFileThrottled')
     },
     /**
      * update single property from property / value pair
      */
-    updateOne({ commit }, { property, value }) {
+    updateOne({ commit, dispatch }, { property, value }) {
 
         let changes = {}
         changes[property] = value;
         commit('SET_ACTIVE', changes)
-        commit('SAVE_FILE')
+        dispatch('saveFileThrottled')
     },
     /**
      * get saved theme object and replace active with it
      */
-    setFromSaved({ commit, state }, saved) { // pass name of saved theme object
+    setFromSaved({ commit, dispatch, state }, saved) { // pass name of saved theme object
         Logger.debug("Loading saved Theme:", saved)
         // saved = presetPrefix + saved;
         if (!state.presets[saved]) {
@@ -248,45 +254,46 @@ const actions = {
         }
         commit('SET_ACTIVE', state.presets[saved]);
         commit('SET_ACTIVE_PRESET_NAME', saved)
-        commit('SAVE_FILE')
+        dispatch('saveFileThrottled')
     },
     /**
      * save active theme object to named theme object
      */
-    saveFromActive({ commit }, savee) { // pass name of theme object to save into
+    saveFromActive({ commit, dispatch }, savee) { // pass name of theme object to save into
         commit('SET_SAVEE', savee);
         commit('SAVE_FILE');
+        dispatch('saveFileThrottled');
     },
     /////////////////////////////
     // module specific
     /////////////////////////////
-    removeTextpair({ commit }, { location, id }) {
+    removeTextpair({ commit, dispatch }, { location, id }) {
         commit('REMOVE_TEXTPAIR', { location, id })
-        commit('SAVE_FILE')
+        dispatch('saveFileThrottled')
     },
-    addTextpair({ commit }, location) {
+    addTextpair({ commit, dispatch }, location) {
         commit('ADD_TEXTPAIR', location)
-        commit('SAVE_FILE')
+        dispatch('saveFileThrottled')
     },
-    setTextValue({ commit }, { location, textid, key, value }) {
+    setTextValue({ commit, dispatch }, { location, textid, key, value }) {
         if (key == "weight") {
             value = parseFloat(value)
             value = value > 0 ? value : 0;
         }
         commit('SET_TEXT_VALUE', { location, textid, key, value })
-        commit('SAVE_FILE')
+        dispatch('saveFileThrottled')
     },
-    setVignetteWidth({commit}, {key, value}){
+    setVignetteWidth({commit, dispatch}, {key, value}){
     commit('SET_VIGNETTE_WIDTH', {key, value})
-    commit('SAVE_FILE')
+    dispatch('saveFileThrottled')
     },
-    setVignetteBlendmode({commit}, blendmode){
+    setVignetteBlendmode({commit, dispatch}, blendmode){
         commit('SET_VIGNETTE_BLENDMODE', blendmode)
-        commit('SAVE_FILE')
+        dispatch('saveFileThrottled')
     },
-    setVignetteGradient({commit}, gradient){
+    setVignetteGradient({commit, dispatch}, gradient){
         commit('SET_VIGNETTE_GRADIENT', gradient)
-        commit('SAVE_FILE')
+        dispatch('saveFileThrottled')
     }
 }
 
