@@ -15,6 +15,14 @@
     <div class="menu-projection-section">
         <VignetteEditor />
     </div>
+    <hr />
+    <div class="menu-projection-section">
+        <TimingEditor />
+    </div>
+    <hr />
+    <div class="menu-projection-section">
+        <TextStyleEditor />
+    </div>
 
   </div>
 </template>
@@ -23,10 +31,15 @@
 import { mapGetters, mapActions } from "vuex";
 import TextsEditor from "./TextsEditor.vue";
 import VignetteEditor from "./VignetteEditor.vue"
+import TextStyleEditor from "./TextStyleEditor.vue"
+import TimingEditor from "./TimingEditor.vue"
 export default {
   components: {
     TextsEditor,
     VignetteEditor,
+    TextStyleEditor,
+    TimingEditor,
+
   },
   computed: {
     ...mapGetters("projection", {

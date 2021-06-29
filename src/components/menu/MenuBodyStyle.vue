@@ -1,28 +1,5 @@
 <template>
   <div class="menu-style">
-    <!-- <div class="save-menu">
-      <div>
-        <label for="preset-name">Preset Name </label>
-        <input
-          name="preset-name"
-          type="text"
-          v-model="presetTextbox"
-          onkeypress="return /[a-zA-Z0-9_]/.test(event.key)"
-        />
-        <button class="save-button" @click="presetSave">save to named preset</button>
-      </div>
-      <span></span>
-      <div>
-        <label for="active-preset-select">Active Preset</label>
-        <DropDownInput
-          name="active-preset-select"
-          :value="activeThemeName"
-          :options="presetNames"
-          @input="dropdownSelect"
-        />
-      </div>
-    </div>
-    <hr/> -->
     <table class="value-table">
       <tr>
         <th>Property</th>

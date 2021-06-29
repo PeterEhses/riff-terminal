@@ -5,7 +5,7 @@
       :class="isAny ? 'adaptive' : null"
       v-model="internalValue"
       @input="handleInput"
-      :style="isColor ? {'background': value} : null"
+      :style="isColor ? { background: value } : null"
     />
     <button
       class="adaptive-action"
@@ -13,11 +13,23 @@
       @click="adaptiveEnabled = !adaptiveEnabled"
     ></button>
     <div class="adaptive-content" v-if="isAny && adaptiveEnabled">
-      <ColorInput v-model="internalValue" @input="handleInput" v-if="(isColor && !forceMode) || forceMode =='color'" />
+      <ColorInput
+        v-model="internalValue"
+        @input="handleInput"
+        v-if="(isColor && !forceMode) || forceMode == 'color'"
+      />
       <TextAreaInput
         v-model="internalValue"
         @input="handleInput"
-        v-else-if="(isTextArea && !forceMode) || forceMode =='textarea'"
+        v-else-if="(isTextArea && !forceMode) || forceMode == 'textarea'"
+      />
+      <input
+        type="range"
+        step="any"
+        min="0"
+        :max="internalValue > 10 ? internalValue : 10"
+        v-model="internalValue"
+        v-if="isNumber || forceMode == 'range'"
       />
     </div>
   </div>
@@ -39,8 +51,8 @@ export default {
       default: 40,
     },
     forceMode: {
-      default: ""
-    }
+      default: "",
+    },
   },
   data() {
     return {
@@ -50,9 +62,11 @@ export default {
   },
   computed: {
     isAny() {
-      return this.isColor || this.isTextArea;
+      return this.isColor || this.isTextArea || this.isNumber || this.forceMode;
     },
-
+    isNumber() {
+      return this.isNumeric(this.internalValue);
+    },
     isColor() {
       return this.valueColorType;
     },
@@ -98,6 +112,9 @@ export default {
     handleInput() {
       this.$emit("input", this.internalValue);
     },
+    isNumeric(n) {
+      return !isNaN(parseFloat(n)) && isFinite(n);
+    },
   },
   watch: {
     value: {
@@ -112,5 +129,14 @@ export default {
 </script>
 
 <style lang="scss">
-
+.adaptive-content{
+  margin-top: var(--unit-xxs);
+  margin-bottom: var(--unit-sm);
+  overflow: visible;
+  display: flex;
+  input[type="range"]{
+    width: 100%;
+    flex: 1;
+  }
+}
 </style>

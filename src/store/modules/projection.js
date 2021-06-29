@@ -199,6 +199,10 @@ const mutations = {
     SET_VIGNETTE_GRADIENT(state, gradient){
         Logger.debug("set vignette gradient", gradient)
         Vue.set(state.active.vignette, 'gradient', gradient)
+    },
+    SET_TEXT_TIMING(state, {key, value}){
+        Logger.debug("set timing", {key, value})
+        Vue.set(state.active.textTimings, key, value)
     }
 }
 
@@ -293,6 +297,10 @@ const actions = {
     },
     setVignetteGradient({commit, dispatch}, gradient){
         commit('SET_VIGNETTE_GRADIENT', gradient)
+        dispatch('saveFileThrottled')
+    },
+    setTextTiming({commit, dispatch}, {key, value}){
+        commit('SET_TEXT_TIMING', {key, value})
         dispatch('saveFileThrottled')
     }
 }
