@@ -59,28 +59,6 @@ const state = () => ({
             backgroundOpacity: .5,
         },
         texts: {
-            bottom: [
-                {
-                    de: "D merciful moral joy.  victorious",
-                    en: "E Free strong love sea sea depths against derive victorious",
-                    weight: 1.0
-                },
-                {
-                    de: "D eternal-return  horror fearful",
-                    en: "E christian endless gains decrepit horror faithful superiority",
-                    weight: 1.0
-                },
-                {
-                    de: "D philosophy moral decrepit virtues horror justice",
-                    en: "E Self gains  moral horror",
-                    weight: 1.0
-                },
-                {
-                    de: "D will ultimate sea  justice",
-                    en: "E virtues virtues. Contradict hatred enlightenment passion evil",
-                    weight: 1.0
-                }
-            ],
             top: [
                 {
                     de: "merciful moral joy. Inexpedient chaos battle victorious",
@@ -103,6 +81,29 @@ const state = () => ({
                     weight: 1.0
                 }
             ],
+            bottom: [
+                {
+                    de: "D merciful moral joy.  victorious",
+                    en: "E Free strong love sea sea depths against derive victorious",
+                    weight: 1.0
+                },
+                {
+                    de: "D eternal-return  horror fearful",
+                    en: "E christian endless gains decrepit horror faithful superiority",
+                    weight: 1.0
+                },
+                {
+                    de: "D philosophy moral decrepit virtues horror justice",
+                    en: "E Self gains  moral horror",
+                    weight: 1.0
+                },
+                {
+                    de: "D will ultimate sea  justice",
+                    en: "E virtues virtues. Contradict hatred enlightenment passion evil",
+                    weight: 1.0
+                }
+            ],
+
         }
     },
     presets: {
@@ -164,10 +165,20 @@ const mutations = {
     /////////////////////////////
     // module specific
     /////////////////////////////
-    REMOVE_TEXTPAIR(state, {location, id}){
+    REMOVE_TEXTPAIR(state, { location, id }) {
         Logger.debug("Delete Text Pair", location, id)
         let texts = state.active.texts[location]
         texts.splice(id, 1)
+        Vue.set(state.active.texts, location, texts)
+    },
+    ADD_TEXTPAIR(state, location) {
+        Logger.debug("Add Text Pair", location)
+        let texts = state.active.texts[location]
+        texts.unshift({ // TODO: replace this with some general template defined elsewhere in case structure changes at some point
+            de: "",
+            en: "",
+            weight: 1,
+        })
         Vue.set(state.active.texts, location, texts)
     }
 }
@@ -228,8 +239,11 @@ const actions = {
     /////////////////////////////
     // module specific
     /////////////////////////////
-    removeTextpair({commit}, {location, id}){
-        commit('REMOVE_TEXTPAIR', {location, id})
+    removeTextpair({ commit }, { location, id }) {
+        commit('REMOVE_TEXTPAIR', { location, id })
+    },
+    addTextpair({ commit }, location) {
+        commit('ADD_TEXTPAIR', location)
     }
 }
 
@@ -248,19 +262,19 @@ const getters = {
     /////////////////////////////
     // module specific
     /////////////////////////////
-    getVignette(state){
+    getVignette(state) {
         return state.active.vignette
     },
-    getVideoFile(state){
+    getVideoFile(state) {
         return state.active.videoFile
     },
-    getTexts(state){
+    getTexts(state) {
         return state.active.texts
     },
-    getTextTimings(state){
+    getTextTimings(state) {
         return state.active.textTimings
     },
-    getTextStyle(state){
+    getTextStyle(state) {
         return state.active.textStyle
     }
 }
