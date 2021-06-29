@@ -61,45 +61,85 @@ const state = () => ({
         texts: {
             top: [
                 {
-                    de: "Scope creep (also called requirement creep, or kitchen sink syndrome)",
-                    en: "in project management refers to changes, continuous or uncontrolled growth in a project’s scope",
+                    de: "Weniger als 1 % des Meeresbodens ist von tropischen Korallenriffen bedeckt.",
+                    en: "Tropical coral reefs cover less than 1 % of the sea floor.",
                     weight: 1.0
                 },
                 {
-                    de: "poor change control",
-                    en: "lack of proper initial identification of what is required to bring about the project objectives",
+                    de: "Tropische Riffe beherbergen 34 % aller bekannten Arten im Meer.",
+                    en: "Tropical reefs house 34 % of all marine species known today.",
                     weight: 1.0
                 },
                 {
-                    de: "weak project manager or executive sponsor",
-                    en: "poor communication between parties",
+                    de: "Korallenriffe sind die Regenwälder der Meere.",
+                    en: "Coral reefs are the rainforests of the seas.",
                     weight: 1.0
                 },
                 {
-                    de: "lack of initial product versatility",
-                    en: "Scope creep often results in cost overrun",
+                    de: "Klimaschutz ist Riffschutz!",
+                    en: "Save the climate, save the reefs!",
+                    weight: 1.0
+                },
+                {
+                    de: "Korallenriffe sind die größten von Tieren geschaffenen Bauwerke der Welt.",
+                    en: "Coral reefs are the largest biogenic structures in the world.",
+                    weight: 1.0
+                },
+                {
+                    de: "Das Great Barrier Reef ist sogar aus dem Weltall erkennbar.",
+                    en: "The Great Barrier Reef can even be seen from space.",
+                    weight: 1.0
+                },
+                {
+                    de: "Heute werden dreimal so viele Haie gefischt wie 1950!",
+                    en: "Since 1950 fishing of sharks has tripled!",
+                    weight: 1.0
+                },
+                {
+                    de: "Das Great Barrier Reef hat seit den 1990er Jahren die Hälfte seiner Korallen verloren.",
+                    en: "The Great Barrier Reef has lost half its corals since the 1990s.",
                     weight: 1.0
                 }
             ],
             bottom: [
                 {
-                    de: "Crunch is a form of unpaid overtime",
-                    en: "where staff in a video game studio are forced to work long hours to finish a project",
+                    de: "Korallen sind Tiere, benötigen zum Wachsen aber meist Sonnenlicht.",
+                    en: "Corals are animals, although usually they need sunlight for growing.",
                     weight: 1.0
                 },
                 {
-                    de: "The idea behind the concept is employees are expected to work long hours",
-                    en: "until the project deadline has been met by the studio",
+                    de: "Korallen sind mit Quallen verwandt.",
+                    en: "Corals are related to jellyfish.",
                     weight: 1.0
                 },
                 {
-                    de: "New feature request or change of direction",
-                    en: "in the product without budgets being provided",
+                    de: "Korallenriffe stabilisieren Küsten und schützen sie vor Sturmfluten.",
+                    en: "Coral reefs stabilize coasts and protect them against storm surges.",
                     weight: 1.0
                 },
                 {
-                    de: "For employees who work at a video game studio, crunch can not",
-                    en: "only take a toll on an employee’s personal life, but also their professional career",
+                    de: "Korallenriffe können mehrere tausend Jahre alt werden.",
+                    en: "Coral reefs can become several thousand years old.",
+                    weight: 1.0
+                },
+                {
+                    de: "Korallen können 20 cm im Jahr wachsen.",
+                    en: "Corals grow up to 20 cm each year.",
+                    weight: 1.0
+                },
+                {
+                    de: "Nur jedes dritte Riff befindet sich in einem Schutzgebiet.",
+                    en: "Only a third of the reefs are located in protected areas.",
+                    weight: 1.0
+                },
+                {
+                    de: "70 Millionen Touristen besuchen jährlich Korallenriffe.",
+                    en: "70 million tourists visit coral reefs every year.",
+                    weight: 1.0
+                },
+                {
+                    de: "Korallenriffe gibt es seit 480 Millionen Jahren.",
+                    en: "Coral reefs have existed since 480 million years.",
                     weight: 1.0
                 }
             ],

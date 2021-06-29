@@ -5,6 +5,7 @@ const path = require('path');
 
 electronLog.transports.console.level = false;
 electronLog.transports.file.resolvePath = (variables) => {
+  console.log("!! LOGGING ERRORS TO: "+variables.libraryDefaultDir + " !!")
   return path.join(variables.libraryDefaultDir, new Date().toISOString().split('T')[0] + ".log");
 }
 
