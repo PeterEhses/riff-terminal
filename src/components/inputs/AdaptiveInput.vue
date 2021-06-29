@@ -13,11 +13,11 @@
       @click="adaptiveEnabled = !adaptiveEnabled"
     ></button>
     <div class="adaptive-content" v-if="isAny && adaptiveEnabled">
-      <ColorInput v-model="internalValue" @input="handleInput" v-if="isColor" />
+      <ColorInput v-model="internalValue" @input="handleInput" v-if="(isColor && !forceMode) || forceMode =='color'" />
       <TextAreaInput
         v-model="internalValue"
         @input="handleInput"
-        v-else-if="isTextArea"
+        v-else-if="(isTextArea && !forceMode) || forceMode =='textarea'"
       />
     </div>
   </div>
@@ -38,6 +38,9 @@ export default {
     textAreaLength: {
       default: 40,
     },
+    forceMode: {
+      default: ""
+    }
   },
   data() {
     return {

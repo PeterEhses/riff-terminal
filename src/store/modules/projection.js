@@ -61,45 +61,45 @@ const state = () => ({
         texts: {
             top: [
                 {
-                    de: "merciful moral joy. Inexpedient chaos battle victorious",
-                    en: "Free strong love sea sea depths against derive victorious",
+                    de: "Scope creep (also called requirement creep, or kitchen sink syndrome)",
+                    en: "in project management refers to changes, continuous or uncontrolled growth in a project’s scope",
                     weight: 1.0
                 },
                 {
-                    de: "eternal-return society. Play transvaluation horror fearful",
-                    en: "christian endless gains decrepit horror faithful superiority",
+                    de: "poor change control",
+                    en: "lack of proper initial identification of what is required to bring about the project objectives",
                     weight: 1.0
                 },
                 {
-                    de: "philosophy moral decrepit virtues horror justice",
-                    en: "Self gains reason zarathustra abstract moral horror",
+                    de: "weak project manager or executive sponsor",
+                    en: "poor communication between parties",
                     weight: 1.0
                 },
                 {
-                    de: "will ultimate sea victorious justice",
-                    en: "virtues virtues. Contradict hatred enlightenment passion evil",
+                    de: "lack of initial product versatility",
+                    en: "Scope creep often results in cost overrun",
                     weight: 1.0
                 }
             ],
             bottom: [
                 {
-                    de: "D merciful moral joy.  victorious",
-                    en: "E Free strong love sea sea depths against derive victorious",
+                    de: "Crunch is a form of unpaid overtime",
+                    en: "where staff in a video game studio are forced to work long hours to finish a project",
                     weight: 1.0
                 },
                 {
-                    de: "D eternal-return  horror fearful",
-                    en: "E christian endless gains decrepit horror faithful superiority",
+                    de: "The idea behind the concept is employees are expected to work long hours",
+                    en: "until the project deadline has been met by the studio",
                     weight: 1.0
                 },
                 {
-                    de: "D philosophy moral decrepit virtues horror justice",
-                    en: "E Self gains  moral horror",
+                    de: "New feature request or change of direction",
+                    en: "in the product without budgets being provided",
                     weight: 1.0
                 },
                 {
-                    de: "D will ultimate sea  justice",
-                    en: "E virtues virtues. Contradict hatred enlightenment passion evil",
+                    de: "For employees who work at a video game studio, crunch can not",
+                    en: "only take a toll on an employee’s personal life, but also their professional career",
                     weight: 1.0
                 }
             ],
@@ -189,6 +189,18 @@ const mutations = {
     SET_TEXT_VALUE(state, { location, textid, key, value }) {
         Logger.debug("change text value", { location, textid, key, value })
         Vue.set(state.active.texts[location][textid], key, value)
+    },
+    SET_VIGNETTE_WIDTH(state, {key, value}){
+        Logger.debug("set vignette width", {key, value})
+        Vue.set(state.active.vignette.width, key, value)
+    },
+    SET_VIGNETTE_BLENDMODE(state, blendmode){
+        Logger.debug("set vignette blendmode", blendmode)
+        Vue.set(state.active.vignette, 'blendmode', blendmode)
+    },
+    SET_VIGNETTE_GRADIENT(state, gradient){
+        Logger.debug("set vignette gradient", gradient)
+        Vue.set(state.active.vignette, 'gradient', gradient)
     }
 }
 
@@ -262,6 +274,18 @@ const actions = {
             value = value > 0 ? value : 0;
         }
         commit('SET_TEXT_VALUE', { location, textid, key, value })
+        commit('SAVE_FILE')
+    },
+    setVignetteWidth({commit}, {key, value}){
+    commit('SET_VIGNETTE_WIDTH', {key, value})
+    commit('SAVE_FILE')
+    },
+    setVignetteBlendmode({commit}, blendmode){
+        commit('SET_VIGNETTE_BLENDMODE', blendmode)
+        commit('SAVE_FILE')
+    },
+    setVignetteGradient({commit}, gradient){
+        commit('SET_VIGNETTE_GRADIENT', gradient)
         commit('SAVE_FILE')
     }
 }

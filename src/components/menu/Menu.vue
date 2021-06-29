@@ -2,16 +2,15 @@
   <div class="menu">
     <div class="menu-content-wrapper">
       <div class="menu-header">
-        <h2>Einstellungen</h2>
+        <h2>Persistent Settings</h2>
         <hr />
         <MenuNav />
-        <SaveMenu class="menu-header" :activeMenu="getMenu" :key="getMenu"/>
-        <hr/>
+        <SaveMenu class="menu-header" :activeMenu="getMenu" :key="getMenu" />
+        <hr />
       </div>
-      <MenuBodyGeneral class="menu-body" v-if="getMenu == 'general'"/>
-      <MenuBodyProjection class="menu-body" v-if="getMenu == 'projection'"/>
-      <MenuBodyStyle class="menu-body" v-if="getMenu == 'theme'"/>
-      
+      <MenuBodyGeneral class="menu-body" v-if="getMenu == 'general'" />
+      <MenuBodyProjection class="menu-body" v-if="getMenu == 'projection'" />
+      <MenuBodyStyle class="menu-body" v-if="getMenu == 'theme'" />
     </div>
   </div>
 </template>
@@ -20,9 +19,9 @@
 import { mapGetters } from "vuex";
 import MenuNav from "./MenuNav.vue";
 import MenuBodyStyle from "./MenuBodyStyle.vue";
-import SaveMenu from "./SaveMenu.vue"
-import MenuBodyGeneral from "./MenuBodyGeneral.vue"
-import MenuBodyProjection from "./projectionMenu/MenuBodyProjection.vue"
+import SaveMenu from "./SaveMenu.vue";
+import MenuBodyGeneral from "./MenuBodyGeneral.vue";
+import MenuBodyProjection from "./projectionMenu/MenuBodyProjection.vue";
 export default {
   components: {
     MenuNav,
@@ -48,19 +47,52 @@ export default {
   right: 0;
   bottom: 0;
 
-  button{
-      border: var(--border-modal);
-      border-radius: var(--unit-xs);
-      background-color: var(--color-neutral-action-modal);
-      border-color: rgba(0, 0, 0, 0);
-      background-clip: padding-box;
-      padding: 0 var(--unit-xs) 0 var(--unit-xs);
-      &:hover,
-      &:active {
+  button {
+    border: var(--border-modal);
+    border-radius: var(--unit-xs);
+    background-color: var(--color-neutral-action-modal);
+    border-color: rgba(0, 0, 0, 0);
+    background-clip: padding-box;
+    padding: 0 var(--unit-xs) 0 var(--unit-xs);
+    &:hover,
+    &:active {
+      background-color: var(--color-neutral-action-modal-hover);
+    }
+  }
+  input[type="range"] {
+    flex: 1;
+    margin: 0 var(--unit-xxs);
+    -webkit-appearance: none; /* Override default look */
+    appearance: none;
+
+    outline: none;
+    height: var(--unit-3xs);
+    background: var(--input-color-modal);
+    border: none;
+    overflow: visible;
+    &::-webkit-slider-thumb {
+      -webkit-appearance: none;
+      appearance: none;
+      width: 1em;
+      height: 1em;
+      border-radius: 50%;
+      background: var(--color-orange);
+      &:hover {
         background-color: var(--color-neutral-action-modal-hover);
       }
     }
-
+  }
+  input[type="number"] {
+    width: 4ch;
+    text-align: right;
+    appearance: textfield;
+    -moz-appearance: textfield;
+    &::-webkit-outer-spin-button,
+    &::-webkit-inner-spin-button {
+      -webkit-appearance: none;
+      margin: 0;
+    }
+  }
   padding: var(--margin-main-container);
   .adaptive-action {
     border: var(--border-modal);

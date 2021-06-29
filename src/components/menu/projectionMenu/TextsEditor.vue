@@ -48,7 +48,7 @@
             <div class="editable-meta">
               <label :for="'weight-' + tid">Weight</label>
               <input
-                step="any"
+                step="0.01"
                 :name="'weight-' + tid"
                 type="range"
                 :value="text.weight"
@@ -160,8 +160,6 @@ export default {
             flex: 1;
             width: 50%;
             margin: calc(var(--unit-xxs) / 2);
-            h5 {
-            }
             textarea {
               resize: none;
               width: 100%;
@@ -175,40 +173,6 @@ export default {
           display: flex;
           align-items: center;
           padding: var(--unit-3xs) var(--unit-xxs);
-          input[type="range"] {
-            flex: 1;
-            margin: 0 var(--unit-xxs);
-            -webkit-appearance: none; /* Override default look */
-            appearance: none;
-
-            outline: none;
-            height: var(--unit-3xs);
-            background: var(--input-color-modal);
-            border: none;
-            overflow: visible;
-            &::-webkit-slider-thumb {
-              -webkit-appearance: none;
-              appearance: none;
-              width: 1em;
-              height: 1em;
-              border-radius: 50%;
-              background: var(--color-orange);
-              &:hover {
-                background-color: var(--color-neutral-action-modal-hover);
-              }
-            }
-          }
-          input[type="number"] {
-            width: 4ch;
-            text-align: right;
-            appearance: textfield;
-            -moz-appearance: textfield;
-          }
-          input::-webkit-outer-spin-button,
-          input::-webkit-inner-spin-button {
-            -webkit-appearance: none;
-            margin: 0;
-          }
         }
       }
       .kebab {
