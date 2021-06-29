@@ -1,14 +1,15 @@
 <template>
-  <div class="random-texts-wrapper-wrapper" :style="{'--fade-time': getTextStyle.fadeTime+'s'}">
+  <div
+    class="random-texts-wrapper-wrapper"
+    :style="{ '--fade-time': getTextStyle.fadeTime + 's' }"
+  >
     <div class="random-texts-wrapper">
-      <transition name="fade" :duration="getTextStyle.fadeTime*1000">
-        <randomText v-if="visibleText.top">{{
-          visibleText.top
-        }}</randomText>
+      <transition name="fade" :duration="getTextStyle.fadeTime * 1000">
+        <randomText v-if="visibleText.top">{{ visibleText.top }}</randomText>
       </transition>
     </div>
     <div class="random-texts-wrapper rotated">
-      <transition name="fade" :duration="getTextStyle.fadeTime*1000">
+      <transition name="fade" :duration="getTextStyle.fadeTime * 1000">
         <randomText v-if="visibleText.bottom">{{
           visibleText.bottom
         }}</randomText>
@@ -72,11 +73,17 @@ export default {
     },
   },
   methods: {
-    getCdfTextSet(textSet) {
+    getCdfTextSet(inTextSet) {
+      const textSet = inTextSet.slice(0);
       let sum = 0;
-      for (const key in textSet) {
-        textSet[key].cummulativeWeight = sum;
-        sum += textSet[key].weight > 0 ? textSet[key].weight : 0;
+      for ( let key = textSet.length -1; key >= 0; key--) {
+        if (textSet[key].weight <= 0) {
+          Logger.debug("Remove text at position", key, 'because value is', textSet[key].weight)
+          textSet.splice(key,1);
+        } else {
+          textSet[key].cummulativeWeight = sum;
+          sum += textSet[key].weight > 0 ? textSet[key].weight : 0;
+        }
       }
       return { textSet, sum };
     },
@@ -99,7 +106,7 @@ export default {
       let diff = this.getTextTimings[pMax] - this.getTextTimings[pMin];
 
       const rdiff = Math.random() * diff;
-      Logger.debug("Get timings of", pMin, pMax, diff, rdiff)
+      Logger.debug("Get timings of", pMin, pMax, diff, rdiff);
 
       const time = this.getTextTimings[pMin] + rdiff;
 
@@ -114,8 +121,10 @@ export default {
         " subset",
         this.texts[location].filter((el) => r >= el.cummulativeWeight)
       );
-      return this.texts[location].filter((el) => r >= el.cummulativeWeight)
-        .length -1;
+      return (
+        this.texts[location].filter((el) => r >= el.cummulativeWeight).length -
+        1
+      );
     },
     spawnText(location) {
       if (
@@ -130,7 +139,7 @@ export default {
         this.displayText(location);
         this.startWaitTimer(location);
       } else {
-        Logger.warn("no texts to randomize");
+        Logger.warn("no texts to randomize", this.texts[location]);
         this.startNextTextTimer(location);
       }
     },
@@ -141,7 +150,7 @@ export default {
           this.activeText[location]["de"] ||
           this.activeText[location]["en"];
       } else {
-        Logger.warn("No active Text found on display text", this.activeText)
+        Logger.warn("No active Text found on display text", this.activeText);
       }
     },
     hideText(location) {
