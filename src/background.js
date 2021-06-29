@@ -7,6 +7,7 @@ unhandled();
 import { app, protocol, BrowserWindow, screen, ipcMain } from 'electron'
 import { createProtocol } from 'vue-cli-plugin-electron-builder/lib'
 import installExtension, { VUEJS_DEVTOOLS } from 'electron-devtools-installer'
+import Logger from 'js-logger';
 // const fs = require('graceful-fs')
 
 const isDevelopment = process.env.NODE_ENV !== 'production'
@@ -133,3 +134,9 @@ const dirTree = require("directory-tree");
 function getDirs(rootDir){
   return dirTree(rootDir)
 }
+
+/* quit */
+ipcMain.on("quitApp", function() {
+  console.log("got quitApp, exiting in 11s")
+  setTimeout(() => {console.log("EXIT"); app.exit(0)}, 11000)
+ });

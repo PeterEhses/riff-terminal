@@ -11,7 +11,7 @@ const projectionStorage = storageInterface.getNamedStore('projection', 'Settings
 const state = () => ({
     activePresetName: '_default',
     active: {
-        videoFile: "yt1s.com - Tomats.mp4",
+        videoFile: "Deckenprojektion-desaturiert1.mp4", //yt1s.com - Tomats.mp4
         vignette: {
             width: {
                 top: 5,
