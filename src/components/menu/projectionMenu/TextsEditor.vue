@@ -16,11 +16,33 @@
             <div class="editable-text">
               <div class="tet-de">
                 <h5>DE</h5>
-                <textarea rows="2" :value="text.de" />
+                <textarea
+                  rows="2"
+                  :value="text.de"
+                  @input="
+                    setTextValue({
+                      location: cid,
+                      textid: tid,
+                      key: 'de',
+                      value: $event.target.value,
+                    })
+                  "
+                />
               </div>
               <div class="tet-en">
                 <h5>EN</h5>
-                <textarea rows="2" :value="text.en" />
+                <textarea
+                  rows="2"
+                  :value="text.en"
+                  @input="
+                    setTextValue({
+                      location: cid,
+                      textid: tid,
+                      key: 'en',
+                      value: $event.target.value,
+                    })
+                  "
+                />
               </div>
             </div>
             <div class="editable-meta">
@@ -88,7 +110,7 @@ export default {
           lv.bottom = max.weight;
         }
       }
-    //   Logger.debug("Text weight set to:", lv)
+      //   Logger.debug("Text weight set to:", lv)
       return lv;
     },
   },
