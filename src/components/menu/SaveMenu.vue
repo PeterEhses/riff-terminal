@@ -1,5 +1,5 @@
 <template>
-    <div class="save-menu">
+    <div class="save-menu" :key="this.activeMenu">
       <div>
         <label for="preset-name">Preset Name </label>
         <input

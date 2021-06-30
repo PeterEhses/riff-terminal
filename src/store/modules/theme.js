@@ -6,7 +6,7 @@ const presetPrefix = "_"
 const themeStorage = storageInterface.getNamedStore('theme', 'Settings')
 
 const state = () => ({
-    activeThemeName: '_default',
+    activePresetName: '_default',
     active: {
 
         /* UNITS */
@@ -273,7 +273,7 @@ const mutations = {
         }
     },
     SET_ACTIVE_THEME_NAME(state, name) {
-        Vue.set(state, 'activeThemeName', name);
+        Vue.set(state, 'activePresetName', name);
     }
 }
 

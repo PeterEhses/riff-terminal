@@ -35,7 +35,7 @@ export default {
     },
     internalValue: {
       deep: true,
-      immediate: true,
+      // immediate: true,
       handler() {
         this.handleInput()
       },
