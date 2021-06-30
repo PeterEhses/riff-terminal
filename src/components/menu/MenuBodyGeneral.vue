@@ -19,19 +19,19 @@
     </div>
     <hr />
     <div class="menu-general-section">
-      <p>Software © 2021 Peter Ehses All Rights Reserved.</p>
+      <p>Software, excluding media files © 2021 Peter Ehses All Rights Reserved.</p>
       <br />
       <hr />
       <br />
       <p>
         “Commons Clause” License Condition v1.0<br />
         <br />
-        The Software is provided to you by the Licensor under the License, as
+        The Software, excluding media files, is provided to you by the Licensor under the License, as
         defined below, subject to the following condition. <br />
         <br />
         Without limiting other conditions in the License, the grant of rights
         under the License will not include, and the License does not grant to
-        you, the right to Sell the Software. <br />
+        you, the right to Sell the Software, excluding media files. <br />
         <br />
         For purposes of the foregoing, “Sell” means practicing any or all of the
         rights granted to you under the License to provide to third parties, for
@@ -44,7 +44,7 @@
         <br />
         Software: riff-terminal <br />
         <br />
-        License: Attribution-NonCommercial-NoDerivatives 4.0 International (CC
+        License, excluding media files: Attribution-NonCommercial-NoDerivatives 4.0 International (CC
         BY-NC-ND 4.0)
         <br />
         <br />
