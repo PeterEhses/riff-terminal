@@ -82,6 +82,7 @@ export default {
   data() {
     return {
       player: null,
+      playerReady: false,
     };
   },
   computed: {
@@ -90,28 +91,58 @@ export default {
     }),
   },
   methods: {
-    initiateVideoSource() {
-      this.$emit("playerSourceChange");
-      if (typeof this.video === "string" && this.video.length > 0) {
-        this.player.src({
+    async setSourceAsync(src) {
+      const newSrc = src.replace(__static, "")
+      this.player.src({
           type: "video/mp4",
-          src: this.video.replace(__static, ""),
+          src: newSrc,
         });
-        var playPromise = this.player.play();
+        while(this.player.currentSrc() && newSrc){
+          Logger.debug(this.player.currentSrc(), newSrc)
+          if(this.player.currentSrc() === newSrc){
+            Logger.debug("Src set async")
+            return;
+          }
+          await null;
+        }
+    },
+    initiateVideoSource() {
+      if (!this.playerReady) {
+        Logger.debug("play before ready");
+        return;
+      } else {
+        Logger.debug("Changing video source...");
+      }
+      this.$emit("playerSourceChange");
+      
+      if (typeof this.video === "string" && this.video.length > 0) {
+        
+        // const newSrc = this.video.replace(__static, "")
+        // this.player.src({
+        //   type: "video/mp4",
+        //   src: newSrc,
+        // });
+        this.setSourceAsync(this.video).then(() => {
+                  var playPromise = this.player.play();
         if (playPromise !== undefined) {
           playPromise
-            .then((_) => {
-              Logger.debug("play successful", _)
+            .then((e) => {
+              Logger.info("play successful", e);
               // Automatic playback started!
               // Show playing UI.
-
             })
             .catch((error) => {
-              Logger.debug("play errpr", error)
+              Logger.warn("play error", error);
               // Auto-play was prevented
               // Show paused UI.
             });
+        } else {
+          Logger.warn("Play Promise undefined");
         }
+        }).catch((e) => {
+          Logger.warn("Source Promise", e)
+        })
+
       }
     },
     removeMetadata() {
@@ -123,6 +154,12 @@ export default {
       //TODO: remove audio-track
     },
     setMetadata() {
+      if (!this.playerReady) {
+        Logger.debug("metadata before ready");
+        return;
+      } else {
+        Logger.debug("changing metadata...");
+      }
       this.removeMetadata();
 
       if (this.tracks.subTitlesDE && this.tracks.subTitlesDE.length > 0) {
@@ -155,6 +192,12 @@ export default {
       }
     },
     setActiveLanguage() {
+      if (!this.playerReady) {
+        Logger.debug("activelanguage before ready");
+        return;
+      } else {
+        Logger.debug("Changing active language...");
+      }
       const tracks = this.player.remoteTextTracks();
       const numTracks = tracks.length;
       for (let i = numTracks - 1; i >= 0; i--) {
@@ -171,6 +214,9 @@ export default {
       this.player.trigger("textTracksChanged");
     },
     setLoop() {
+      if (!this.playerReady) {
+        return;
+      }
       Logger.debug("Set play loop to", this.loop);
       this.player.loop(this.loop);
     },
@@ -199,12 +245,15 @@ export default {
     },
   },
   mounted() {
+    Logger.debug("Video Player Mounted");
     window.VIDEOJS_NO_DYNAMIC_STYLE = this.dynamicStyles;
     const that = this;
     this.player = videojs(
       this.$refs.videoPlayer,
       this.options,
       function onPlayerReady() {
+        Logger.info("player ready!");
+        that.playerReady = true;
         that.initiateVideoSource();
         that.setMetadata();
         that.setActiveLanguage();
