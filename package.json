@@ -1,6 +1,6 @@
 {
   "name": "riff-terminal",
-  "version": "0.2.2",
+  "version": "0.2.3",
   "private": true,
   "scripts": {
     "serve": "vue-cli-service serve",
@@ -29,7 +29,7 @@
     "is-electron": "^2.2.0",
     "js-logger": "^1.6.1",
     "lodash": "^4.17.21",
-    "video.js": "^7.12.3",
+    "video.js": "^7.13.0",
     "vue": "^2.6.11",
     "vue-color": "^2.8.1",
     "vue-mousetrap": "^1.0.2",

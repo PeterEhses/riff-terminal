@@ -388,7 +388,7 @@ const getters = {
                 for (const child of questionsFolder[0].children) {
                     Logger.debug("Questions:", child)
                     if (child.type === "file") {
-                        const childNum = (child.name.match(/\d+\.\d+|\d+\b|\d+(?=\w)/g) || []).map((v) => { return +v })
+                        const childNum = (child.name.substr(0,3).match(/\d+\.\d+|\d+\b|\d+(?=\w)/g) || []).map((v) => { return +v })
                         if (childNum.length > 0) {
                             questions[childNum[0]] = child.path
                         }

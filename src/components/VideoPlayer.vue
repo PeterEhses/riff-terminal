@@ -14,6 +14,10 @@ export default {
       type: String,
       default: "", // C:\\Users\\PeterEhses\\github\\riff-terminal\\public\\interviews\\SNIPPETS MOSHIRA [DE]\\MOSHIRA - BORING\\01 BORING - MOSHIRA.mp4
     },
+    audio: {
+      type: String,
+      default: "" //"https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3",
+    },
     tracks: {
       type: Object,
       default() {
@@ -33,13 +37,13 @@ export default {
       default() {
         return {
           //   autoplay: true,
-          muted: process.env.NODE_ENV === "development",
+          // muted: process.env.NODE_ENV === "development",
           //   loop: true,
           fluid: true,
           controls: false,
           html5: {
             nativeTextTracks: false,
-            hls: {
+            vhs: {
               overrideNative: true,
             },
             nativeAudioTracks: false,
@@ -83,6 +87,7 @@ export default {
     return {
       player: null,
       playerReady: false,
+      audioTrack: {},
     };
   },
   computed: {
@@ -92,19 +97,19 @@ export default {
   },
   methods: {
     async setSourceAsync(src) {
-      const newSrc = src.replace(__static, "")
+      const newSrc = src.replace(__static, "");
       this.player.src({
-          type: "video/mp4",
-          src: newSrc,
-        });
-        while(this.player.currentSrc() && newSrc){
-          Logger.debug(this.player.currentSrc(), newSrc)
-          if(this.player.currentSrc() === newSrc){
-            Logger.debug("Src set async")
-            return;
-          }
-          await null;
+        // type: "video/mp4",
+        src: newSrc,
+      });
+      while (this.player.currentSrc() && newSrc) {
+        Logger.debug(this.player.currentSrc(), newSrc);
+        if (this.player.currentSrc() === newSrc) {
+          Logger.debug("Src set async");
+          return;
         }
+        await null;
+      }
     },
     initiateVideoSource() {
       if (!this.playerReady) {
@@ -114,35 +119,35 @@ export default {
         Logger.debug("Changing video source...");
       }
       this.$emit("playerSourceChange");
-      
+
       if (typeof this.video === "string" && this.video.length > 0) {
-        
         // const newSrc = this.video.replace(__static, "")
         // this.player.src({
         //   type: "video/mp4",
         //   src: newSrc,
         // });
-        this.setSourceAsync(this.video).then(() => {
-                  var playPromise = this.player.play();
-        if (playPromise !== undefined) {
-          playPromise
-            .then((e) => {
-              Logger.info("play successful", e);
-              // Automatic playback started!
-              // Show playing UI.
-            })
-            .catch((error) => {
-              Logger.warn("play error", error);
-              // Auto-play was prevented
-              // Show paused UI.
-            });
-        } else {
-          Logger.warn("Play Promise undefined");
-        }
-        }).catch((e) => {
-          Logger.warn("Source Promise", e)
-        })
-
+        this.setSourceAsync(this.video)
+          .then(() => {
+            var playPromise = this.player.play();
+            if (playPromise !== undefined) {
+              playPromise
+                .then((e) => {
+                  Logger.info("play successful", e);
+                  // Automatic playback started!
+                  // Show playing UI.
+                })
+                .catch((error) => {
+                  Logger.warn("play error", error);
+                  // Auto-play was prevented
+                  // Show paused UI.
+                });
+            } else {
+              Logger.warn("Play Promise undefined");
+            }
+          })
+          .catch((e) => {
+            Logger.warn("Source Promise", e);
+          });
       }
     },
     removeMetadata() {
@@ -211,6 +216,22 @@ export default {
           track.mode = "hidden";
         }
       }
+      let audioTracks = this.player.audioTracks();
+      Logger.info("Audio Track to choose from:",audioTracks)
+      if (audioTracks && audioTracks[0]) {
+        for (let i = 0; i < audioTracks.length; i++) {
+          if (
+            audioTracks[i].language.substr(0, 2) === this.activeLanguage
+          ) {
+            audioTracks[i].enabled = true;
+            Logger.info("Enabled Track", audioTracks[i])
+          } else if (audioTracks[i]) {
+            console.log(audioTracks[i])
+            Logger.info("Disabled Track", audioTracks[i])
+            audioTracks[i].enabled = false;
+          }
+        }
+      }
       this.player.trigger("textTracksChanged");
     },
     setLoop() {
@@ -219,6 +240,44 @@ export default {
       }
       Logger.debug("Set play loop to", this.loop);
       this.player.loop(this.loop);
+    },
+    addAudio() {
+      if (!this.playerReady) {
+        return;
+      }
+      if (
+        this.audio &&
+        typeof this.audio === "string" &&
+        this.audio.length > 0
+      ) {
+        this.audioTrack.audio = document.createElement("audio");
+        this.audioTrack.audio.id = "audio-" + this._uid;
+        this.audioTrack.audio.className = "video-js";
+        this.audioTrack.audio.setAttribute("controls", true);
+        this.audioTrack.source = document.createElement("source");
+        this.audioTrack.source.id = "english-" + this._uid;
+        this.audioTrack.source.src = this.audio.replace(__static, "");
+        this.audioTrack.source.type = "audio/mpeg";
+        this.audioTrack.audio.appendChild(this.audioTrack.source);
+        this.$el.appendChild(this.audioTrack.audio);
+        this.audioTrack.playerTrack = new videojs.AudioTrack({
+          id: "english-" + this._uid,
+          kind: "translation",
+          label: "English",
+          language: "en",
+        });
+        this.player.audioTracks().addTrack(this.audioTrack.playerTrack);
+      } else {
+        this.audioTrack = {};
+      }
+    },
+    removeAudio() {
+      if (!this.playerReady) {
+        return;
+      }
+      if (this.audioTrack.playerTrack) {
+        this.player.audioTracks().removeTrack(this.audioTrack.playerTrack);
+      }
     },
   },
   watch: {
@@ -230,6 +289,11 @@ export default {
     video: {
       handler() {
         this.initiateVideoSource();
+      },
+    },
+    audio: {
+      handler() {
+        this.addAudio();
       },
     },
     tracks: {
@@ -255,6 +319,7 @@ export default {
         Logger.info("player ready!");
         that.playerReady = true;
         that.initiateVideoSource();
+        that.addAudio();
         that.setMetadata();
         that.setActiveLanguage();
         that.setLoop();
@@ -269,6 +334,12 @@ export default {
   beforeDestroy() {
     if (this.player) {
       this.player.dispose();
+    }
+    if (this.audioTrack.source) {
+      this.audioTrack.source.remove();
+    }
+    if (this.audioTrack.audio) {
+      this.audioTrack.audio.remove();
     }
   },
 };

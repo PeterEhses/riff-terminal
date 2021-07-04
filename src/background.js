@@ -12,7 +12,7 @@ import Logger from 'js-logger';
 
 const isDevelopment = process.env.NODE_ENV !== 'production'
 app.commandLine.appendSwitch ("disable-http-cache");
-
+// app.commandLine.appendSwitch('enable-experimental-web-platform-features');
 // Scheme must be registered before the app is ready
 protocol.registerSchemesAsPrivileged([
   { scheme: 'app', privileges: { secure: true, standard: true, stream: true } }
@@ -53,6 +53,7 @@ async function createWindow() {
     fullscreen: true,
     kiosk: true,
     webPreferences: {
+      experimentalFeatures: true,
       // devTools: isDevelopment,
       // Use pluginOptions.nodeIntegration, leave this alone
       // See nklayman.github.io/vue-cli-plugin-electron-builder/guide/security.html#node-integration for more info

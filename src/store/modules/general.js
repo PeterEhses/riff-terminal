@@ -12,7 +12,7 @@ const state = () => ({
     activePresetName: '_default',
     activeMenu: 'general',
     active: {
-       mode: "projection", // options: projection, interview
+       mode: "interview", // options: projection, interview
     },
     presets: {
 
