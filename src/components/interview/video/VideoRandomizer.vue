@@ -110,7 +110,7 @@ export default {
       while (newVideo == this.activeVideo) {
         const random = Math.random();
         let activeSet;
-        if (this.lastWasAudio && this.noConsecutiveVoice) {
+        if (this.lastWasAudio && this.noConsecutiveVoice && this.videos[this.noVoiceCategory] &&this.videos[this.noVoiceCategory].length > 0) {
           Logger.debug("Force no-voice video");
           activeSet = this.videos[this.noVoiceCategory];
           this.lastWasAudio = false;
@@ -146,10 +146,12 @@ export default {
       const videos = [];
       for (const child of videoFolder.children) {
         if (child.type === "file") {
-          videos.push({
+          if(child.name.endsWith('mp4') || child.name.endsWith('master.m3u8')){
+            videos.push({
             path: child.path,
             name: child.name,
           });
+          }
         }
       }
       return videos;

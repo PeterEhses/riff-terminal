@@ -53,12 +53,84 @@ const state = () => ({
             interviews: [
                 {
                     name: "Onyx Le Bihan",
-                    mediaFolder: "",
-                    thumbnail: "",
+                    mediaFolder: "SNIPPETS ONYX",
+                    thumbnail: "thumbnail.png",
                     blurb: {
                         de: "Speerfischerin auf Moorea, Tahiti",
                         en: "Spearfisher at Moorea, Tahiti"
-                    }
+                    },
+                    questions: [
+                        {
+                            en: "Who are you?",
+                            de: "Wer bist du?",
+                            id: 1,
+                        },
+                        {
+                            en: "Can you eat all the fish that live on the reef?",
+                            de: "Kann man alle am Riff lebenden Fische essen?",
+                            id: 3,
+                        },
+                        {
+                            en: "When did you start fishing?",
+                            de: "Wann hast du mit dem Fischen angefangen?",
+                            id: 6,
+                        },
+                        {
+                            en: "What does an underwater hunt look like?",
+                            de: "Wie sieht eine Unterwasserjagd aus?",
+                            id: 7,
+                        },
+                        {
+                            en: "How do you learn to hunt underwater?",
+                            de: "Wie lernt man die Unterwasserjagd?",
+                            id: 8,
+                        },
+                        {
+                            en: "What do you hunt with?",
+                            de: "Womit jagst du?",
+                            id: 9,
+                        },
+                        {
+                            en: "Are there rules as to which fish can be caught?",
+                            de: "Gibt es Regeln, welche Fische gefangen werden dürfen?",
+                            id: 10,
+                        },
+                        {
+                            en: "How do you avoid overfishing?",
+                            de: "Wie vermeidet ihr Überfischung?",
+                            id: 11,
+                        },
+                        {
+                            en: "Are there changes in the fish population?",
+                            de: "Gibt es Veränderungen beim Fischbestand?",
+                            id: 12,
+                        },
+                        {
+                            en: "Who does underwater fishing?",
+                            de: "Wer betreibt die Unterwasserfischerei?",
+                            id: 13,
+                        },
+                        {
+                            en: "What was your best experience on the reef?",
+                            de: "Was war dein schönstes Erlebnis am Riff?",
+                            id: 14,
+                        },
+                        {
+                            en: "What was your worst experience on the reef?",
+                            de: "Was war dein schlimmstes Erlebnis am Riff?",
+                            id: 15,
+                        },
+                        {
+                            en: "What are your wishes for the future?",
+                            de: "Was sind deine Wünsche für die Zukunft?",
+                            id: 16,
+                        },
+                        {
+                            en: "How can reefs be protected?",
+                            de: "Wie können Riffe geschützt werden?",
+                            id: 18,
+                        },
+                    ]
                 },
                 {
                     name: "Dr. Sebastian Ferse",
@@ -67,11 +139,78 @@ const state = () => ({
                     blurb: {
                         de: "Leibniz-Zentrum für Marine Tropenforschung\r\nExecutive Director Future Earth Coasts",
                         en: "Leibniz Center for Tropical Marine Research\r\nExecutive Director Future Earth Coasts"
-                    }
+                    },
+                    questions: [
+                        {
+                            en: "Who are you?",
+                            de: "Wer bist du?",
+                            id: 1,
+                        },
+                        {
+                            en: "What drives you?",
+                            de: "Was treibt dich an?",
+                            id: 2,
+                        },
+                        {
+                            en: "What do you love about your job?",
+                            de: "Was begeistert dich an deinem Beruf?",
+                            id: 3,
+                        },
+                        {
+                            en: "How did you get into reef research?",
+                            de: "Wie bist du zur Riffforschung gekommen?",
+                            id: 4,
+                        },
+                        {
+                            en: "What is the Leibnitz Center for Tropical Marine Research?",
+                            de: "Was ist das Leibnitz Zentrum für Marine Tropenforschung?",
+                            id: 5,
+                        },
+                        {
+                            en: "What are you researching?",
+                            de: "An was forschst du?",
+                            id: 6,
+                        },
+                        {
+                            en: "How can I contribute to reef protection in Germany?",
+                            de: "Wie kann ich in Deutschland etwas zum Riffschutz beitragen?",
+                            id: 7,
+                        },
+                        {
+                            en: "Do you have some hard facts for me?",
+                            de: "Hast du ein paar harte Fakten für mich?",
+                            id: 8,
+                        },
+                        {
+                            en: "Do you have an example of how reefs work for me?",
+                            de: "Hast du ein Beispiel für die Funktion von Riffen für mich?",
+                            id: 9,
+                        },
+                        {
+                            en: "Can you repair damaged reefs?",
+                            de: "Kann man beschädigte Riffe reparieren?",
+                            id: 10,
+                        },
+                        {
+                            en: "Is It Too Late To Protect The Reefs?",
+                            de: "Ist es zu spät die Riffe zu schützen?",
+                            id: 11,
+                        },
+                        {
+                            en: "How can political initiative groups be successful?",
+                            de: "Wie können politische Initiatinven erfolgreich sein?",
+                            id: 12,
+                        },
+                        {
+                            en: "How can reefs protect against the effects of climate change?",
+                            de: "Wie können Riffe vor den Folgen des Klimawandels schützen?",
+                            id: 13,
+                        }
+                    ]
                 },
                 {
                     name: "Dr. Moshira Hassan",
-                    mediaFolder: "SNIPPETS MOSHIRA [DE]",
+                    mediaFolder: "SNIPPETS MOSHIRA",
                     thumbnail: "thumbnail.png",
                     blurb: {
                         de: "Reef Check Koordinatorin Deutschland/Europa und Rotes Meer",
@@ -105,7 +244,7 @@ const state = () => ({
                         },
                         {
                             de: 'Was ist "REEF CHECK"?',
-                            en: 'Wjat is "REEF CHECK"?',
+                            en: 'What is "REEF CHECK"?',
                             id: 6,
                         },
                         {
@@ -122,16 +261,120 @@ const state = () => ({
                     blurb: {
                         de: "The Jetlagged. Naturfilmerin",
                         en: "The Jetlagged. Underwater, nature and wildlife filmmaker"
-                    }
+                    },
+                    questions: [
+                        {
+                            en: "Who are you?",
+                            de: "Wer bist du?",
+                            id: 1,
+                        },
+                        {
+                            en: "What drives you?",
+                            de: "Was treibt dich an?",
+                            id: 2,
+                        },
+                        {
+                            en: "What's the goal of your films?",
+                            de: "Was ist das Ziel deiner Filme?",
+                            id: 3,
+                        },
+                        {
+                            en: "Should we even be diving at all?",
+                            de: "Sollte man überhaupt tauchen?",
+                            id: 4,
+                        },
+                        {
+                            en: "How can divers prevent damage to reefs?",
+                            de: "Wie können Tauchende Schäden am Riff verhindern?",
+                            id: 5,
+                        },
+                        {
+                            en: "What should you watch out for on a diving holiday?",
+                            de: "Worauf sollte man beim Tauchurlaub achten?",
+                            id: 6,
+                        },
+                        {
+                            en: "Tell me something about the animals in the reef.",
+                            de: "Erzähl mir etwas über die Tiere im Riff.",
+                            id: 7,
+                        },
+                        {
+                            en: "What was your most dangerous encounter on the reef?",
+                            de: "Was war deine gefährlichste Begegnung im Riff?",
+                            id: 8,
+                        },
+                        {
+                            en: "What was your worst experience on the reef?",
+                            de: "Was war deine schlimmste Erfahrung im Riff?",
+                            id: 9,
+                        },
+                        {
+                            en: "How can I help protect the reefs?",
+                            de: "Wie kann ich zum Schutz der Riffe beitragen?",
+                            id: 10,
+                        },
+                        {
+                            en: "Which is your favourite coral reef?",
+                            de: "Was ist dein Lieblingskorallenriff?",
+                            id: 11,
+                        },
+                        {
+                            en: "Can damaged reefs be repaired?",
+                            de: "Können geschädigte Riffe wieder repariert werden?",
+                            id: 12,
+                        }
+                    ]
                 },
                 {
                     name: "Taiano Teiho",
-                    mediaFolder: "",
-                    thumbnail: "",
+                    mediaFolder: "SNIPPETS TAIANO",
+                    thumbnail: "thumbnail.png",
                     blurb: {
                         de: "Coral-Gardener auf Moorea, Tahiti",
                         en: "Coral gardener at Moorea, Tahiti"
-                    }
+                    },
+                    questions: [
+                        {
+                            en: "Who are you?",
+                            de: "Wer bist du?",
+                            id: 1,
+                        },
+                        {
+                            en: "Where did your connection to the reef come from?",
+                            de: "Woher kommt deine Verbindung zum Riff?",
+                            id: 2,
+                        },
+                        {
+                            en: "How do you get involved with the reefs?",
+                            de: "Wie engagierst du dich für die Riffe?",
+                            id: 3,
+                        },
+                        {
+                            en: "What significance does the sea have for the Polynesians?",
+                            de: "Welche Bedeutung hat das Meer für die Polynesier?",
+                            id: 4,
+                        },
+                        {
+                            en: "Why are coral reefs so important?",
+                            de: "Warum sind Korallenriffe so wichtig?",
+                            id: 5,
+                        },
+                        {
+                            en: "How can you support the Coral Gardeners?",
+                            de: "Wie kann man die Coral Gardeners unterstützen?",
+                            id: 8,
+                        },
+                        {
+                            en: "What causes local damage to the reefs?",
+                            de: "Wodurch werden die Riffe lokal beschädigt?",
+                            id: 11,
+                        },
+                        {
+                            en: "What can we do to protect the reefs?",
+                            de: "Was können wir tun um die Riffe zu schützen?",
+                            id: 13,
+                        },
+                    ]
                 }
             ],
         },
@@ -361,13 +604,13 @@ const getters = {
         return null
     },
     fileTree(state, getters) {
-        if (state.activeInterview && getters.fileTreeAll) {
+        if (!isNaN(state.activeInterview) && getters.fileTreeAll) {
             return getters.fileTreeAll[state.activeInterview]
         }
         return null
     },
     questions(state) {
-        if (state.activeInterview && state.active.translations.interviews && state.active.translations.interviews[state.activeInterview] && state.active.translations.interviews[state.activeInterview].questions) {
+        if (!isNaN(state.activeInterview) && state.active.translations.interviews && state.active.translations.interviews[state.activeInterview] && state.active.translations.interviews[state.activeInterview].questions) {
             const questions = state.active.translations.interviews[state.activeInterview].questions
 
             const localQuestions = {}
@@ -383,7 +626,7 @@ const getters = {
     },
     questionsSubtitles(state, getters) {
         // UT [DE]
-        if (state.activeInterview && getters.fileTree && getters.fileTree.children && getters.fileTree.children.length) {
+        if (!isNaN(state.activeInterview) && getters.fileTree && getters.fileTree.children && getters.fileTree.children.length) {
             const questionsFolder = getters.fileTree.children.filter((child) => child.name.endsWith(state.active.videos.questionsFolderSuffix))
             if (questionsFolder && questionsFolder[0] && questionsFolder[0].children && questionsFolder[0].children.length > 0) {
                 const deSub = questionsFolder[0].children.filter((child) => { return (child.type === "directory" && child.name.endsWith(state.active.videos.deSubFolderSuffix)) }) //  
@@ -403,7 +646,7 @@ const getters = {
         return null
     },
     questionsVideos(state, getters) {
-        if (state.activeInterview && getters.fileTree && getters.fileTree.children && getters.fileTree.children.length) {
+        if (!isNaN(state.activeInterview) && getters.fileTree && getters.fileTree.children && getters.fileTree.children.length) {
 
             const questionsFolder = getters.fileTree.children.filter((child) => child.name.endsWith(state.active.videos.questionsFolderSuffix))
             Logger.debug("Getting Questions:", questionsFolder)
@@ -471,7 +714,7 @@ function flattenAndTranslate(obj, languageSuffix) {
 function getChildFilesByNumber(childElements) {
     const returnElements = {}
     for (const child of childElements) {
-        Logger.debug("Getting Child Element:", child)
+        // Logger.debug("Getting Child Element:", child)
         if (child.type === "file") {
             const childNum = (child.name.substr(0, 3).match(/\d+\.\d+|\d+\b|\d+(?=\w)/g) || []).map((v) => { return +v })
             if (childNum.length > 0) {
