@@ -580,7 +580,7 @@ const getters = {
         return state.activeInterview
     },
     activeQuestion(state) {
-        if (state.activeInterview) {
+        if (!isNaN(state.activeInterview)) {
             return state.activeQuestion
         }
         return null

@@ -218,20 +218,24 @@ export default {
       let audioTracks = this.player.audioTracks();
       Logger.debug("Audio Track to choose from:", { ...audioTracks });
       if (audioTracks && audioTracks[0]) {
-        for (let i = 0; i < audioTracks.length; i++) {
-          if (audioTracks[i].language.substr(0, 2) === this.activeLanguage) {
-            if (!audioTracks[i].enabled) {
-              audioTracks[i].enabled = true;
-              Logger.debug("Enabled Track", audioTracks[i]);
-            } else {
-              Logger.debug("Track was already enabled", audioTracks[i]);
-            }
-          } else if (audioTracks[i]) {
-            if (audioTracks[i].enabled) {
-              Logger.debug("Disabled Track", audioTracks[i]);
-              audioTracks[i].enabled = false;
-            } else {
-              Logger.debug("Track was already disabled", audioTracks[i]);
+        if (audioTracks.length == 1) {
+          audioTracks[0].enabled = true;
+        } else {
+          for (let i = 0; i < audioTracks.length; i++) {
+            if (audioTracks[i].language.substr(0, 2) === this.activeLanguage) {
+              if (!audioTracks[i].enabled) {
+                audioTracks[i].enabled = true;
+                Logger.debug("Enabled Track", audioTracks[i]);
+              } else {
+                Logger.debug("Track was already enabled", audioTracks[i]);
+              }
+            } else if (audioTracks[i]) {
+              if (audioTracks[i].enabled) {
+                Logger.debug("Disabled Track", audioTracks[i]);
+                audioTracks[i].enabled = false;
+              } else {
+                Logger.debug("Track was already disabled", audioTracks[i]);
+              }
             }
           }
         }
