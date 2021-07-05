@@ -40,10 +40,12 @@ export default {
           //   loop: true,
           fluid: true,
           controls: false,
+          preload: 'auto',
           html5: {
             nativeTextTracks: false,
             vhs: {
               overrideNative: true,
+              handlePartialData: true,
             },
             nativeAudioTracks: false,
             nativeVideoTracks: false,
@@ -352,6 +354,7 @@ export default {
         that.$emit("playerReady");
       }
     );
+    this.player.vhs.options_.externHls.GOAL_BUFFER_LENGTH = 6 // 153;
     this.player.on("ended", () => {
       that.$emit("playerEnded");
     });
