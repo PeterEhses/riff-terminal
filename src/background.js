@@ -24,13 +24,19 @@ Store.initRenderer()
 
 function findDisplays() {
   const displays = screen.getAllDisplays()
-  const externalDisplay = displays.filter((display) => {
+  const externalDisplays = displays.filter((display) => {
     return display.bounds.x !== 0 || display.bounds.y !== 0
   })
 
   const portraitDisplays = displays.filter(display => display.bounds.width < display.bounds.height)
   // console.log(portraitDisplays || displays)
-  return portraitDisplays || displays
+  if(portraitDisplays && portraitDisplays.length > 0){
+    return portraitDisplays
+  } else if(externalDisplays && externalDisplays.length > 0){
+    return externalDisplays
+  } else {
+    return displays;
+  }
 }
 
 async function createWindow() {
