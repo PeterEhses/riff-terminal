@@ -378,6 +378,14 @@ const getters = {
         return null
 
     },
+    questionSubtitles(state, getters){
+        // UT [DE]
+        if (state.activeInterview && getters.fileTree && getters.fileTree.children && getters.fileTree.children.length) {
+            const questionsFolder = getters.fileTree.children.filter((child) => child.name.endsWith(state.active.videos.questionsFolderSuffix))
+            return questionsFolder
+        }
+        return null
+    },
     questionsVideos(state, getters) {
         if (state.activeInterview && getters.fileTree && getters.fileTree.children && getters.fileTree.children.length) {
 
