@@ -19,7 +19,7 @@
     </div>
     <hr />
     <div class="menu-general-section">
-      <p>Software, excluding media files © 2021 Peter Ehses All Rights Reserved.</p>
+      <p>Software, excluding media files, © 2021 Peter Ehses All Rights Reserved.</p>
       <br />
       <hr />
       <br />
@@ -44,14 +44,14 @@
         <br />
         Software: riff-terminal <br />
         <br />
-        License, excluding media files: Attribution-NonCommercial-NoDerivatives 4.0 International (CC
-        BY-NC-ND 4.0)
+        License, excluding media files: Apache-2.0
         <br />
         <br />
         Licensor: Peter Ehses
       </p>
       <br />
       <a href="https://commonsclause.com/">https://commonsclause.com/</a>
+      <a href="Apache 2.0 LICENSE-2.0.txt">https://www.apache.org/licenses/LICENSE-2.0.txt</a>
     </div>
     <div class="EXIT-WARNING" v-if="exit"><h1>E X I T I N G</h1></div>
   </div>
