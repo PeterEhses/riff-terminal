@@ -16,7 +16,7 @@ export default {
     },
     audio: {
       type: String,
-      default: "" //"https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3",
+      default: "", //"https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3",
     },
     tracks: {
       type: Object,
@@ -217,22 +217,30 @@ export default {
         }
       }
       let audioTracks = this.player.audioTracks();
-      Logger.info("Audio Track to choose from:",audioTracks)
+      Logger.debug("Audio Track to choose from:", { ...audioTracks });
       if (audioTracks && audioTracks[0]) {
         for (let i = 0; i < audioTracks.length; i++) {
-          if (
-            audioTracks[i].language.substr(0, 2) === this.activeLanguage
-          ) {
-            audioTracks[i].enabled = true;
-            Logger.info("Enabled Track", audioTracks[i])
+          if (audioTracks[i].language.substr(0, 2) === this.activeLanguage) {
+            if (!audioTracks[i].enabled) {
+              audioTracks[i].enabled = true;
+              Logger.debug("Enabled Track", audioTracks[i]);
+            } else {
+              Logger.debug("Track was already enabled", audioTracks[i]);
+            }
           } else if (audioTracks[i]) {
-            console.log(audioTracks[i])
-            Logger.info("Disabled Track", audioTracks[i])
-            audioTracks[i].enabled = false;
+            if (audioTracks[i].enabled) {
+              Logger.debug("Disabled Track", audioTracks[i]);
+              audioTracks[i].enabled = false;
+            } else {
+              Logger.debug("Track was already disabled", audioTracks[i]);
+            }
           }
         }
+      } else {
+        Logger.debug("Not enough audio tracks", audioTracks.length);
       }
       this.player.trigger("textTracksChanged");
+      Logger.debug("AudioTracks:", { ...this.player.audioTracks() });
     },
     setLoop() {
       if (!this.playerReady) {
@@ -241,44 +249,44 @@ export default {
       Logger.debug("Set play loop to", this.loop);
       this.player.loop(this.loop);
     },
-    addAudio() {
-      if (!this.playerReady) {
-        return;
-      }
-      if (
-        this.audio &&
-        typeof this.audio === "string" &&
-        this.audio.length > 0
-      ) {
-        this.audioTrack.audio = document.createElement("audio");
-        this.audioTrack.audio.id = "audio-" + this._uid;
-        this.audioTrack.audio.className = "video-js";
-        this.audioTrack.audio.setAttribute("controls", true);
-        this.audioTrack.source = document.createElement("source");
-        this.audioTrack.source.id = "english-" + this._uid;
-        this.audioTrack.source.src = this.audio.replace(__static, "");
-        this.audioTrack.source.type = "audio/mpeg";
-        this.audioTrack.audio.appendChild(this.audioTrack.source);
-        this.$el.appendChild(this.audioTrack.audio);
-        this.audioTrack.playerTrack = new videojs.AudioTrack({
-          id: "english-" + this._uid,
-          kind: "translation",
-          label: "English",
-          language: "en",
-        });
-        this.player.audioTracks().addTrack(this.audioTrack.playerTrack);
-      } else {
-        this.audioTrack = {};
-      }
-    },
-    removeAudio() {
-      if (!this.playerReady) {
-        return;
-      }
-      if (this.audioTrack.playerTrack) {
-        this.player.audioTracks().removeTrack(this.audioTrack.playerTrack);
-      }
-    },
+    // addAudio() {
+    //   if (!this.playerReady) {
+    //     return;
+    //   }
+    //   if (
+    //     this.audio &&
+    //     typeof this.audio === "string" &&
+    //     this.audio.length > 0
+    //   ) {
+    //     this.audioTrack.audio = document.createElement("audio");
+    //     this.audioTrack.audio.id = "audio-" + this._uid;
+    //     this.audioTrack.audio.className = "video-js";
+    //     this.audioTrack.audio.setAttribute("controls", true);
+    //     this.audioTrack.source = document.createElement("source");
+    //     this.audioTrack.source.id = "english-" + this._uid;
+    //     this.audioTrack.source.src = this.audio.replace(__static, "");
+    //     this.audioTrack.source.type = "audio/mpeg";
+    //     this.audioTrack.audio.appendChild(this.audioTrack.source);
+    //     this.$el.appendChild(this.audioTrack.audio);
+    //     this.audioTrack.playerTrack = new videojs.AudioTrack({
+    //       id: "english-" + this._uid,
+    //       kind: "translation",
+    //       label: "English",
+    //       language: "en",
+    //     });
+    //     this.player.audioTracks().addTrack(this.audioTrack.playerTrack);
+    //   } else {
+    //     this.audioTrack = {};
+    //   }
+    // },
+    // removeAudio() {
+    //   if (!this.playerReady) {
+    //     return;
+    //   }
+    //   if (this.audioTrack.playerTrack) {
+    //     this.player.audioTracks().removeTrack(this.audioTrack.playerTrack);
+    //   }
+    // },
   },
   watch: {
     loop: {
@@ -293,7 +301,7 @@ export default {
     },
     audio: {
       handler() {
-        this.addAudio();
+        // this.addAudio();
       },
     },
     tracks: {
@@ -316,10 +324,25 @@ export default {
       this.$refs.videoPlayer,
       this.options,
       function onPlayerReady() {
+        that.player.audioTracks().on("addtrack", (e) => {
+          that.$nextTick(() => {
+            Logger.debug("Audio Track List Change", e);
+            that.setActiveLanguage();
+          });
+        });
+        that.player.audioTracks().on("removetrack", (e) => {
+          that.$nextTick(() => {
+            Logger.debug("Audio Track List Change", e);
+            that.setActiveLanguage();
+          });
+        });
+        that.player.audioTracks().on("change", (e) => {
+          Logger.info("Active Audio Language is now", e);
+        });
         Logger.info("player ready!");
         that.playerReady = true;
         that.initiateVideoSource();
-        that.addAudio();
+        // that.addAudio();
         that.setMetadata();
         that.setActiveLanguage();
         that.setLoop();
