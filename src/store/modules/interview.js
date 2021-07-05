@@ -24,6 +24,7 @@ const state = () => ({
             absoluteWeights: false,
             noConsecutiveVoice: true,
             noVoiceCategory: 1,
+            idleWaitTime: 30, // in seconds
             categories: {
                 0: {
                     name: "- ACTIVATE QUESTIONS",
@@ -445,6 +446,9 @@ const getters = {
     },
     idleVideosCategories(state) {
         return state.active.videos.categories
+    },
+    idleWaitTime(state) {
+        return state.active.videos.idleWaitTime
     }
 }
 

@@ -3,9 +3,9 @@
     <InterviewHeader :heading="translateInterview[activeInterview]['name']"  />
     <!-- :subheading="translateInterview[activeInterview]['blurb']" -->
     <!-- <VideoPlayer /> -->
-    <VideoRandomizer v-if="!activeQuestion" />
+    <VideoRandomizer v-if="!activeQuestion" :key="activeInterview+'-v'"/>
     <QuestionPlayer v-else />
-    <QuestionSelectorOverlay v-if="!activeQuestion"/>
+    <QuestionSelectorOverlay v-if="!activeQuestion" :key="activeInterview+'-q'"/>
     <BackArrow @click="backClicked"/>
   </div>
 </template>

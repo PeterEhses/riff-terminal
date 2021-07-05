@@ -3,13 +3,13 @@
   <VideoPlayer
     v-if="activeVideo"
     :video="activeVideo"
-    @playerEnded="getRandomVideo"
+    @playerEnded="handleVideoDone"
   />
 </template>
 
 <script>
 import VideoPlayer from "../../VideoPlayer.vue";
-import { mapGetters } from "vuex"; // mapState, mapActions
+import { mapGetters, mapActions } from "vuex"; // mapState, mapActions
 
 export default {
   components: {
@@ -19,6 +19,8 @@ export default {
     return {
       activeVideo: "",
       lastWasAudio: true,
+      idleTimer: null,
+      switchToNextPerson: false,
     };
   },
   computed: {
@@ -28,6 +30,9 @@ export default {
       noVoiceCategory: "noVoiceCategory",
       categories: "idleVideosCategories",
       fileTree: "fileTree",
+      idleWaitTime: "idleWaitTime",
+      activeInterview: "activeInterview",
+      translateInterview: "translateInterview",
     }),
     categorieWeights() {
       const weights = {};
@@ -77,6 +82,24 @@ export default {
     },
   },
   methods: {
+    ...mapActions('interview', {
+      setActiveInterview: 'setActiveInterview',
+    }),
+    handleVideoDone(){
+      if(!this.switchToNextPerson){
+        this.getRandomVideo()
+      } else {
+        this.setNextPersion()
+      }
+    },
+    setNextPersion() {
+      Logger.info("Setting next Person!")
+      if(this.activeInterview < this.translateInterview.length - 1){
+        this.setActiveInterview(this.activeInterview + 1)
+      } else {
+        this.setActiveInterview(0)
+      }
+    },
     getRandomVideo() {
       if(!this.fileTree){
         this.$set(this, "activeVideo", "");
@@ -113,6 +136,9 @@ export default {
       this.$set(this, "activeVideo", newVideo);
       Logger.debug("Active Path:", this.activeVideo);
     },
+    setNextPersonFlag(){
+      this.switchToNextPerson = true;
+    },
     processVideos(videoFolder) {
       if (!videoFolder.children) {
         return [];
@@ -130,8 +156,15 @@ export default {
     },
   },
   mounted() {
+    Logger.info("Displaying Person", this.activeInterview)
     this.getRandomVideo();
+    this.idleTimer = setTimeout(() => {this.setNextPersonFlag()}, this.idleWaitTime * 1000);
   },
+  beforeDestroy(){
+    if(this.idleTimer){
+      clearTimeout(this.idleTimer)
+    }
+  }
 };
 </script>
 
