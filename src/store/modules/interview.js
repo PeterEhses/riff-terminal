@@ -1,7 +1,7 @@
 import Logger from "js-logger"
 import Vue from "vue"
 import storageInterface from '../helpers/storageInterface.js'
-import {throttle} from 'lodash'
+import { throttle } from 'lodash'
 
 /* get file list */
 const ipcRenderer = require('electron').ipcRenderer;
@@ -39,6 +39,8 @@ const state = () => ({
                 },
             },
             questionsFolderSuffix: '- QUESTIONS',
+            deSubFolderSuffix: 'UT [DE]',
+            enSubFolderSuffix: 'UT [EN]',
         },
         translations: {
             global: {
@@ -208,13 +210,13 @@ const mutations = {
 }
 
 const actions = {
-    saveFile({commit}){
+    saveFile({ commit }) {
         Logger.info("save request")
         commit('SAVE_FILE')
     },
-    saveFileThrottled: throttle(({dispatch}) => {
+    saveFileThrottled: throttle(({ dispatch }) => {
         Logger.info("throttled save request"),
-        dispatch("saveFile")
+            dispatch("saveFile")
     }, 10000, { 'trailing': true, 'leading': false }),
     /**
      * load state from file, create default if not exist 
@@ -334,7 +336,7 @@ const getters = {
         return state.activeInterview
     },
     activeQuestion(state) {
-        if(state.activeInterview){
+        if (state.activeInterview) {
             return state.activeQuestion
         }
         return null
@@ -378,11 +380,24 @@ const getters = {
         return null
 
     },
-    questionSubtitles(state, getters){
+    questionsSubtitles(state, getters) {
         // UT [DE]
         if (state.activeInterview && getters.fileTree && getters.fileTree.children && getters.fileTree.children.length) {
             const questionsFolder = getters.fileTree.children.filter((child) => child.name.endsWith(state.active.videos.questionsFolderSuffix))
-            return questionsFolder
+            if (questionsFolder && questionsFolder[0] && questionsFolder[0].children && questionsFolder[0].children.length > 0) {
+                const deSub = questionsFolder[0].children.filter((child) => { return (child.type === "directory" && child.name.endsWith(state.active.videos.deSubFolderSuffix)) }) //  
+                const enSub = questionsFolder[0].children.filter((child) => { return (child.type === "directory" && child.name.endsWith(state.active.videos.enSubFolderSuffix)) })
+                const subReturn = {}
+                if (deSub.length > 0 && deSub[0].children && deSub[0].children.length > 0) {
+                    const sub = deSub[0]
+                    subReturn.de = getChildFilesByNumber(sub.children)
+                }
+                if (enSub.length > 0 && enSub[0].children && enSub[0].children.length > 0) {
+                    const sub = enSub[0]
+                    subReturn.en = getChildFilesByNumber(sub.children)
+                }
+                return subReturn
+            }
         }
         return null
     },
@@ -392,17 +407,7 @@ const getters = {
             const questionsFolder = getters.fileTree.children.filter((child) => child.name.endsWith(state.active.videos.questionsFolderSuffix))
             Logger.debug("Getting Questions:", questionsFolder)
             if (questionsFolder && questionsFolder[0] && questionsFolder[0].children && questionsFolder[0].children.length > 0) {
-                const questions = {}
-                for (const child of questionsFolder[0].children) {
-                    Logger.debug("Questions:", child)
-                    if (child.type === "file") {
-                        const childNum = (child.name.substr(0,3).match(/\d+\.\d+|\d+\b|\d+(?=\w)/g) || []).map((v) => { return +v })
-                        if (childNum.length > 0) {
-                            questions[childNum[0]] = child.path
-                        }
-                    }
-                }
-                return questions
+                return getChildFilesByNumber(questionsFolder[0].children)
             }
         }
         return null
@@ -457,6 +462,20 @@ function flattenAndTranslate(obj, languageSuffix) {
         }
     }
     return result
+}
+
+function getChildFilesByNumber(childElements) {
+    const returnElements = {}
+    for (const child of childElements) {
+        Logger.debug("Getting Child Element:", child)
+        if (child.type === "file") {
+            const childNum = (child.name.substr(0, 3).match(/\d+\.\d+|\d+\b|\d+(?=\w)/g) || []).map((v) => { return +v })
+            if (childNum.length > 0) {
+                returnElements[childNum[0]] = child.path.replace(__static, '');
+            }
+        }
+    }
+    return returnElements
 }
 
 export default {

@@ -24,7 +24,6 @@ export default {
         return {
           subTitlesDE: "", //interviews/video/moshira/WER BIST DU.vtt
           subTitlesEN: "", //interviews/video/moshira/WER BIST DU en.vtt
-          audioEN: "",
         };
       },
     },
