@@ -4,6 +4,9 @@ module.exports = {
       nodeIntegration: true,
       builderOptions: {
         asar: false,
+        files: [
+          '!**/conversion_source_files/*',
+        ],
         // asarUnpack: [
         //   'public/*'
         // ],
