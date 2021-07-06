@@ -32,7 +32,7 @@ const state = () => ({
                 },
                 1: {
                     name: "- BORING",
-                    weight: 3,
+                    weight: 2,
                 },
                 2: {
                     name: "- PSST",
