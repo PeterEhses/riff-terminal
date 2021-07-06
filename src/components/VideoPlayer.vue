@@ -386,5 +386,8 @@ export default {
   position: relative;
   width: 100%;
   height: 100% !important;
+  .vjs-text-track-cue{
+    inset: 0 0 0 0 !important;
+  }
 }
 </style>
