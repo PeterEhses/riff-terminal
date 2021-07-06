@@ -1,7 +1,7 @@
 <template>
     <div class="save-menu" :key="this.activeMenu">
       <div>
-        <label for="preset-name">Preset Name </label>
+        <label for="preset-name">{{activeMenu}} Preset Name </label>
         <input
           name="preset-name"
           type="text"

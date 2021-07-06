@@ -107,7 +107,7 @@ export default {
         });
         // Logger.debug("largest text top weight is", max.weight)
         if (max.weight > 2) {
-          lv.bottom = max.weight;
+          lv.top = max.weight;
         }
       }
       //   Logger.debug("Text weight set to:", lv)

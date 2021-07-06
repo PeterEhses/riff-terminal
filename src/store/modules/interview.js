@@ -24,7 +24,7 @@ const state = () => ({
             absoluteWeights: false,
             noConsecutiveVoice: true,
             noVoiceCategory: 1,
-            idleWaitTime: 30, // in seconds
+            idleWaitTime: 60, // in seconds
             categories: {
                 0: {
                     name: "- ACTIVATE QUESTIONS",
@@ -54,7 +54,7 @@ const state = () => ({
                 {
                     name: "Onyx Le Bihan",
                     mediaFolder: "SNIPPETS ONYX",
-                    thumbnail: "thumbnail.png",
+                    thumbnail: "THUMBNAIL-ONYX.jpg",
                     blurb: {
                         de: "Speerfischerin auf Moorea, Tahiti",
                         en: "Spearfisher at Moorea, Tahiti"
@@ -173,7 +173,7 @@ const state = () => ({
                         },
                         {
                             en: "How can I contribute to reef protection in Germany?",
-                            de: "Wie kann ich in Deutschland etwas zum Riffschutz beitragen?",
+                            de: "Wie kann ich hier etwas zum Riffschutz beitragen?",
                             id: 7,
                         },
                         {
@@ -202,8 +202,8 @@ const state = () => ({
                             id: 12,
                         },
                         {
-                            en: "How can reefs protect against the effects of climate change?",
-                            de: "Wie können Riffe vor den Folgen des Klimawandels schützen?",
+                            en: "How can reefs protect against climate change?",
+                            de: "Wie können Riffe vor dem Klimawandels schützen?",
                             id: 13,
                         }
                     ]

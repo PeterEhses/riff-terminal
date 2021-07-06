@@ -14,13 +14,13 @@
     >
       Projektion
     </button>
-    <button
+    <!-- <button
       class="menu-nav-btn"
       :class="getMenu == 'interview' ? 'selected' : null"
       @click="setMenu('interview')"
     >
       Interviews
-    </button>
+    </button> -->
     <button
       class="menu-nav-btn"
       :class="getMenu == 'theme' ? 'selected' : null"

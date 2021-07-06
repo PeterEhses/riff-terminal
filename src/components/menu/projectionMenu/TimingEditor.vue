@@ -21,7 +21,7 @@
             :value="timing"
             :min="minVals[key]"
             @input="setTextTiming({ key: key, value: $event.target.value })"
-          />
+          />s
       </div>
     </div>
   </div>
