@@ -329,7 +329,7 @@ const state = () => ({
                 {
                     name: "Taiano Teiho",
                     mediaFolder: "SNIPPETS TAIANO",
-                    thumbnail: "thumbnail.png",
+                    thumbnail: "THUMBNAIL-TAIANO.jpg",
                     blurb: {
                         de: "Coral-Gardener auf Moorea, Tahiti",
                         en: "Coral gardener at Moorea, Tahiti"
