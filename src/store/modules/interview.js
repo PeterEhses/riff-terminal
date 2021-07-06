@@ -24,6 +24,7 @@ const state = () => ({
             absoluteWeights: false,
             noConsecutiveVoice: true,
             noVoiceCategory: 1,
+            returnToListChance: 10, // in percent 0..100
             idleWaitTime: 60, // in seconds
             categories: {
                 0: {
@@ -369,11 +370,11 @@ const state = () => ({
                             de: "Wodurch werden die Riffe lokal beschädigt?",
                             id: 11,
                         },
-                        {
-                            en: "What can we do to protect the reefs?",
-                            de: "Was können wir tun um die Riffe zu schützen?",
-                            id: 13,
-                        },
+                        // {
+                        //     en: "What can we do to protect the reefs?",
+                        //     de: "Was können wir tun um die Riffe zu schützen?",
+                        //     id: 13,
+                        // },
                     ]
                 }
             ],
@@ -692,6 +693,9 @@ const getters = {
     },
     idleWaitTime(state) {
         return state.active.videos.idleWaitTime
+    },
+    returnToListChance(state){
+        return state.active.videos.returnToListChance
     }
 }
 

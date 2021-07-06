@@ -33,6 +33,7 @@ export default {
       idleWaitTime: "idleWaitTime",
       activeInterview: "activeInterview",
       translateInterview: "translateInterview",
+      returnToListChance: "returnToListChance",
     }),
     categorieWeights() {
       const weights = {};
@@ -94,6 +95,10 @@ export default {
     },
     setNextPersion() {
       Logger.info("Setting next Person!")
+      if((Math.random*100) < this.returnToListChance){
+        Logger.info("Idle returning to selection by chance "+this.returnToListChance+"%")
+        this.setActiveInterview(null)
+      }
       if(this.activeInterview < this.translateInterview.length - 1){
         this.setActiveInterview(this.activeInterview + 1)
       } else {
