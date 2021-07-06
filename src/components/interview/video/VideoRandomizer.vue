@@ -14,7 +14,7 @@ import { mapGetters, mapActions } from "vuex"; // mapState, mapActions
 export default {
   components: {
     VideoPlayer,
-  },
+  }, 
   data() {
     return {
       activeVideo: "",

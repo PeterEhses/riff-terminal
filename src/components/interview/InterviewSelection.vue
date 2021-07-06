@@ -13,7 +13,7 @@
       />
       </div>
   </div>
-</template>
+</template> 
 
 <script>
 import InterviewHeader from "./InterviewHeader.vue";
@@ -24,18 +24,36 @@ export default {
     InterviewHeader,
     ListCard,
   },
+  data(){
+    return{
+      idleTimer: null,
+    }
+  },
   methods: {
     ...mapActions("interview", {
       setActiveInterview: "setActiveInterview"
-    })
+    }),
+    switchToRandomVideo(){
+      Logger.info("Setting Active Interviewee after idle Time in Selection Menu")
+      this.setActiveInterview(Math.round(Math.random()*5)); // set to number from 0 to 5
+    },
   },
   computed: {
     ...mapGetters("interview", {
       translate: "translate",
       translateInterview: "translateInterview",
       thumbnails: "thumbnails",
+      idleWaitTime: "idleWaitTime",
     }),
   },
+  mounted(){
+    this.idleTimer = setTimeout(() => {this.switchToRandomVideo()}, this.idleWaitTime * 1000);
+  },
+  beforeDestroy(){
+    if(this.idleTimer){
+      clearTimeout(this.idleTimer)
+    }
+  }
 };
 </script>
 
