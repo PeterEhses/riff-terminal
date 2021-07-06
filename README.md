@@ -1,22 +1,26 @@
 # riff-terminal
 
 ## Project setup
-```
+
+```sh
 npm install
 ```
 
 ### Compiles and hot-reloads for development
-```
-npm run serve
+
+```sh
+npm run electron:serve
 ```
 
 ### Compiles and minifies for production
-```
-npm run build
+
+```sh
+npm run electron:serve
 ```
 
 ### Lints and fixes files
-```
+
+```sh
 npm run lint
 ```
 
