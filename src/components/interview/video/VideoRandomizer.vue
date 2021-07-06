@@ -95,7 +95,9 @@ export default {
     },
     setNextPersion() {
       Logger.info("Setting next Person!")
-      if((Math.random*100) < this.returnToListChance){
+      const rtlChance = Math.random()*100
+      Logger.debug("Return to list Chance:", rtlChance, "RTL Threshold:", this.returnToListChance); // TEST THIS!
+      if(rtlChance < this.returnToListChance){
         Logger.info("Idle returning to selection by chance "+this.returnToListChance+"%")
         this.setActiveInterview(null)
       }
