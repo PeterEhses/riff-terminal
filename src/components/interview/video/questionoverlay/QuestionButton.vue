@@ -22,6 +22,7 @@ export default {
 <style lang="scss">
 .question {
   display: flex;
+  flex: 0 0 var(--question-height);
   align-items: center;
   width: 100%;
   height: var(--question-height);
@@ -48,5 +49,8 @@ export default {
     //   content: "🡢 ";
     // }
   }
+}
+.flex-layout .question{
+  margin: calc(var(--questions-spacing) / 2) 0;
 }
 </style>

@@ -1,11 +1,12 @@
 <template>
-  <div class="question-wrapper">
+  <div class="question-wrapper" :class="{'flex-layout' : numQuestions < maxQuestionForFlex}">
     <QuestionButton
       v-for="(question, id) in questions"
       :key="id"
       @click="handleSelect(id)"
       >{{ question }}</QuestionButton
     >
+    <QuestionButton v-if="numQuestions%2 == 0 && numQuestions < maxQuestionForFlex"  class="hide" />
   </div>
 </template>
 
@@ -17,10 +18,18 @@ export default {
   components: {
     QuestionButton,
   },
+  data(){
+    return {
+      maxQuestionForFlex: 12,  // magic number
+    }
+  },
   computed: {
     ...mapGetters("interview", {
       questions: "questions",
     }),
+    numQuestions(){
+      return Object.keys(this.questions).length
+    }
   },
   methods: {
     ...mapActions("interview", {
@@ -46,5 +55,21 @@ export default {
   bottom: var(--interview-button-height);
   left: 0;
   right: 0;
+
+  .hide{
+    // background: red;
+    // opacity: 0;
+    pointer-events:none;
+  }
+
+  &.flex-layout{
+  height: 50vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding-bottom: 0;
+    padding-top: 0;
+  // background: blue;
+  }
 }
 </style>

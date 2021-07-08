@@ -86,11 +86,11 @@ const state = () => ({
                             de: "Wie lernt man die Unterwasserjagd?",
                             id: 8,
                         },
-                        {
-                            en: "What do you hunt with?",
-                            de: "Womit jagst du?",
-                            id: 9,
-                        },
+                        // {
+                        //     en: "What do you hunt with?",
+                        //     de: "Womit jagst du?",
+                        //     id: 9,
+                        // },
                         {
                             en: "Are there rules as to which fish can be caught?",
                             de: "Gibt es Regeln, welche Fische gefangen werden dürfen?",
@@ -135,8 +135,8 @@ const state = () => ({
                 },
                 {
                     name: "Dr. Sebastian Ferse",
-                    mediaFolder: "SNIPPETS SEBASTIAN [DE]",
-                    thumbnail: "thumbnail.png",
+                    mediaFolder: "SNIPPETS SEBASTIAN",
+                    thumbnail: "THUMBNAIL-SEBASTIAN.jpg",
                     blurb: {
                         de: "Leibniz-Zentrum für Marine Tropenforschung\r\nExecutive Director Future Earth Coasts",
                         en: "Leibniz Center for Tropical Marine Research\r\nExecutive Director Future Earth Coasts"
@@ -197,14 +197,14 @@ const state = () => ({
                             de: "Ist es zu spät die Riffe zu schützen?",
                             id: 11,
                         },
-                        {
-                            en: "How can political initiative groups be successful?",
-                            de: "Wie können politische Initiatinven erfolgreich sein?",
-                            id: 12,
-                        },
+                        // {
+                        //     en: "How can political initiative groups be successful?",
+                        //     de: "Wie können politische Initiatinven erfolgreich sein?",
+                        //     id: 12,
+                        // },
                         {
                             en: "How can reefs protect against climate change?",
-                            de: "Wie können Riffe vor dem Klimawandels schützen?",
+                            de: "Wie können Riffe vor dem Klimawandel schützen?",
                             id: 13,
                         }
                     ]
@@ -212,7 +212,7 @@ const state = () => ({
                 {
                     name: "Dr. Moshira Hassan",
                     mediaFolder: "SNIPPETS MOSHIRA",
-                    thumbnail: "thumbnail.png",
+                    thumbnail: "THUMBNAIL-MOSHIRA.jpg",
                     blurb: {
                         de: "Reef Check Koordinatorin Deutschland/Europa und Rotes Meer",
                         en: "Reef Check Coordinator Germany/Europe and Red Sea"

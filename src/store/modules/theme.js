@@ -206,7 +206,7 @@ const state = () => ({
 
             /* questions */
 
-            questionsMarginBottom: '16.5rem',
+            questionsMarginBottom: 'var(--interview-spacing-gutter-xl)',
             questionsSpacing: 'var(--unit-lg)',
             questionHeight: 'var(--unit-xxl)',
             questionBorderRadius: 0, // 'calc(var(--question-height) / 2)',
