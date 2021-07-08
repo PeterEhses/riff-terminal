@@ -71,11 +71,11 @@ const state = () => ({
                             de: "Kann man alle am Riff lebenden Fische essen?",
                             id: 3,
                         },
-                        {
-                            en: "When did you start fishing?",
-                            de: "Wann hast du mit dem Fischen angefangen?",
-                            id: 6,
-                        },
+                        // {
+                        //     en: "When did you start fishing?",
+                        //     de: "Wann hast du mit dem Fischen angefangen?",
+                        //     id: 6,
+                        // },
                         {
                             en: "What does an underwater hunt look like?",
                             de: "Wie sieht eine Unterwasserjagd aus?",
@@ -257,8 +257,8 @@ const state = () => ({
                 },
                 {
                     name: "Claudia Schmitt",
-                    mediaFolder: "SNIPPETS CLAUDIA [DE]",
-                    thumbnail: "thumbnail.png",
+                    mediaFolder: "SNIPPETS CLAUDIA",
+                    thumbnail: "THUMBNAIL-CLAUDIA.jpg",
                     blurb: {
                         de: "The Jetlagged. Naturfilmerin",
                         en: "The Jetlagged. Underwater, nature and wildlife filmmaker"
