@@ -205,9 +205,9 @@ const state = () => ({
             colorBackButton: 'var(--color-play-button)',
 
             /* questions */
-
-            questionsMarginBottom: 'var(--interview-spacing-gutter-xl)',
-            questionsSpacing: 'var(--unit-lg)',
+            questionSpacingUglifier: '3px',
+            questionsSpacing: 'calc(var(--unit-lg) - var(--question-spacing-uglifier))',
+            questionsMarginBottom: 'var(--question-spacing)',
             questionHeight: 'var(--unit-xxl)',
             questionBorderRadius: 0, // 'calc(var(--question-height) / 2)',
             fontSizeQuestions: 'var(--unit-lg)',

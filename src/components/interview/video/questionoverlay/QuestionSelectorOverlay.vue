@@ -1,12 +1,19 @@
 <template>
-  <div class="question-wrapper" :class="{'flex-layout' : numQuestions < maxQuestionForFlex}">
+  <div
+    class="question-wrapper"
+    :class="{ 'flex-layout': numQuestions < maxQuestionForFlex }"
+  >
+  <QuestionButton
+      v-if="numQuestions % 2 == 1 && numQuestions < maxQuestionForFlex"
+      class="hide"
+    />
     <QuestionButton
       v-for="(question, id) in questions"
       :key="id"
       @click="handleSelect(id)"
       >{{ question }}</QuestionButton
     >
-    <QuestionButton v-if="numQuestions%2 == 0 && numQuestions < maxQuestionForFlex"  class="hide" />
+    
   </div>
 </template>
 
@@ -18,22 +25,22 @@ export default {
   components: {
     QuestionButton,
   },
-  data(){
+  data() {
     return {
-      maxQuestionForFlex: 12,  // magic number
-    }
+      maxQuestionForFlex: 13, // magic number
+    };
   },
   computed: {
     ...mapGetters("interview", {
       questions: "questions",
     }),
-    numQuestions(){
-      return Object.keys(this.questions).length
-    }
+    numQuestions() {
+      return Object.keys(this.questions).length;
+    },
   },
   methods: {
     ...mapActions("interview", {
-      setActiveQuestion: 'setActiveQuestion'
+      setActiveQuestion: "setActiveQuestion",
     }),
     handleSelect(id) {
       Logger.debug("User selected Question:", id);
@@ -56,20 +63,22 @@ export default {
   left: 0;
   right: 0;
 
-  .hide{
+  .hide {
     // background: red;
-    // opacity: 0;
-    pointer-events:none;
+    opacity: 0;
+    pointer-events: none;
   }
 
-  &.flex-layout{
-  height: 50vh;
+  &.flex-layout {
+    height: calc(
+      (var(--questions-spacing) + var(--question-height)) * 12 + var(--questions-spacing)
+    );
     display: flex;
     flex-direction: column;
     justify-content: center;
     padding-bottom: 0;
     padding-top: 0;
-  // background: blue;
+    // background: blue;
   }
 }
 </style>
