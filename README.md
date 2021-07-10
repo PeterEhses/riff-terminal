@@ -32,3 +32,16 @@ See [Configuration Reference](https://cli.vuejs.org/config/).
 
 ### Mark your favourite issue high priority by bribing me with coffee!
 [![ko-fi](https://ko-fi.com/img/githubbutton_sm.svg)](https://ko-fi.com/C0C256RKD)
+
+## PC Lockdown Instructions
+
+from CMD with admin privileges:
+
+```
+reagentc-exe /disable
+bcdedit /set {bootmgr} displaybootmenu no
+bcdedit /set bootstatuspolicy ignoreallfailures
+bcdedit /set recoveryenabled no
+bcdedit /set {default} bootstatuspolicy ignoreallfailures
+bcdedit /set {default} recoveryenabled no
+```
