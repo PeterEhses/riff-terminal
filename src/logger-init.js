@@ -10,6 +10,7 @@ electronLog.transports.file.resolvePath = (variables) => {
 }
 
 const logLevel = is.development ? "DEBUG" : "WARN"
+// logLevel = "DEBUG"
 const logDecorators = {
   "TRACE": "🔍",
   "DEBUG": "🧪",

@@ -7,6 +7,10 @@ import store from './store'
 import VueMousetrap from 'vue-mousetrap'
 // const Vue2TouchEvents = require('vue2-touch-events');
 
+// try to circumvent windows scaling
+
+document.querySelector("meta[name=viewport]").setAttribute('content', 'width=device-width, initial-scale='+(1/window.devicePixelRatio)+', maximum-scale=1.0, user-scalable=0');
+
 // disable multitouch hack
 
 // function touchHandler(event){
