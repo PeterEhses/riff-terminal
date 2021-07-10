@@ -38,7 +38,7 @@ See [Configuration Reference](https://cli.vuejs.org/config/).
 from CMD with admin privileges:
 
 ```
-reagentc-exe /disable
+reagentc.exe /disable
 bcdedit /set {bootmgr} displaybootmenu no
 bcdedit /set bootstatuspolicy ignoreallfailures
 bcdedit /set recoveryenabled no
