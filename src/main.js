@@ -10,7 +10,7 @@ import VueMousetrap from 'vue-mousetrap'
 // try to circumvent windows scaling
 
 document.querySelector("meta[name=viewport]").setAttribute('content', 'width=device-width, initial-scale='+(1/window.devicePixelRatio)+', maximum-scale=1.0, user-scalable=0');
-
+Logger.info("Viewport scaling is:", window.devicePixelRatio)
 // disable multitouch hack
 
 // function touchHandler(event){

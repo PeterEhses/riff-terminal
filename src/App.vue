@@ -45,6 +45,10 @@ export default {
     },
     setRootCss(key, val) {
       Logger.trace("Set " + key);
+      if(key === "font-size-initial"){
+        const newVal = 'calc( '+val+' / '+window.devicePixelRatio+' )'
+        return document.documentElement.style.setProperty("--" + key, newVal);
+      }
       return document.documentElement.style.setProperty("--" + key, val);
     },
   },
