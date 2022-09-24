@@ -38,19 +38,19 @@ export default {
     onMenuKey() {
       this.showMenu = !this.showMenu;
     },
-    camelToKebab(camel) {
-      return camel
-        .replace(/([a-z0-9]|(?=[A-Z]))([A-Z])/g, "$1-$2")
-        .toLowerCase();
-    },
-    setRootCss(key, val) {
-      Logger.trace("Set " + key);
-      if(key === "font-size-initial"){
-        const newVal = 'calc( '+val+' / '+window.devicePixelRatio+' )'
-        return document.documentElement.style.setProperty("--" + key, newVal);
-      }
-      return document.documentElement.style.setProperty("--" + key, val);
-    },
+    // camelToKebab(camel) {
+    //   return camel
+    //     .replace(/([a-z0-9]|(?=[A-Z]))([A-Z])/g, "$1-$2")
+    //     .toLowerCase();
+    // },
+    // setRootCss(key, val) {
+    //   Logger.trace("Set " + key);
+    //   if(key === "font-size-initial"){
+    //     const newVal = 'calc( '+val+' / '+window.devicePixelRatio+' )'
+    //     return document.documentElement.style.setProperty("--" + key, newVal);
+    //   }
+    //   return document.documentElement.style.setProperty("--" + key, val);
+    // },
   },
   watch: {
     theme: {

@@ -185,6 +185,7 @@ const state = () => ({
 
         /* Subtitles */
             fontSizeSubtitles: 'var(--unit-md)',
+            subtitleBottomOffset: '40rem',
 
         /* List */
             listCardHeight: 'calc(var(--interview-spacing-gutter-xl) * 2)',

@@ -16,6 +16,7 @@ var flatten = require('flat')
 const state = () => ({
     activePresetName: '_default',
     activeLanguage: 'de',
+    rotation: 0,
     activeInterview: null,
     activeQuestion: null,
     fileTree: {},
@@ -443,6 +444,9 @@ const mutations = {
     SET_LANGUAGE(state, lang) {
         Vue.set(state, 'activeLanguage', lang)
     },
+    SET_ROTATION(state, rot) {
+        Vue.set(state, 'rotation', rot)
+    },
     SET_INTERVIEW(state, id) {
         Vue.set(state, 'activeInterview', id)
     },
@@ -526,6 +530,17 @@ const actions = {
             commit('SET_LANGUAGE', 'de')
         }
     },
+
+    switchRotation({ commit, state }) {
+        if (state.rotation === 180) {
+            commit('SET_ROTATION', 0)
+        } else {
+            commit('SET_ROTATION', 180)
+        }
+    },
+    setRotation({ commit }, rot) {
+        commit('SET_ROTATION', rot)
+    },
     setActiveInterview({ commit }, id) {
         commit('SET_INTERVIEW', id)
     },
@@ -579,6 +594,9 @@ const getters = {
     },
     activeInterview(state) {
         return state.activeInterview
+    },
+    rotation(state) {
+        return state.rotation
     },
     activeQuestion(state) {
         if (!isNaN(state.activeInterview)) {

@@ -5,15 +5,18 @@
     <h2>{{ subheading }}</h2>
     <!-- </div> -->
     <LanguageToggle class="ln-toggle-header"/>
+    <RotationToggle class="rt-toggle-header"/>
   </div>
   
 </template>
 
 <script>
 import LanguageToggle from './LanguageToggle.vue';
+import RotationToggle from './RotationToggle.vue';
 export default {
     components: {
-        LanguageToggle
+        LanguageToggle,
+        RotationToggle
     },
   props: {
     heading: {
@@ -51,6 +54,10 @@ export default {
   .ln-toggle-header{
       grid-column: gutter-right;
     grid-row: heading;
+  }
+  .rt-toggle-header{
+      grid-column: gutter-right;
+    grid-row: subheading;
   }
   backdrop-filter: var(--blur-normal);
   &:after {

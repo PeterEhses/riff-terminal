@@ -53,6 +53,24 @@ Vue.config.warnHandler = function (msg, vm, info) {
   }
 }
 
+Vue.mixin({
+  methods: {
+    camelToKebab(camel) {
+      return camel
+        .replace(/([a-z0-9]|(?=[A-Z]))([A-Z])/g, "$1-$2")
+        .toLowerCase();
+    },
+    setRootCss(key, val) {
+      Logger.trace("Set " + key);
+      if(key === "font-size-initial"){
+        const newVal = 'calc( '+val+' / '+window.devicePixelRatio+' )'
+        return document.documentElement.style.setProperty("--" + key, newVal);
+      }
+      return document.documentElement.style.setProperty("--" + key, val);
+    }
+  }
+})
+
 // make vue return finite json via toJSON for error logging
 
 // Object.defineProperty(Vue.prototype, 'toJSON', {

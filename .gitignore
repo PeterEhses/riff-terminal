@@ -4,6 +4,9 @@ node_modules
 
 # large media
 *.mp4
+*.7z
+*.zip
+
 # local env files
 .env.local
 .env.*.local

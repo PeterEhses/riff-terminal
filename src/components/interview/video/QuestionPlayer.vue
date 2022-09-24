@@ -1,6 +1,7 @@
 <template>
   <!-- <div>{{ categorieWeights }} <VideoPlayer  /></div>    -->
   <VideoPlayer
+    :class="activeQuestion ? 'playing-question' : ''" 
     v-if="activeVideo"
     :video="activeVideo"
     :tracks="subTracks"
@@ -61,5 +62,8 @@ export default {
 };
 </script>
 
-<style>
+<style lang="scss">
+.interview-wrapper .playing-question .video-js .vjs-text-track-display {
+  opacity: 1 !important;
+}
 </style>

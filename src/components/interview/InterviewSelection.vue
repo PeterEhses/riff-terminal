@@ -31,11 +31,13 @@ export default {
   },
   methods: {
     ...mapActions("interview", {
-      setActiveInterview: "setActiveInterview"
+      setActiveInterview: "setActiveInterview",
+      setRotation: "setRotation"
     }),
     switchToRandomVideo(){
       Logger.info("Setting Active Interviewee after idle Time in Selection Menu")
       this.setActiveInterview(Math.round(Math.random()*4)); // set to number from 0 to 5
+      this.setRotation(0);
     },
   },
   computed: {

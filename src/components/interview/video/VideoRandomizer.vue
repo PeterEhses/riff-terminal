@@ -14,7 +14,7 @@ import { mapGetters, mapActions } from "vuex"; // mapState, mapActions
 export default {
   components: {
     VideoPlayer,
-  }, 
+  },
   data() {
     return {
       activeVideo: "",
@@ -60,7 +60,11 @@ export default {
     },
     videos() {
       const res = {};
-      if (this.fileTree && this.fileTree.children && this.fileTree.children.length > 0) {
+      if (
+        this.fileTree &&
+        this.fileTree.children &&
+        this.fileTree.children.length > 0
+      ) {
         for (const file of this.fileTree.children) {
           //   Logger.debug(Object.entries(categories));
           for (let [key, value] of Object.entries(this.categories)) {
@@ -83,42 +87,61 @@ export default {
     },
   },
   methods: {
-    ...mapActions('interview', {
-      setActiveInterview: 'setActiveInterview',
+    ...mapActions("interview", {
+      setActiveInterview: "setActiveInterview",
+      setRotation: "setRotation",
     }),
-    handleVideoDone(){
-      if(!this.switchToNextPerson){
-        this.getRandomVideo()
+    handleVideoDone() {
+      if (!this.switchToNextPerson) {
+        this.getRandomVideo();
       } else {
-        this.setNextPersion()
+        this.setRotation(0);
+        this.setNextPerson();
       }
     },
-    setNextPersion() {
-      Logger.info("Setting next Person!")
-      const rtlChance = Math.random()*100
-      Logger.debug("Return to list Chance:", rtlChance, "RTL Threshold:", this.returnToListChance); // TEST THIS!
-      if(rtlChance < this.returnToListChance){
-        Logger.info("Idle returning to selection by chance "+this.returnToListChance+"%")
-        this.setActiveInterview(null)
+    setNextPerson() {
+      Logger.info("Setting next Person!");
+      const rtlChance = Math.random() * 100;
+      Logger.debug(
+        "Return to list Chance:",
+        rtlChance,
+        "RTL Threshold:",
+        this.returnToListChance
+      ); // TEST THIS!
+      if (rtlChance < this.returnToListChance) {
+        Logger.info(
+          "Idle returning to selection by chance " +
+            this.returnToListChance +
+            "%"
+        );
+        this.setActiveInterview(null);
         return;
       }
-      if(this.activeInterview < this.translateInterview.length - 1){
-        this.setActiveInterview(this.activeInterview + 1)
+      if (this.activeInterview < this.translateInterview.length - 1) {
+        this.setActiveInterview(this.activeInterview + 1);
       } else {
-        this.setActiveInterview(0)
+        this.setActiveInterview(0);
       }
     },
     getRandomVideo() {
-      if(!this.fileTree){
+      if (!this.fileTree) {
         this.$set(this, "activeVideo", "");
-        Logger.warn("Filetree error, can't set active Video!", this.$store.state.interview);
+        Logger.warn(
+          "Filetree error, can't set active Video!",
+          this.$store.state.interview
+        );
         return;
       }
       let newVideo = this.activeVideo;
       while (newVideo == this.activeVideo) {
         const random = Math.random();
         let activeSet;
-        if (this.lastWasAudio && this.noConsecutiveVoice && this.videos[this.noVoiceCategory] &&this.videos[this.noVoiceCategory].length > 0) {
+        if (
+          this.lastWasAudio &&
+          this.noConsecutiveVoice &&
+          this.videos[this.noVoiceCategory] &&
+          this.videos[this.noVoiceCategory].length > 0
+        ) {
           Logger.debug("Force no-voice video");
           activeSet = this.videos[this.noVoiceCategory];
           this.lastWasAudio = false;
@@ -144,7 +167,7 @@ export default {
       this.$set(this, "activeVideo", newVideo);
       Logger.debug("Active Path:", this.activeVideo);
     },
-    setNextPersonFlag(){
+    setNextPersonFlag() {
       this.switchToNextPerson = true;
     },
     processVideos(videoFolder) {
@@ -154,11 +177,14 @@ export default {
       const videos = [];
       for (const child of videoFolder.children) {
         if (child.type === "file") {
-          if(child.name.endsWith('mp4') || child.name.endsWith('master.m3u8')){
+          if (
+            child.name.endsWith("mp4") ||
+            child.name.endsWith("master.m3u8")
+          ) {
             videos.push({
-            path: child.path,
-            name: child.name,
-          });
+              path: child.path,
+              name: child.name,
+            });
           }
         }
       }
@@ -166,15 +192,17 @@ export default {
     },
   },
   mounted() {
-    Logger.info("Displaying Person", this.activeInterview)
+    Logger.info("Displaying Person", this.activeInterview);
     this.getRandomVideo();
-    this.idleTimer = setTimeout(() => {this.setNextPersonFlag()}, this.idleWaitTime * 1000);
+    this.idleTimer = setTimeout(() => {
+      this.setNextPersonFlag();
+    }, this.idleWaitTime * 1000);
   },
-  beforeDestroy(){
-    if(this.idleTimer){
-      clearTimeout(this.idleTimer)
+  beforeDestroy() {
+    if (this.idleTimer) {
+      clearTimeout(this.idleTimer);
     }
-  }
+  },
 };
 </script>
 
