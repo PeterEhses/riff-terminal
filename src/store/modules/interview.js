@@ -140,7 +140,7 @@ const state = () => ({
                     thumbnail: "THUMBNAIL-SEBASTIAN.jpg",
                     blurb: {
                         de: "Leibniz-Zentrum für Marine Tropenforschung\r\nExecutive Director Future Earth Coasts",
-                        en: "Leibniz Center for Tropical Marine Research\r\nExecutive Director Future Earth Coasts"
+                        en: "Leibnitz-Zentrum for Tropical Marine Research\r\nExecutive Director Future Earth Coasts"
                     },
                     questions: [
                         {
@@ -164,8 +164,8 @@ const state = () => ({
                             id: 4,
                         },
                         {
-                            en: "What is the Leibnitz Center for Tropical Marine Research?",
-                            de: "Was ist das Leibnitz Zentrum für Marine Tropenforschung?",
+                            en: "What is the Leibnitz-Zentrum for Tropical Marine Research?",
+                            de: "Was ist das Leibnitz-Zentrum für Marine Tropenforschung?",
                             id: 5,
                         },
                         {
@@ -194,7 +194,7 @@ const state = () => ({
                             id: 10,
                         },
                         {
-                            en: "Is It Too Late To Protect The Reefs?",
+                            en: "Is it too late to protect the reefs?",
                             de: "Ist es zu spät die Riffe zu schützen?",
                             id: 11,
                         },
@@ -221,7 +221,7 @@ const state = () => ({
                     questions: [
                         {
                             en: "Who are you?",
-                            de: "Wer Bist du?",
+                            de: "Wer bist du?",
                             id: 1,
                         },
                         {
@@ -235,7 +235,7 @@ const state = () => ({
                             id: 3,
                         },
                         {
-                            de: "Wie steh es um die Riffe und was kann ich tun?",
+                            de: "Wie steht es um die Riffe und was kann ich tun?",
                             en: "What's happening with the reefs and what can I do?",
                             id: 4,
                         },
@@ -261,8 +261,8 @@ const state = () => ({
                     mediaFolder: "SNIPPETS CLAUDIA",
                     thumbnail: "THUMBNAIL-CLAUDIA.jpg",
                     blurb: {
-                        de: "The Jetlagged. Naturfilmerin",
-                        en: "The Jetlagged. Underwater, nature and wildlife filmmaker"
+                        de: "The Jetlagged. Naturfilmerin aus Bad Homburg",
+                        en: "The Jetlagged. Underwater, nature and wildlife filmmaker from Bad Homburg"
                     },
                     questions: [
                         {
@@ -362,8 +362,8 @@ const state = () => ({
                             id: 5,
                         },
                         {
-                            en: "How can you support the Coral Gardeners?",
-                            de: "Wie kann man die Coral Gardeners unterstützen?",
+                            en: "How can you support the coral gardeners?",
+                            de: "Wie kann man die coral gardeners unterstützen?",
                             id: 8,
                         },
                         {
