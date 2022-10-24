@@ -25,15 +25,15 @@ export default {
 
 <style lang="scss">
 .back-arrow {
-    position: absolute;
+    // position: absolute;
     display: flex;
     justify-content: center;
     align-items: center;
     bottom: 0;
     left: 0;
-    background: color-;
-    width: var(--interview-spacing-gutter-xl);
-    height: var(--interview-button-height);
+    // background: color-;
+    // width: var(--interview-spacing-gutter-xl);
+    height: var(--back-button-size);
     svg{
         width: var(--back-button-size);
         height: var(--back-button-size);

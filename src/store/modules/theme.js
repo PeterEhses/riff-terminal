@@ -184,8 +184,9 @@ const state = () => ({
         opacityInterviewHeaderBackground: .7,
 
         /* Subtitles */
-            fontSizeSubtitles: 'var(--unit-md)',
-            subtitleBottomOffset: '40rem',
+            fontSizeSubtitles: 'var(--unit-lg)',
+            subtitleBottomOffset: '41rem',
+            subtitleBoxHeight: 'calc(var(--unit-lg) * 4.5)',
 
         /* List */
             listCardHeight: 'calc(var(--interview-spacing-gutter-xl) * 2)',
@@ -202,7 +203,8 @@ const state = () => ({
 
             /* back button */
 
-            backButtonSize: '2.3rem',
+            backButtonSize: '2.58rem',
+            rotateButtonSize: '2.58rem',
             colorBackButton: 'var(--color-play-button)',
 
             /* questions */

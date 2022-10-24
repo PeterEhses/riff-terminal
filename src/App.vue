@@ -67,7 +67,7 @@ export default {
   },
   mounted() {
     this.$store.dispatch("initialize");
-    this.$mousetrap.bind("alt+m", this.onMenuKey);
+    this.$mousetrap.bind("alt+o", this.onMenuKey);
   },
 };
 </script>

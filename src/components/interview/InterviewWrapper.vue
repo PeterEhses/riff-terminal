@@ -41,13 +41,13 @@ export default {
     position: absolute;
     display: grid;
     grid-template-columns: var(--interview-base-grid-columns);
-    grid-template-rows: [main] var(--interview-button-height) [] auto;
+    grid-template-rows: [main] var(--subtitle-box-height) [] auto;
     top: auto;
 
     bottom: var(--subtitle-bottom-offset) !important;
     opacity: 0;
     //   background: red;
-    height: var(--interview-button-height);
+    height: var(--subtitle-box-height);
 
     backdrop-filter: var(--blur-normal);
     &:after {

@@ -6,7 +6,7 @@
     <VideoRandomizer v-if="!activeQuestion" :key="activeInterview+'-v'"/>
     <QuestionPlayer v-else />
     <QuestionSelectorOverlay v-if="!activeQuestion" :key="activeInterview+'-q'"/>
-    <BackArrow @click="backClicked"/>
+    <!-- <BackArrow @click="backClicked"/> -->
   </div>
 </template>
 
@@ -16,7 +16,7 @@ import InterviewHeader from "./InterviewHeader.vue";
 // import VideoPlayer from "./video/VideoPlayer.vue";
 import VideoRandomizer from './video/VideoRandomizer.vue';
 import QuestionPlayer from './video/QuestionPlayer.vue';
-import BackArrow from "./BackArrow.vue";
+// import BackArrow from "./BackArrow.vue";
 import QuestionSelectorOverlay from "./video/questionoverlay/QuestionSelectorOverlay.vue";
 export default {
   components: {
@@ -24,7 +24,7 @@ export default {
     InterviewHeader,
     VideoRandomizer,
     QuestionPlayer,
-    BackArrow,
+    // BackArrow,
     QuestionSelectorOverlay,
   },
   data(){
