@@ -57,7 +57,10 @@ export default {
   padding-bottom: calc(
     var(--questions-margin-bottom) - var(--questions-spacing)
   );
-  width: 100%;
+  
+  margin-left: -28px;
+  margin-right: -28px;
+  width: calc(100% + 28px + 28px);
   // background: red;
   bottom: var(--interview-button-height);
   left: 0;
